@@ -29,7 +29,7 @@ export default function GroomPage({
           className="px-4 py-2 rounded-full bg-[var(--bg-elevated)] hover:bg-[var(--bg-card)] border border-[var(--border-gold)] text-xs font-bold text-[var(--text-primary)] flex items-center space-x-2 shadow-sm transition-all active:scale-95"
         >
           <Home className="w-3.5 h-3.5 text-[var(--accent-gold)]" />
-          <span>← Back to Portal</span>
+          <span>← Back to Home</span>
         </button>
 
         <div className="flex items-center space-x-2">
@@ -59,11 +59,11 @@ export default function GroomPage({
       {/* Program Schedule with 3D Flip Cultural Lineage */}
       <ProgramSchedule t={t} sideData={sideData} />
 
-      {/* Locations & Maps */}
-      <LocationsSection t={t} />
+      {/* Locations & Maps (Nandha ki Dhani First) */}
+      <LocationsSection t={t} sideData={sideData} isBrideSide={false} />
 
-      {/* Travel Guide */}
-      <TravelGuide t={t} />
+      {/* Travel Guide (Satnali 10 KM, Loharu 17 KM, Charkhi Dadri 40 KM) */}
+      <TravelGuide t={t} sideData={sideData} isBrideSide={false} />
 
       {/* AI Doodle & Photo Gallery */}
       <GallerySection customCouplePhoto={customCouplePhoto} t={t} />
