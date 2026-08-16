@@ -265,7 +265,7 @@ export default function App() {
   return (
     <div className={`${currentTheme} min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] font-sans theme-transition relative selection:bg-wedding-gold selection:text-wedding-deepMaroon`}>
       
-      {/* Top Navbar with Page Navigation & Audio Sync */}
+      {/* Top Navbar with Page Navigation, Theme Switcher & Audio Sync */}
       <Navbar
         isMuted={!isPlaying || isMuted}
         setIsMuted={handleTogglePlay}
@@ -273,6 +273,8 @@ export default function App() {
         setCurrentLang={setCurrentLang}
         activePage={activePage}
         setActivePage={setActivePage}
+        currentTheme={currentTheme}
+        setCurrentTheme={setCurrentTheme}
         t={t}
       />
 
