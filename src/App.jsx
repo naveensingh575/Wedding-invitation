@@ -3,7 +3,6 @@ import Navbar from './components/Navbar';
 import LandingPortal from './components/LandingPortal';
 import GroomPage from './components/GroomPage';
 import BridePage from './components/BridePage';
-import MusicPlayer from './components/MusicPlayer';
 import VideoInvitationModal from './components/VideoInvitationModal';
 import ThemeSwitcher from './components/ThemeSwitcher';
 
@@ -93,19 +92,6 @@ export default function App() {
     audio.addEventListener('loadedmetadata', handleLoadedMetadata);
     audio.addEventListener('ended', handleEnded);
     audio.addEventListener('error', handleError);
-
-    // Initial silent autoplay attempt
-    const playPromise = audio.play();
-    if (playPromise !== undefined) {
-      playPromise
-        .then(() => {
-          setIsPlaying(true);
-          setIsMuted(false);
-        })
-        .catch(() => {
-          // Handled via gesture listeners
-        });
-    }
 
     // Touch/click gesture listener
     const startUnmutedAudio = () => {
@@ -262,10 +248,31 @@ export default function App() {
     else setRepeatMode('off');
   };
 
+  const musicPlayerProps = {
+    playlist: WEDDING_PLAYLIST,
+    currentTrackIndex,
+    isPlaying,
+    currentTime,
+    duration,
+    volume,
+    isMuted,
+    isShuffle,
+    repeatMode,
+    onTogglePlay: handleTogglePlay,
+    onPlayNext: handlePlayNext,
+    onPlayPrev: handlePlayPrev,
+    onSelectTrack: (index) => changeTrack(index, true),
+    onSeek: handleSeek,
+    onVolumeChange: handleVolumeChange,
+    onToggleMute: handleToggleMute,
+    onToggleShuffle: handleToggleShuffle,
+    onToggleRepeat: handleToggleRepeat,
+  };
+
   return (
     <div className={`${currentTheme} min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] font-sans theme-transition relative selection:bg-wedding-gold selection:text-wedding-deepMaroon`}>
       
-      {/* Top Navbar with Page Navigation, Theme Switcher & Audio Sync */}
+      {/* Top Navbar with Clean 3-Pill Language Toggle, Theme Switcher & Audio Sync */}
       <Navbar
         isMuted={!isPlaying || isMuted}
         setIsMuted={handleTogglePlay}
@@ -288,10 +295,7 @@ export default function App() {
             currentLang={currentLang}
             setCurrentLang={setCurrentLang}
             t={t}
-            playlist={WEDDING_PLAYLIST}
-            currentTrackIndex={currentTrackIndex}
-            isPlaying={isPlaying}
-            onTogglePlay={handleTogglePlay}
+            musicPlayerProps={musicPlayerProps}
           />
         )}
 
@@ -303,6 +307,7 @@ export default function App() {
             t={t}
             onBackToPortal={() => setActivePage('portal')}
             onSwitchToBride={() => setActivePage('bride')}
+            musicPlayerProps={musicPlayerProps}
           />
         )}
 
@@ -314,31 +319,10 @@ export default function App() {
             t={t}
             onBackToPortal={() => setActivePage('portal')}
             onSwitchToGroom={() => setActivePage('groom')}
+            musicPlayerProps={musicPlayerProps}
           />
         )}
       </main>
-
-      {/* Shared Interactive Wedding Music Library Player */}
-      <MusicPlayer
-        playlist={WEDDING_PLAYLIST}
-        currentTrackIndex={currentTrackIndex}
-        isPlaying={isPlaying}
-        currentTime={currentTime}
-        duration={duration}
-        volume={volume}
-        isMuted={isMuted}
-        isShuffle={isShuffle}
-        repeatMode={repeatMode}
-        onTogglePlay={handleTogglePlay}
-        onPlayNext={handlePlayNext}
-        onPlayPrev={handlePlayPrev}
-        onSelectTrack={(index) => changeTrack(index, true)}
-        onSeek={handleSeek}
-        onVolumeChange={handleVolumeChange}
-        onToggleMute={handleToggleMute}
-        onToggleShuffle={handleToggleShuffle}
-        onToggleRepeat={handleToggleRepeat}
-      />
 
       {/* Video Invitation Modal */}
       <VideoInvitationModal
