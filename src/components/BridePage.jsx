@@ -65,7 +65,7 @@ export default function BridePage({
       {/* Bal Sandesh */}
       <BalSandesh t={t} customData={sideData.balSandesh} />
 
-      {/* Program Schedule with Bride Timeline (17 Nov Ban, 18 Nov Mehndi, 19 Nov Bhaat & Lagan, 20 Nov Vivah) */}
+      {/* Program Schedule with Bride Timeline (17 Nov Ban, 18 Nov Mehndi, 19 Nov Bhaat & Mandap Pujan, 20 Nov Vivah) */}
       <ProgramSchedule t={t} sideData={sideData} />
 
       {/* Locations & Maps (Aryanagar Venue Card First) */}

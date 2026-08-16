@@ -1,5 +1,5 @@
 import React from 'react';
-import { MapPin, Navigation, ExternalLink, Compass, Home, Calendar } from 'lucide-react';
+import { MapPin, Navigation, ExternalLink, Compass, Home } from 'lucide-react';
 
 export default function LocationsSection({ t, sideData, isBrideSide }) {
   // Exact GPS Coordinates & Location Pins
@@ -21,28 +21,22 @@ export default function LocationsSection({ t, sideData, isBrideSide }) {
             <Home className="w-3.5 h-3.5" />
             <span>Bride Home & Main Vivah Venue</span>
           </span>
-          <span className="text-xs text-[var(--accent-gold)] font-bold">16 November: Nimantran & Griha Aagaman</span>
+          <span className="text-xs text-[var(--text-muted)] font-mono">17, 18, 19, 20 Nov</span>
         </div>
 
         <h3 className="font-serif text-2xl sm:text-3xl font-extrabold text-[var(--text-primary)] group-hover:text-[var(--accent-primary)] transition-colors">
           Aryanagar (आर्यनगर)
         </h3>
         <p className="font-hindi text-[var(--accent-primary)] text-base font-semibold mt-1">
-          आर्य नगर, चरखी दादरी (हरियाणा)
+          आर्य नगर, तहसील बाढड़ा (चरखी दादरी)
         </p>
 
         {/* Address Card */}
         <div className="mt-4 p-4 rounded-2xl bg-[var(--bg-elevated)] border border-[var(--border-gold)] flex items-start space-x-3 shadow-sm">
           <MapPin className="w-5 h-5 text-[var(--accent-gold)] shrink-0 mt-0.5" />
-          <div className="text-xs sm:text-sm font-sans leading-relaxed">
-            <p className="text-[var(--text-primary)] font-medium">
-              Arya Nagar, Charkhi Dadri, Distt. Charkhi Dadri, Haryana — 127306
-            </p>
-            <div className="mt-2 inline-flex items-center space-x-1.5 px-3 py-1 rounded-lg bg-[var(--badge-bg)] border border-[var(--badge-border)] text-[var(--accent-primary)] font-bold text-xs">
-              <Calendar className="w-3.5 h-3.5 text-[var(--accent-gold)]" />
-              <span>19 November: Bhaat & Lagan (भात एवं लगन)</span>
-            </div>
-          </div>
+          <p className="text-[var(--text-primary)] text-xs sm:text-sm font-sans leading-relaxed">
+            Arya Nagar, Post & Tehsil Badhra, Distt. Charkhi Dadri, Haryana — 127306
+          </p>
         </div>
 
         {/* Program events held here */}
@@ -53,7 +47,7 @@ export default function LocationsSection({ t, sideData, isBrideSide }) {
           <div className="flex flex-wrap gap-2 text-xs text-[var(--text-secondary)]">
             <span className="px-2.5 py-1 rounded-lg bg-[var(--badge-bg)] border border-[var(--badge-border)] font-medium">17 Nov: Ban & Haldi</span>
             <span className="px-2.5 py-1 rounded-lg bg-[var(--badge-bg)] border border-[var(--badge-border)] font-medium">18 Nov: Mehndi Utsav</span>
-            <span className="px-2.5 py-1 rounded-lg bg-[var(--badge-bg)] border border-[var(--badge-border)] font-medium">19 Nov: Bhaat & Lagan</span>
+            <span className="px-2.5 py-1 rounded-lg bg-[var(--badge-bg)] border border-[var(--badge-border)] font-medium">19 Nov: Bhaat & Mandap Pujan</span>
             <span className="px-2.5 py-1 rounded-lg bg-[var(--badge-bg)] border border-[var(--badge-border)] font-medium">20 Nov: Barat Swagat & Vivah</span>
           </div>
         </div>
@@ -107,20 +101,18 @@ export default function LocationsSection({ t, sideData, isBrideSide }) {
         </div>
 
         <h3 className="font-serif text-2xl sm:text-3xl font-extrabold text-[var(--text-primary)] group-hover:text-[var(--accent-primary)] transition-colors">
-          Arya Nagar, Charkhi Dadri
+          Arya Nagar, Tehsil Badhra
         </h3>
         <p className="font-hindi text-[var(--accent-primary)] text-base font-semibold mt-1">
-          आर्य नगर, चरखी दादरी (हरियाणा)
+          आर्य नगर, तहसील बाढड़ा (चरखी दादरी)
         </p>
 
         {/* Address Card */}
         <div className="mt-4 p-4 rounded-2xl bg-[var(--bg-elevated)] border border-[var(--border-gold)] flex items-start space-x-3 shadow-sm">
           <MapPin className="w-5 h-5 text-[var(--accent-gold)] shrink-0 mt-0.5" />
-          <div className="text-xs sm:text-sm font-sans leading-relaxed">
-            <p className="text-[var(--text-primary)] font-medium">
-              Arya Nagar, Charkhi Dadri City, Distt. Charkhi Dadri, Haryana — 127306
-            </p>
-          </div>
+          <p className="text-[var(--text-primary)] text-xs sm:text-sm font-sans leading-relaxed">
+            Arya Nagar, Post & Tehsil Badhra, Distt. Charkhi Dadri, Haryana — 127306
+          </p>
         </div>
 
         {/* Program events held here for Groom Side */}

@@ -195,7 +195,7 @@ export default function LandingPortal({ onSelectSide, currentLang, setCurrentLan
               <span className="px-3.5 py-1 rounded-full bg-[var(--badge-bg)] text-[var(--accent-primary)] border border-[var(--badge-border)] text-xs font-bold uppercase tracking-wider">
                 👰 {p.brideCard?.badge || "Bride's Family"}
               </span>
-              <span className="text-[11px] text-[var(--text-muted)] font-mono">16, 17, 19, 20 Nov</span>
+              <span className="text-[11px] text-[var(--text-muted)] font-mono">17, 18, 19, 20 Nov</span>
             </div>
 
             {/* Bride Image Frame & Title */}
@@ -225,10 +225,10 @@ export default function LandingPortal({ onSelectSide, currentLang, setCurrentLan
               </p>
               <p className="text-[var(--text-secondary)] flex items-center space-x-1.5">
                 <MapPin className="w-3.5 h-3.5 text-[var(--accent-gold)] shrink-0" />
-                <span>{p.brideCard?.venue || "Arya Nagar, Charkhi Dadri"}</span>
+                <span>{p.brideCard?.venue || "Arya Nagar, Tehsil Badhra"}</span>
               </p>
               <p className="text-[11px] text-[var(--text-muted)] border-t border-[var(--border-gold)]/60 pt-2">
-                🌸 {p.brideCard?.desc || "Ban & Haldi, Mehndi, Bhaat & Lagan, Barat Swagat & Pheras"}
+                🌸 {p.brideCard?.desc || "Ban & Haldi, Mehndi Utsav, Bhaat & Mandap Pujan, Barat Swagat & Pheras"}
               </p>
             </div>
           </div>

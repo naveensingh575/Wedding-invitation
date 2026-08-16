@@ -32,7 +32,7 @@ export default function Footer({ t, isBrideSide }) {
             <MapPin className="w-4 h-4 shrink-0 text-[var(--accent-gold)]" />
             <span>
               {isBrideSide
-                ? "Arya Nagar, Charkhi Dadri City, Distt. Charkhi Dadri (Haryana) — 127306"
+                ? "Arya Nagar, Post & Tehsil Badhra, Distt. Charkhi Dadri (Haryana) — 127306"
                 : "Vill. Nandha Ki Dhani, Badhra, Charkhi Dadri (Haryana) — 127308"}
             </span>
           </div>
@@ -46,10 +46,9 @@ export default function Footer({ t, isBrideSide }) {
           <ul className="space-y-1.5 text-xs text-[var(--text-secondary)] font-sans">
             {isBrideSide ? (
               <>
-                <li>• <strong className="text-[var(--text-primary)]">16 Nov 2026:</strong> Nimantran & Griha Aagaman</li>
                 <li>• <strong className="text-[var(--text-primary)]">17 Nov 2026:</strong> Ban & Haldi Ceremony</li>
                 <li>• <strong className="text-[var(--text-primary)]">18 Nov 2026:</strong> Mehndi Utsav & Sangeet</li>
-                <li>• <strong className="text-[var(--text-primary)]">19 Nov 2026:</strong> Bhaat & Lagan (भात एवं लगन)</li>
+                <li>• <strong className="text-[var(--text-primary)]">19 Nov 2026:</strong> Bhaat & Mandap Pujan (भात एवं मंडप पूजन)</li>
                 <li>• <strong className="text-[var(--text-primary)]">20 Nov 2026:</strong> Barat Swagat, Jaimala & Vivah</li>
               </>
             ) : (
