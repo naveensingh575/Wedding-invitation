@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Heart, Sparkles, Clock, MapPin, ArrowRight, UserCheck, Music, Compass, ShieldCheck } from 'lucide-react';
+import { Heart, Sparkles, Clock, MapPin, ArrowRight } from 'lucide-react';
+import MusicPlayer from './MusicPlayer';
 
-export default function LandingPortal({ onSelectSide, currentLang, setCurrentLang, t, playlist, currentTrackIndex, isPlaying, onTogglePlay }) {
+export default function LandingPortal({ onSelectSide, currentLang, setCurrentLang, t, musicPlayerProps }) {
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
   useEffect(() => {
@@ -28,7 +29,6 @@ export default function LandingPortal({ onSelectSide, currentLang, setCurrentLan
   }, []);
 
   const p = t.portal || {};
-  const currentTrack = playlist[currentTrackIndex] || playlist[0];
 
   return (
     <div className="min-h-screen pt-28 pb-20 px-4 sm:px-6 lg:px-8 flex flex-col justify-center items-center text-center royal-pattern overflow-hidden relative theme-transition">
@@ -82,7 +82,7 @@ export default function LandingPortal({ onSelectSide, currentLang, setCurrentLan
       ============================================================ */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl w-full my-6 z-10">
         
-        {/* 1. GROOM SIDE CARD (वर पक्ष) */}
+        {/* 1. GROOM SIDE CARD (वर पक्ष - नंधा की ढाणी) */}
         <div
           onClick={() => onSelectSide('groom')}
           className="group relative rounded-3xl p-6 sm:p-8 glass-wedding-card border-2 border-[var(--border-gold)] hover:border-[var(--accent-gold)] shadow-2xl hover:shadow-[0_20px_50px_rgba(201,169,110,0.3)] cursor-pointer transition-all duration-500 flex flex-col justify-between overflow-hidden transform hover:-translate-y-2 text-left"
@@ -110,7 +110,7 @@ export default function LandingPortal({ onSelectSide, currentLang, setCurrentLan
 
               <div>
                 <h3 className="font-serif text-2xl sm:text-3xl font-extrabold text-[var(--text-primary)] group-hover:text-[var(--accent-primary)] transition-colors">
-                  {p.groomCard?.side || "Groom's Side (वर पक्ष)"}
+                  {p.groomCard?.side || "Groom Side - Nandha ki Dhani"}
                 </h3>
                 <p className="text-xs text-[var(--text-secondary)] font-sans mt-0.5">
                   Chi. Naveen Luhach
@@ -136,13 +136,13 @@ export default function LandingPortal({ onSelectSide, currentLang, setCurrentLan
           {/* Enter Button */}
           <div className="mt-6">
             <button className="w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-[var(--accent-gold)] to-[#AA7C11] text-white font-bold text-sm shadow-lg group-hover:opacity-95 flex items-center justify-center space-x-2 transition-all">
-              <span>{p.groomCard?.btn || "Enter Groom's Invitation 🤵"}</span>
+              <span>{p.groomCard?.btn || "Enter Groom's Side (वर पक्ष) 🤵"}</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </button>
           </div>
         </div>
 
-        {/* 2. BRIDE SIDE CARD (वधू पक्ष) */}
+        {/* 2. BRIDE SIDE CARD (वधू पक्ष - आर्यनगर) */}
         <div
           onClick={() => onSelectSide('bride')}
           className="group relative rounded-3xl p-6 sm:p-8 glass-wedding-card border-2 border-[var(--border-gold)] hover:border-[var(--accent-gold)] shadow-2xl hover:shadow-[0_20px_50px_rgba(201,166,160,0.3)] cursor-pointer transition-all duration-500 flex flex-col justify-between overflow-hidden transform hover:-translate-y-2 text-left"
@@ -170,7 +170,7 @@ export default function LandingPortal({ onSelectSide, currentLang, setCurrentLan
 
               <div>
                 <h3 className="font-serif text-2xl sm:text-3xl font-extrabold text-[var(--text-primary)] group-hover:text-[var(--accent-primary)] transition-colors">
-                  {p.brideCard?.side || "Bride's Side (वधू पक्ष)"}
+                  {p.brideCard?.side || "Bride Side - Aryanagar"}
                 </h3>
                 <p className="text-xs text-[var(--text-secondary)] font-sans mt-0.5">
                   Ku. Manisha Sheoran
@@ -188,7 +188,7 @@ export default function LandingPortal({ onSelectSide, currentLang, setCurrentLan
                 <span>{p.brideCard?.venue || "Arya Nagar, Charkhi Dadri"}</span>
               </p>
               <p className="text-[11px] text-[var(--text-muted)] border-t border-[var(--border-gold)]/60 pt-2">
-                🌸 {p.brideCard?.desc || "Mehendi, Bhaat, Barat Welcome, Varmala & Sacred Pheras"}
+                🌸 {p.brideCard?.desc || "Ban & Haldi, Mehndi, Bhaat & Lagan, Barat Swagat & Pheras"}
               </p>
             </div>
           </div>
@@ -196,7 +196,7 @@ export default function LandingPortal({ onSelectSide, currentLang, setCurrentLan
           {/* Enter Button */}
           <div className="mt-6">
             <button className="w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-[var(--accent-gold)] to-[#AA7C11] text-white font-bold text-sm shadow-lg group-hover:opacity-95 flex items-center justify-center space-x-2 transition-all">
-              <span>{p.brideCard?.btn || "Enter Bride's Invitation 👰"}</span>
+              <span>{p.brideCard?.btn || "Enter Bride's Side (वधू पक्ष) 👰"}</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </button>
           </div>
@@ -205,7 +205,7 @@ export default function LandingPortal({ onSelectSide, currentLang, setCurrentLan
       </div>
 
       {/* Live Wedding Countdown Timer Card */}
-      <div className="w-full max-w-3xl glass-wedding-card rounded-3xl p-6 border border-[var(--border-gold)] shadow-xl my-8">
+      <div className="w-full max-w-3xl glass-wedding-card rounded-3xl p-6 border border-[var(--border-gold)] shadow-xl my-6">
         <div className="flex items-center justify-center space-x-2 text-[var(--text-primary)] mb-4">
           <Clock className="w-5 h-5 text-[var(--accent-gold)]" />
           <h3 className="font-serif text-base sm:text-lg font-bold tracking-wide">
@@ -243,6 +243,13 @@ export default function LandingPortal({ onSelectSide, currentLang, setCurrentLan
           </div>
         </div>
       </div>
+
+      {/* Interactive Music Playlist directly below the Countdown Timer */}
+      {musicPlayerProps && (
+        <div className="w-full max-w-5xl my-4">
+          <MusicPlayer {...musicPlayerProps} />
+        </div>
+      )}
     </div>
   );
 }

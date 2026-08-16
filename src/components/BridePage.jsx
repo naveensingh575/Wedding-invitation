@@ -1,6 +1,7 @@
 import React from 'react';
 import { Home, ArrowRight, Sparkles } from 'lucide-react';
 import HeroSection from './HeroSection';
+import MusicPlayer from './MusicPlayer';
 import BalSandesh from './BalSandesh';
 import ProgramSchedule from './ProgramSchedule';
 import LocationsSection from './LocationsSection';
@@ -17,6 +18,7 @@ export default function BridePage({
   t,
   onBackToPortal,
   onSwitchToGroom,
+  musicPlayerProps,
 }) {
   const sideData = t.bride || t;
 
@@ -44,7 +46,7 @@ export default function BridePage({
         </div>
       </div>
 
-      {/* Hero Section with Bride Perspective */}
+      {/* Hero Section with Bride Perspective & Countdown Timer */}
       <HeroSection
         customCouplePhoto={customCouplePhoto}
         setCustomCouplePhoto={setCustomCouplePhoto}
@@ -52,6 +54,13 @@ export default function BridePage({
         t={t}
         sideData={sideData}
       />
+
+      {/* Interactive Music Playlist directly below the Countdown Timer */}
+      {musicPlayerProps && (
+        <div className="max-w-7xl mx-auto my-4">
+          <MusicPlayer {...musicPlayerProps} />
+        </div>
+      )}
 
       {/* Bal Sandesh */}
       <BalSandesh t={t} customData={sideData.balSandesh} />
@@ -74,8 +83,8 @@ export default function BridePage({
       {/* Wishes Wall */}
       <WishesWall t={t} />
 
-      {/* Footer */}
-      <Footer t={t} />
+      {/* Footer Customized for Bride Side */}
+      <Footer t={t} isBrideSide={true} />
     </div>
   );
 }
