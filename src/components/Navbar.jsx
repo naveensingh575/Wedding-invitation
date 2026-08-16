@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Volume2, VolumeX, Globe, Menu, X, Home, Users } from 'lucide-react';
+import { Volume2, VolumeX, Globe, Menu, X, Home, Palette } from 'lucide-react';
 
 export default function Navbar({
   isMuted,
@@ -8,6 +8,8 @@ export default function Navbar({
   setCurrentLang,
   activePage,
   setActivePage,
+  currentTheme,
+  setCurrentTheme,
   t,
 }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -18,12 +20,26 @@ export default function Navbar({
     { code: 'en', label: 'English' },
   ];
 
+  const themes = [
+    { id: 'theme-sage-ivory', name: 'Elegant Ivory & Sage 🌿' },
+    { id: 'theme-royal-maroon', name: 'Royal Maroon & Gold 👑' },
+    { id: 'theme-royal-dark', name: 'Midnight Obsidian Dark 🌙' },
+    { id: 'theme-blush-pink', name: 'Blush Pink & Champagne 🌸' },
+    { id: 'theme-terracotta', name: 'Terracotta & Beige 🪔' },
+  ];
+
+  const cycleNextTheme = () => {
+    const currentIndex = themes.findIndex((thm) => thm.id === currentTheme);
+    const nextIndex = (currentIndex + 1) % themes.length;
+    setCurrentTheme(themes[nextIndex].id);
+  };
+
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-[var(--bg-surface)]/90 backdrop-blur-md border-b border-[var(--border-gold)] shadow-sm theme-transition">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           
-          {/* Logo & Brand Header */}
+          {/* Logo & Brand Header - Clicking takes user back to Home/Landing page */}
           <div
             onClick={() => setActivePage('portal')}
             className="flex items-center space-x-3 cursor-pointer group"
@@ -36,7 +52,7 @@ export default function Navbar({
               />
             </div>
             <div>
-              <span className="font-serif text-lg sm:text-xl font-bold tracking-wide text-[var(--text-primary)] block leading-none group-hover:text-[var(--accent-primary)] transition-colors">
+              <span className="font-serif text-base sm:text-xl font-bold tracking-wide text-[var(--text-primary)] block leading-none group-hover:text-[var(--accent-primary)] transition-colors">
                 {t.brandTitle || "Wedding Invitation"}
               </span>
               <span className="text-[11px] text-[var(--accent-gold)] font-sans font-semibold tracking-wider">
@@ -45,7 +61,7 @@ export default function Navbar({
             </div>
           </div>
 
-          {/* Center Navigation Links (Portal / Groom / Bride) */}
+          {/* Center Navigation Tabs: Home, Groom Side (वर पक्ष), Bride Side (वधू पक्ष) */}
           <div className="hidden md:flex items-center space-x-2 bg-[var(--bg-elevated)] p-1.5 rounded-full border border-[var(--border-gold)] shadow-sm">
             <button
               onClick={() => setActivePage('portal')}
@@ -56,7 +72,7 @@ export default function Navbar({
               }`}
             >
               <Home className="w-3.5 h-3.5" />
-              <span>{t.nav?.home || "Portal Home"}</span>
+              <span>{t.nav?.home || "Home"}</span>
             </button>
 
             <button
@@ -67,7 +83,7 @@ export default function Navbar({
                   : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
               }`}
             >
-              <span>{t.nav?.groomSide || "Groom Side 🤵"}</span>
+              <span>{t.nav?.groomSide || "Groom Side (वर पक्ष)"}</span>
             </button>
 
             <button
@@ -78,13 +94,23 @@ export default function Navbar({
                   : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
               }`}
             >
-              <span>{t.nav?.brideSide || "Bride Side 👰"}</span>
+              <span>{t.nav?.brideSide || "Bride Side (वधू पक्ष)"}</span>
             </button>
           </div>
 
-          {/* Right Controls: Audio Toggle & Language Selector */}
+          {/* Right Controls: Theme Toggle, Audio Button & Language Selector */}
           <div className="flex items-center space-x-2 sm:space-x-3">
             
+            {/* Quick Theme Toggle Button in Navbar */}
+            <button
+              onClick={cycleNextTheme}
+              className="p-2 sm:px-3 sm:py-2 rounded-full bg-[var(--bg-elevated)] hover:bg-[var(--bg-card)] border border-[var(--border-gold)] text-xs font-bold text-[var(--text-primary)] flex items-center space-x-1.5 shadow-sm transition-all"
+              title="Toggle Theme Palette"
+            >
+              <Palette className="w-3.5 h-3.5 text-[var(--accent-gold)]" />
+              <span className="hidden lg:inline text-[11px]">Theme</span>
+            </button>
+
             {/* Audio Play/Mute Button */}
             <button
               onClick={setIsMuted}
@@ -96,10 +122,10 @@ export default function Navbar({
               title={isMuted ? "Unmute Music" : "Mute Music"}
             >
               {isMuted ? <VolumeX className="w-4 h-4 text-rose-400" /> : <Volume2 className="w-4 h-4 animate-bounce text-[var(--accent-gold)]" />}
-              <span className="hidden sm:inline">{isMuted ? "Muted" : "Music Playing"}</span>
+              <span className="hidden sm:inline">{isMuted ? "Muted" : "Music"}</span>
             </button>
 
-            {/* Language Selector Dropdown */}
+            {/* Language Selector Dropdown with LocalStorage persistence */}
             <div className="relative group">
               <button className="flex items-center space-x-1.5 px-3 py-2 rounded-full bg-[var(--bg-elevated)] border border-[var(--border-gold)] text-xs font-bold text-[var(--text-primary)] shadow-sm hover:border-[var(--accent-gold)] transition-all">
                 <Globe className="w-3.5 h-3.5 text-[var(--accent-gold)]" />
@@ -147,7 +173,7 @@ export default function Navbar({
               }`}
             >
               <Home className="w-4 h-4" />
-              <span>Portal</span>
+              <span>Home</span>
             </button>
 
             <button
