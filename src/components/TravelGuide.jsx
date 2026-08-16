@@ -1,14 +1,23 @@
 import React from 'react';
 import { Train, Car, Bus, Route, MapPin, Compass } from 'lucide-react';
 
-export default function TravelGuide({ t, sideData }) {
-  const activeSide = sideData || t.groom || t;
+export default function TravelGuide({ t, sideData, isBrideSide }) {
+  const activeSide = sideData || (isBrideSide ? t.bride : t.groom) || t;
   const travelInfo = activeSide.travel || t.travel || {};
-  const distances = travelInfo.distances || [
+
+  const brideDistances = [
+    { place: "Badhra (बाढड़ा)", dist: "10 KM", note: "Direct state highway route" },
+    { place: "Loharu (लोहारू)", dist: "19 KM", note: "Major rail junction & road" },
+    { place: "Satnali (सतनाली)", dist: "26 KM", note: "Via Satnali-Badhra Road" },
+  ];
+
+  const groomDistances = [
     { place: "Satnali Station (STNL)", dist: "10 KM", note: "Closest railway stop" },
     { place: "Loharu Junction (LHU)", dist: "17 KM", note: "Major rail junction" },
     { place: "Charkhi Dadri (CKD)", dist: "40 KM", note: "City connectivity" },
   ];
+
+  const distances = isBrideSide ? brideDistances : (travelInfo.distances || groomDistances);
 
   return (
     <section id="travel" className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative">
@@ -19,7 +28,7 @@ export default function TravelGuide({ t, sideData }) {
           <span>{travelInfo.badge || "Travel Route Guide"}</span>
         </div>
         <h2 className="font-serif text-3xl sm:text-5xl font-extrabold text-[var(--text-primary)]">
-          {travelInfo.heading || "Best Routes to Venue & Locations"}
+          {travelInfo.heading || (isBrideSide ? "Best Routes to Aryanagar, Charkhi Dadri" : "Best Routes to Vill. Nandha ki Dhani, Badhra")}
         </h2>
         <p className="text-[var(--text-secondary)] text-sm sm:text-base max-w-2xl mx-auto mt-2 font-sans">
           {travelInfo.subheading || "Guest travel guidance & key location distances"}
@@ -37,7 +46,7 @@ export default function TravelGuide({ t, sideData }) {
             </div>
 
             <h3 className="font-serif text-xl sm:text-2xl font-bold text-[var(--text-primary)] group-hover:text-[var(--accent-primary)] transition-colors">
-              {t.travel?.railwayTitle || "Location Distances"}
+              {isBrideSide ? "Distances to Aryanagar" : (t.travel?.railwayTitle || "Location Distances")}
             </h3>
 
             <div className="mt-4 space-y-3 text-xs sm:text-sm text-[var(--text-secondary)] font-sans">
@@ -56,7 +65,9 @@ export default function TravelGuide({ t, sideData }) {
           </div>
 
           <p className="text-[11px] text-[var(--text-muted)] mt-6 pt-4 border-t border-[var(--border-gold)]">
-            Taxis, auto-rickshaws, and private vehicles connect all surrounding stations smoothly.
+            {isBrideSide
+              ? "Cabs & autos are readily available from Charkhi Dadri station (~2 KM) and Loharu (~19 KM) to Aryanagar."
+              : "Taxis, auto-rickshaws, and private vehicles connect all surrounding stations to Nandha ki Dhani."}
           </p>
         </div>
 
@@ -75,7 +86,7 @@ export default function TravelGuide({ t, sideData }) {
               <div className="p-3.5 rounded-xl bg-[var(--bg-elevated)] border border-[var(--border-gold)] shadow-sm">
                 <span className="font-bold text-[var(--accent-primary)] block">Route 1 (Delhi/NCR Highway):</span>
                 <p className="text-[11px] text-[var(--text-primary)] mt-1 font-medium">
-                  Delhi → Gurugram → Jhajjar → Charkhi Dadri → Badhra / Aryanagar
+                  Delhi → Gurugram → Jhajjar → Charkhi Dadri {isBrideSide ? "→ Aryanagar" : "→ Badhra → Nandha ki Dhani"}
                 </p>
               </div>
 
@@ -105,7 +116,9 @@ export default function TravelGuide({ t, sideData }) {
             </h3>
 
             <p className="text-xs sm:text-sm text-[var(--text-secondary)] font-sans mt-3 leading-relaxed">
-              {t.travel?.busDesc || "Frequent direct Haryana Roadways buses available from Delhi, Gurugram, Jhajjar, and Rohtak to Charkhi Dadri & Badhra."}
+              {isBrideSide
+                ? "Frequent direct Haryana Roadways buses available from Delhi, Gurugram, Jhajjar, and Rohtak directly to Charkhi Dadri Bus Stand."
+                : "Frequent direct Haryana Roadways buses available from Delhi, Gurugram, Jhajjar, and Rohtak to Badhra Bus Stand."}
             </p>
 
             {/* Desi Pickup Humor Note */}

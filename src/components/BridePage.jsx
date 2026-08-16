@@ -29,7 +29,7 @@ export default function BridePage({
           className="px-4 py-2 rounded-full bg-[var(--bg-elevated)] hover:bg-[var(--bg-card)] border border-[var(--border-gold)] text-xs font-bold text-[var(--text-primary)] flex items-center space-x-2 shadow-sm transition-all active:scale-95"
         >
           <Home className="w-3.5 h-3.5 text-[var(--accent-gold)]" />
-          <span>← Back to Portal</span>
+          <span>← Back to Home</span>
         </button>
 
         <div className="flex items-center space-x-2">
@@ -44,7 +44,7 @@ export default function BridePage({
         </div>
       </div>
 
-      {/* Hero Section with Bride Perspective (Late Shri Lachhi Ram, Late Smt. Samjo Devi, Shri Jagvir Singh Sheoran, Smt. Saroj Devi, Aryanagar) */}
+      {/* Hero Section with Bride Perspective */}
       <HeroSection
         customCouplePhoto={customCouplePhoto}
         setCustomCouplePhoto={setCustomCouplePhoto}
@@ -56,14 +56,14 @@ export default function BridePage({
       {/* Bal Sandesh */}
       <BalSandesh t={t} customData={sideData.balSandesh} />
 
-      {/* Program Schedule with 3D Flip Cultural Lineage */}
+      {/* Program Schedule with Bride Timeline (17 Nov Ban, 18 Nov Mehndi, 19 Nov Bhaat & Lagan, 20 Nov Vivah) */}
       <ProgramSchedule t={t} sideData={sideData} />
 
-      {/* Locations & Maps */}
-      <LocationsSection t={t} />
+      {/* Locations & Maps (Aryanagar Venue Card First) */}
+      <LocationsSection t={t} sideData={sideData} isBrideSide={true} />
 
-      {/* Travel Guide */}
-      <TravelGuide t={t} />
+      {/* Travel Guide (Badhra 10 KM, Loharu 19 KM, Satnali 26 KM) */}
+      <TravelGuide t={t} sideData={sideData} isBrideSide={true} />
 
       {/* AI Doodle & Photo Gallery */}
       <GallerySection customCouplePhoto={customCouplePhoto} t={t} />
