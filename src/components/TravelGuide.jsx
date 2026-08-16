@@ -66,7 +66,7 @@ export default function TravelGuide({ t, sideData, isBrideSide }) {
 
           <p className="text-[11px] text-[var(--text-muted)] mt-6 pt-4 border-t border-[var(--border-gold)]">
             {isBrideSide
-              ? "Cabs & autos are readily available from Charkhi Dadri station (~2 KM) and Loharu (~19 KM) to Aryanagar."
+              ? "Cabs & autos are readily available from Loharu (~19 KM), Satnali (~26 KM), and Charkhi Dadri (~40 KM) to Aryanagar."
               : "Taxis, auto-rickshaws, and private vehicles connect all surrounding stations to Nandha ki Dhani."}
           </p>
         </div>
