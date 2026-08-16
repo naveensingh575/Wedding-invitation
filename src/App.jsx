@@ -1,26 +1,51 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Navbar from './components/Navbar';
-import HeroSection from './components/HeroSection';
+import LandingPortal from './components/LandingPortal';
+import GroomPage from './components/GroomPage';
+import BridePage from './components/BridePage';
 import MusicPlayer from './components/MusicPlayer';
-import BalSandesh from './components/BalSandesh';
 import VideoInvitationModal from './components/VideoInvitationModal';
-import ProgramSchedule from './components/ProgramSchedule';
-import LocationsSection from './components/LocationsSection';
-import TravelGuide from './components/TravelGuide';
-import GallerySection from './components/GallerySection';
-import RSVPSection from './components/RSVPSection';
-import WishesWall from './components/WishesWall';
-import Footer from './components/Footer';
 import ThemeSwitcher from './components/ThemeSwitcher';
 
 import { WEDDING_PLAYLIST } from './data/playlist';
 import { translations } from './data/translations';
 
 export default function App() {
-  const [currentLang, setCurrentLang] = useState('haryanvi');
-  const [currentTheme, setCurrentTheme] = useState('theme-sage-ivory');
+  // 1. Persisted Theme and Language via localStorage
+  const [currentLang, setCurrentLang] = useState(() => {
+    return localStorage.getItem('navisha_lang') || 'haryanvi';
+  });
 
-  // Music Player States - Unmuted by default with audible sound
+  const [currentTheme, setCurrentTheme] = useState(() => {
+    return localStorage.getItem('navisha_theme') || 'theme-sage-ivory';
+  });
+
+  // 2. Active 3-Page Route State ('portal' | 'groom' | 'bride')
+  const [activePage, setActivePage] = useState(() => {
+    const hash = window.location.hash.toLowerCase();
+    if (hash.includes('groom')) return 'groom';
+    if (hash.includes('bride')) return 'bride';
+    return 'portal';
+  });
+
+  // Synchronize URL hash with active page
+  useEffect(() => {
+    if (activePage === 'groom') window.location.hash = 'groom';
+    else if (activePage === 'bride') window.location.hash = 'bride';
+    else window.location.hash = 'portal';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [activePage]);
+
+  // Persist language and theme changes
+  useEffect(() => {
+    localStorage.setItem('navisha_lang', currentLang);
+  }, [currentLang]);
+
+  useEffect(() => {
+    localStorage.setItem('navisha_theme', currentTheme);
+  }, [currentTheme]);
+
+  // 3. Audio & Music Player States
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
@@ -37,7 +62,7 @@ export default function App() {
   const audioRef = useRef(null);
   const t = translations[currentLang] || translations.en;
 
-  // 1. Initialize and Manage HTML5 Audio Element
+  // Initialize HTML5 Audio Element
   useEffect(() => {
     const audio = new Audio();
     audio.preload = 'auto';
@@ -45,7 +70,6 @@ export default function App() {
     audio.muted = false;
     audioRef.current = audio;
 
-    // Load initial track
     audio.src = WEDDING_PLAYLIST[currentTrackIndex].url;
 
     const handleTimeUpdate = () => {
@@ -61,7 +85,7 @@ export default function App() {
     };
 
     const handleError = (e) => {
-      console.warn("Audio load error, skipping to next:", e);
+      console.warn("Audio load notice, advancing:", e);
       handleTrackEnd();
     };
 
@@ -70,7 +94,7 @@ export default function App() {
     audio.addEventListener('ended', handleEnded);
     audio.addEventListener('error', handleError);
 
-    // Attempt instant unmuted play on page load
+    // Initial silent autoplay attempt
     const playPromise = audio.play();
     if (playPromise !== undefined) {
       playPromise
@@ -79,11 +103,11 @@ export default function App() {
           setIsMuted(false);
         })
         .catch(() => {
-          // Browser requires user interaction before unmuted audio playback
+          // Handled via gesture listeners
         });
     }
 
-    // Attach silent interaction listeners to start unmuted sound on first touch/click/scroll
+    // Touch/click gesture listener
     const startUnmutedAudio = () => {
       if (audioRef.current) {
         audioRef.current.muted = false;
@@ -92,7 +116,7 @@ export default function App() {
           setIsPlaying(true);
           setIsMuted(false);
         }).catch((err) => {
-          console.log("Interactive sound play:", err);
+          console.log("Audio play gesture:", err);
         });
       }
       window.removeEventListener('click', startUnmutedAudio);
@@ -120,7 +144,7 @@ export default function App() {
     };
   }, []);
 
-  // 2. Track Change Handler (Switches source without reloading page)
+  // Track Change Handler
   const changeTrack = (newIndex, shouldPlay = true) => {
     if (!audioRef.current) return;
     const boundedIndex = (newIndex + WEDDING_PLAYLIST.length) % WEDDING_PLAYLIST.length;
@@ -142,7 +166,7 @@ export default function App() {
     }
   };
 
-  // 3. Next Track Logic (Handles Shuffle and Repeat)
+  // Next Track Logic
   const handleTrackEnd = () => {
     if (repeatMode === 'one') {
       if (audioRef.current) {
@@ -183,7 +207,7 @@ export default function App() {
     }
   };
 
-  // 4. Play / Pause Toggle
+  // Play / Pause Toggle
   const handleTogglePlay = () => {
     if (!audioRef.current) return;
 
@@ -202,7 +226,7 @@ export default function App() {
     }
   };
 
-  // 5. Seek, Volume, Mute, Shuffle, Repeat Controls
+  // Seek, Volume, Mute, Shuffle, Repeat Controls
   const handleSeek = (time) => {
     if (audioRef.current && !isNaN(time)) {
       audioRef.current.currentTime = time;
@@ -239,25 +263,60 @@ export default function App() {
   };
 
   return (
-    <div className={`${currentTheme} min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] font-sans theme-transition relative`}>
-      {/* Navbar with Synchronized Audio Toggle & Language Switcher */}
+    <div className={`${currentTheme} min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] font-sans theme-transition relative selection:bg-wedding-gold selection:text-wedding-deepMaroon`}>
+      
+      {/* Top Navbar with Page Navigation & Audio Sync */}
       <Navbar
         isMuted={!isPlaying || isMuted}
         setIsMuted={handleTogglePlay}
         currentLang={currentLang}
         setCurrentLang={setCurrentLang}
+        activePage={activePage}
+        setActivePage={setActivePage}
         t={t}
       />
 
-      {/* Hero Section */}
-      <HeroSection
-        customCouplePhoto={customCouplePhoto}
-        setCustomCouplePhoto={setCustomCouplePhoto}
-        openVideoModal={() => setIsVideoModalOpen(true)}
-        t={t}
-      />
+      {/* ============================================================
+          PAGE ROUTING: PORTAL HOME / GROOM PAGE / BRIDE PAGE
+      ============================================================ */}
+      <main>
+        {activePage === 'portal' && (
+          <LandingPortal
+            onSelectSide={(side) => setActivePage(side)}
+            currentLang={currentLang}
+            setCurrentLang={setCurrentLang}
+            t={t}
+            playlist={WEDDING_PLAYLIST}
+            currentTrackIndex={currentTrackIndex}
+            isPlaying={isPlaying}
+            onTogglePlay={handleTogglePlay}
+          />
+        )}
 
-      {/* Complete Music Library & Playlist Player */}
+        {activePage === 'groom' && (
+          <GroomPage
+            customCouplePhoto={customCouplePhoto}
+            setCustomCouplePhoto={setCustomCouplePhoto}
+            openVideoModal={() => setIsVideoModalOpen(true)}
+            t={t}
+            onBackToPortal={() => setActivePage('portal')}
+            onSwitchToBride={() => setActivePage('bride')}
+          />
+        )}
+
+        {activePage === 'bride' && (
+          <BridePage
+            customCouplePhoto={customCouplePhoto}
+            setCustomCouplePhoto={setCustomCouplePhoto}
+            openVideoModal={() => setIsVideoModalOpen(true)}
+            t={t}
+            onBackToPortal={() => setActivePage('portal')}
+            onSwitchToGroom={() => setActivePage('groom')}
+          />
+        )}
+      </main>
+
+      {/* Shared Interactive Wedding Music Library Player */}
       <MusicPlayer
         playlist={WEDDING_PLAYLIST}
         currentTrackIndex={currentTrackIndex}
@@ -279,30 +338,6 @@ export default function App() {
         onToggleRepeat={handleToggleRepeat}
       />
 
-      {/* Bal Sandesh (Vedant & Shivansh's Special Invitation) */}
-      <BalSandesh t={t} />
-
-      {/* Program Schedule with 3D Cultural Heritage Flip Cards */}
-      <ProgramSchedule t={t} />
-
-      {/* Locations & Maps with Exact Pins */}
-      <LocationsSection t={t} />
-
-      {/* Travel Guide with Haryana Roadways Transit */}
-      <TravelGuide t={t} />
-
-      {/* AI Doodle & Photo Gallery */}
-      <GallerySection customCouplePhoto={customCouplePhoto} t={t} />
-
-      {/* RSVP Form */}
-      <RSVPSection t={t} />
-
-      {/* Wishes Wall Guestbook */}
-      <WishesWall t={t} />
-
-      {/* Footer */}
-      <Footer t={t} />
-
       {/* Video Invitation Modal */}
       <VideoInvitationModal
         isOpen={isVideoModalOpen}
@@ -311,7 +346,7 @@ export default function App() {
         setCustomVideoUrl={setCustomVideoUrl}
       />
 
-      {/* Modern Aesthetic Theme Palette Switcher Floating Widget */}
+      {/* Floating Theme Switcher Widget */}
       <ThemeSwitcher
         currentTheme={currentTheme}
         setCurrentTheme={setCurrentTheme}

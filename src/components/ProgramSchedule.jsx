@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import { Calendar, Clock, MapPin, Sparkles, CalendarPlus, ExternalLink, RotateCcw, BookOpen } from 'lucide-react';
 
-export default function ProgramSchedule({ t }) {
+export default function ProgramSchedule({ t, sideData }) {
   const [flippedCards, setFlippedCards] = useState({});
+
+  const activeData = sideData || t.groom || t;
+  const events = activeData.events || t.events || [];
+  const lineages = activeData.lineages || t.lineages || [];
 
   const toggleFlip = (index) => {
     setFlippedCards((prev) => ({
@@ -11,22 +15,12 @@ export default function ProgramSchedule({ t }) {
     }));
   };
 
-  // Direct Google Calendar Links for Each Function
+  // Google Calendar Templates
   const calendarLinks = {
-    haldi: "https://calendar.google.com/calendar/render?action=TEMPLATE&text=1st+Ban+%26+Haldi+-+Naveen+%26+Manisha+%28%23Navisha%29&dates=20261116T043000Z/20261116T123000Z&details=Haldi+Ceremony+for+Naveen+Luhach.+Invitation+from+Hon.+Capt.+Satyavir+Singh+%26+Luhach+Family.&location=Vill.+Nandha+Ki+Dhani%2C+Badhra%2C+Charkhi+Dadri",
-    mehendi: "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Mehendi+%26+Sangeet+-+Naveen+%26+Manisha+%28%23Navisha%29&dates=20261117T103000Z/20261117T173000Z&details=Mehendi+%26+Mahila+Sangeet+at+Groom%27s+House.+Hon.+Capt.+Satyavir+Singh+%26+Luhach+Family.&location=Vill.+Nandha+Ki+Dhani%2C+Badhra%2C+Charkhi+Dadri",
-    bhaatLagan: "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Bhaat+%26+Shubh+Lagan+-+Naveen+%26+Manisha+%28%23Navisha%29&dates=20261119T053000Z/20261119T173000Z&details=Bhaat+Feast+and+Shubh+Lagan+Patrika+Ceremony+for+Naveen+Luhach+%26+Manisha+Sheoran.+Hon.+Capt.+Satyavir+Singh+%26+Luhach+Family.&location=Vill.+Nandha+Ki+Dhani%2C+Badhra%2C+Charkhi+Dadri",
-    baratVivah: "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Barat+%26+Shubh+Vivah+-+Naveen+%26+Manisha+%28%23Navisha%29&dates=20261120T093000Z/20261120T223000Z&details=Ghurchhari+at+Nandha+ki+Dhani%2C+Barat+to+Arya+Nagar+Charkhi+Dadri%2C+Varmala+and+Sacred+Pheras+for+Naveen+%26+Manisha.&location=Arya+Nagar%2C+Charkhi+Dadri%2C+Haryana",
-  };
-
-  const getCalendarUrl = (index) => {
-    switch (index) {
-      case 0: return calendarLinks.haldi;
-      case 1: return calendarLinks.mehendi;
-      case 2: return calendarLinks.bhaatLagan;
-      case 3: return calendarLinks.baratVivah;
-      default: return calendarLinks.baratVivah;
-    }
+    0: "https://calendar.google.com/calendar/render?action=TEMPLATE&text=1st+Ban+%26+Haldi+-+Naveen+%26+Manisha+%28%23Navisha%29&dates=20261116T043000Z/20261116T123000Z&details=Haldi+Ceremony+for+Naveen+%26+Manisha.+Invitation+from+Luhach+%26+Sheoran+Family.&location=Badhra%2C+Charkhi+Dadri",
+    1: "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Mehendi+%26+Sangeet+-+Naveen+%26+Manisha+%28%23Navisha%29&dates=20261117T103000Z/20261117T173000Z&details=Mehendi+%26+Mahila+Sangeet.+Luhach+%26+Sheoran+Family.&location=Badhra%2C+Charkhi+Dadri",
+    2: "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Bhaat+%26+Shubh+Lagan+-+Naveen+%26+Manisha+%28%23Navisha%29&dates=20261119T053000Z/20261119T173000Z&details=Bhaat+Feast+and+Shubh+Lagan+Patrika+Ceremony+for+Naveen+%26+Manisha.&location=Charkhi+Dadri",
+    3: "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Barat+%26+Shubh+Vivah+-+Naveen+%26+Manisha+%28%23Navisha%29&dates=20261120T093000Z/20261120T223000Z&details=Ghurchhari%2C+Barat%2C+Varmala+and+Sacred+Pheras+for+Naveen+%26+Manisha.&location=Arya+Nagar%2C+Charkhi+Dadri%2C+Haryana",
   };
 
   return (
@@ -38,18 +32,18 @@ export default function ProgramSchedule({ t }) {
           <span>Vivah Karyakram & Heritage</span>
         </div>
         <h2 className="font-serif text-3xl sm:text-5xl font-extrabold text-[var(--text-primary)]">
-          {t.nav.schedule}
+          {t.nav?.schedule || "Program Schedule"}
         </h2>
         <p className="text-[var(--text-secondary)] text-sm sm:text-base max-w-2xl mx-auto mt-2 font-sans">
-          {t.heroSubheading}
+          {activeData.heroSubheading}
         </p>
       </div>
 
       {/* Symmetrical 2x2 Timeline 3D Flip Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {t.events.map((event, index) => {
+        {events.map((event, index) => {
           const isFlipped = !!flippedCards[index];
-          const lineage = t.lineages ? t.lineages[index] : null;
+          const lineage = lineages[index] || null;
 
           return (
             <div
@@ -61,151 +55,151 @@ export default function ProgramSchedule({ t }) {
                   isFlipped ? 'rotate-y-180' : ''
                 }`}
               >
-                
                 {/* ============================================================
-                    FRONT SIDE: Program Event Details & Calendar Button
+                    FRONT SIDE: EVENT CARD
                 ============================================================ */}
-                <div className="absolute inset-0 w-full h-full backface-hidden rounded-3xl overflow-hidden glass-wedding-card border border-[var(--border-gold)] shadow-xl flex flex-col justify-between">
-                  {/* Top Doodle Frame Header */}
-                  <div className="relative h-60 w-full overflow-hidden bg-black/5 flex items-center justify-center p-2 border-b border-[var(--border-gold)]">
-                    <img
-                      src={event.doodle}
-                      alt={event.title}
-                      className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-700"
-                    />
+                <div className="absolute inset-0 w-full h-full backface-hidden glass-wedding-card rounded-3xl p-6 sm:p-7 border border-[var(--border-gold)] shadow-xl flex flex-col justify-between overflow-hidden bg-[var(--bg-elevated)]/95">
+                  <div className="relative z-10 flex flex-col h-full justify-between">
                     
-                    {/* Date Badge */}
-                    <div className="absolute top-3 left-3 bg-[var(--bg-elevated)]/90 border border-[var(--border-gold)] backdrop-blur-md px-3 py-1.5 rounded-full text-xs font-bold text-[var(--text-primary)] flex items-center space-x-1.5 shadow-md z-10">
-                      <Calendar className="w-3.5 h-3.5 text-[var(--accent-gold)]" />
-                      <span>{event.date}</span>
-                    </div>
-
-                    {/* Flip Trigger Button (Top Right) */}
-                    <button
-                      onClick={() => toggleFlip(index)}
-                      className="absolute top-3 right-3 px-3 py-1 rounded-full text-[11px] font-bold border backdrop-blur-md bg-[var(--accent-primary)] hover:opacity-90 text-white border-[var(--border-gold)] shadow-md flex items-center space-x-1.5 z-10 transition-all active:scale-95"
-                      title={t.flipBtn}
-                    >
-                      <BookOpen className="w-3.5 h-3.5" />
-                      <span>{t.flipBtn}</span>
-                    </button>
-                  </div>
-
-                  {/* Card Content Body */}
-                  <div className="p-6 flex-1 flex flex-col justify-between">
-                    <div>
-                      <h3 className="font-serif text-xl sm:text-2xl font-bold text-[var(--text-primary)] group-hover:text-[var(--accent-primary)] transition-colors">
-                        {event.title}
-                      </h3>
-
-                      {/* Highlight Badge */}
-                      <div className="my-3 inline-block px-3 py-1 rounded-lg bg-[var(--badge-bg)] border border-[var(--badge-border)] text-xs text-[var(--badge-text)] font-semibold">
-                        ✨ {event.highlight}
+                    {/* Top Row: Date Badge & Flip Button */}
+                    <div className="flex items-center justify-between pb-3 border-b border-[var(--border-gold)]">
+                      <div className="flex items-center space-x-2">
+                        <span className="px-3.5 py-1 rounded-full bg-[var(--accent-primary)] text-white text-xs font-bold shadow-sm">
+                          {event.date}
+                        </span>
+                        <span className="text-xs text-[var(--text-muted)] font-medium">
+                          {event.day}
+                        </span>
                       </div>
 
-                      <p className="text-[var(--text-secondary)] text-xs sm:text-sm leading-relaxed mt-1 font-sans">
-                        {event.description}
-                      </p>
+                      {/* 3D Flip Button to View Cultural Heritage */}
+                      <button
+                        onClick={() => toggleFlip(index)}
+                        className="px-3 py-1.5 rounded-full bg-[var(--badge-bg)] hover:bg-[var(--badge-border)] text-[var(--badge-text)] text-xs font-bold border border-[var(--badge-border)] flex items-center space-x-1.5 shadow-sm transition-all active:scale-95"
+                        title="Click to flip & learn cultural origin story"
+                      >
+                        <BookOpen className="w-3.5 h-3.5 text-[var(--accent-gold)]" />
+                        <span>{t.flipBtn || "Cultural Heritage 🔄"}</span>
+                      </button>
                     </div>
 
-                    {/* Meta Footer Details & Direct Add to Calendar Button */}
-                    <div className="mt-4 pt-4 border-t border-[var(--border-gold)] space-y-2.5 text-xs text-[var(--text-muted)]">
+                    {/* Middle Row: Doodle & Event Info */}
+                    <div className="my-4 flex flex-col sm:flex-row items-center gap-5">
+                      {/* Event Doodle Artwork */}
+                      <div className="w-32 h-32 sm:w-36 sm:h-36 rounded-2xl overflow-hidden border-2 border-[var(--border-gold)] shadow-md bg-black/10 shrink-0 relative group">
+                        <img
+                          src={event.doodle}
+                          alt={event.title}
+                          className="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-black/10" />
+                      </div>
+
+                      {/* Titles & Highlights */}
+                      <div className="flex-1 text-left">
+                        <div className="inline-block px-2.5 py-0.5 rounded-md bg-[var(--badge-bg)] text-[10px] font-bold text-[var(--accent-primary)] border border-[var(--badge-border)] mb-1.5">
+                          {event.highlight}
+                        </div>
+                        <h3 className="font-serif text-xl sm:text-2xl font-bold text-[var(--text-primary)] leading-snug">
+                          {event.title}
+                        </h3>
+                        <p className="text-xs text-[var(--text-secondary)] font-sans mt-2 line-clamp-3 leading-relaxed">
+                          {event.description}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Time & Venue Details */}
+                    <div className="p-3.5 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-gold)] text-xs text-[var(--text-secondary)] space-y-1.5 font-sans">
                       <div className="flex items-center space-x-2">
                         <Clock className="w-4 h-4 text-[var(--accent-gold)] shrink-0" />
-                        <span className="font-medium text-[var(--text-primary)]">{event.time}</span>
+                        <span className="font-semibold text-[var(--text-primary)]">{event.time}</span>
                       </div>
-
-                      <div className="flex items-start space-x-2">
-                        <MapPin className="w-4 h-4 text-[var(--accent-gold)] shrink-0 mt-0.5" />
-                        <span className="leading-snug">{event.location}</span>
-                      </div>
-
-                      {/* Card Google Calendar Action Button */}
-                      <div className="pt-2 flex items-center space-x-2">
-                        <a
-                          href={getCalendarUrl(index)}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex-1 py-2.5 px-3 rounded-xl bg-[var(--bg-elevated)] hover:bg-[var(--bg-surface)] text-[var(--text-primary)] border border-[var(--border-gold)] font-bold text-xs flex items-center justify-center space-x-1.5 shadow-sm hover:border-[var(--accent-gold)] transition-all"
-                        >
-                          <CalendarPlus className="w-3.5 h-3.5 text-[var(--accent-gold)]" />
-                          <span>Add to Calendar</span>
-                          <ExternalLink className="w-3 h-3 text-[var(--text-muted)]" />
-                        </a>
-
-                        <button
-                          onClick={() => toggleFlip(index)}
-                          className="py-2.5 px-3 rounded-xl bg-[var(--badge-bg)] hover:bg-[var(--accent-primary)] hover:text-white text-[var(--badge-text)] border border-[var(--badge-border)] font-bold text-xs flex items-center justify-center space-x-1 shadow-sm transition-all"
-                        >
-                          <RotateCcw className="w-3.5 h-3.5" />
-                          <span>{t.flipBtn.split(' ')[0]}</span>
-                        </button>
+                      <div className="flex items-center space-x-2">
+                        <MapPin className="w-4 h-4 text-[var(--accent-gold)] shrink-0" />
+                        <span className="truncate">{event.location}</span>
                       </div>
                     </div>
+
+                    {/* Action Bar: 1-Tap Google Calendar */}
+                    <div className="mt-4 pt-3 border-t border-[var(--border-gold)] flex items-center justify-between gap-3">
+                      <a
+                        href={calendarLinks[index] || calendarLinks[3]}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-1 py-2.5 px-4 rounded-xl bg-[var(--accent-primary)] hover:opacity-90 text-white font-bold text-xs flex items-center justify-center space-x-2 shadow-sm transition-all"
+                      >
+                        <CalendarPlus className="w-4 h-4" />
+                        <span>Add to Calendar</span>
+                        <ExternalLink className="w-3 h-3 ml-0.5" />
+                      </a>
+
+                      <button
+                        onClick={() => toggleFlip(index)}
+                        className="py-2.5 px-3 rounded-xl bg-[var(--bg-surface)] hover:bg-[var(--bg-card)] border border-[var(--border-gold)] text-xs font-semibold text-[var(--text-secondary)] flex items-center space-x-1 transition-all"
+                      >
+                        <span>Origin Story</span>
+                        <span>📖</span>
+                      </button>
+                    </div>
+
                   </div>
                 </div>
 
                 {/* ============================================================
-                    BACK SIDE: Multilingual Cultural Lineage & Origin Story
+                    BACK SIDE: 3D CULTURAL LINEAGE & ORIGIN STORY CARD
                 ============================================================ */}
-                <div className="absolute inset-0 w-full h-full rotate-y-180 backface-hidden rounded-3xl overflow-hidden glass-wedding-card border-2 border-[var(--accent-gold)] shadow-2xl p-6 sm:p-7 flex flex-col justify-between bg-gradient-to-br from-[var(--bg-surface)] to-[var(--bg-primary)]">
-                  
-                  {lineage && (
-                    <div>
-                      {/* Back Header */}
-                      <div className="flex items-center justify-between pb-3 border-b border-[var(--border-gold)] mb-4">
-                        <div className="flex items-center space-x-2">
-                          <span className="text-xl">🪔</span>
-                          <span className="text-xs uppercase font-bold text-[var(--accent-primary)] tracking-wider">
-                            {t.lineageHeader} • {event.date.split(' ')[0]} {event.date.split(' ')[1]}
-                          </span>
-                        </div>
-
-                        <button
-                          onClick={() => toggleFlip(index)}
-                          className="px-3 py-1 rounded-full bg-[var(--bg-elevated)] border border-[var(--border-gold)] text-[var(--text-primary)] text-xs font-bold flex items-center space-x-1 shadow-sm hover:bg-[var(--accent-gold)] hover:text-white transition-all"
-                        >
-                          <RotateCcw className="w-3 h-3" />
-                          <span>{t.backBtn}</span>
-                        </button>
+                <div className="absolute inset-0 w-full h-full backface-hidden rotate-y-180 glass-wedding-card rounded-3xl p-6 sm:p-7 border-2 border-[var(--accent-gold)] shadow-2xl flex flex-col justify-between overflow-hidden bg-[var(--bg-card)] text-left">
+                  <div className="relative z-10 flex flex-col h-full justify-between">
+                    
+                    {/* Header */}
+                    <div className="flex items-center justify-between pb-3 border-b border-[var(--border-gold)]">
+                      <div className="flex items-center space-x-2">
+                        <span className="text-base">📜</span>
+                        <span className="font-serif text-sm font-bold text-[var(--accent-primary)] uppercase tracking-wider">
+                          {t.lineageHeader || "Cultural Heritage & Origin"}
+                        </span>
                       </div>
 
-                      {/* Lineage Title */}
-                      <h3 className="font-serif text-xl sm:text-2xl font-extrabold text-[var(--text-primary)] mb-1">
-                        {lineage.title}
-                      </h3>
-                      
-                      <div className="inline-block px-3 py-0.5 rounded-full bg-[var(--badge-bg)] text-[var(--badge-text)] border border-[var(--badge-border)] text-[11px] font-semibold mb-3">
-                        📜 {lineage.origin}
+                      <button
+                        onClick={() => toggleFlip(index)}
+                        className="px-3 py-1 rounded-full bg-[var(--bg-elevated)] border border-[var(--border-gold)] text-xs font-bold text-[var(--text-primary)] hover:bg-[var(--accent-gold)] hover:text-white transition-all flex items-center space-x-1"
+                      >
+                        <RotateCcw className="w-3.5 h-3.5" />
+                        <span>{t.backBtn || "Back"}</span>
+                      </button>
+                    </div>
+
+                    {/* Content */}
+                    <div className="my-3 space-y-3 overflow-y-auto pr-1">
+                      <h4 className="font-serif text-lg sm:text-xl font-extrabold text-[var(--text-primary)]">
+                        {lineage?.title || event.title}
+                      </h4>
+
+                      <div className="inline-block px-3 py-1 rounded-full bg-[var(--badge-bg)] text-[11px] font-bold text-[var(--accent-primary)] border border-[var(--badge-border)]">
+                        🌟 {lineage?.origin || "Vedic & Folk Heritage"}
                       </div>
 
-                      {/* Lineage Story Content */}
-                      <div className="p-4 rounded-2xl bg-[var(--bg-elevated)] border border-[var(--border-gold)] shadow-sm my-2">
-                        <p className="text-xs sm:text-sm text-[var(--text-primary)] leading-relaxed font-sans">
-                          "{lineage.story}"
-                        </p>
-                      </div>
+                      <p className="text-xs sm:text-sm text-[var(--text-secondary)] font-sans leading-relaxed">
+                        {lineage?.story || event.description}
+                      </p>
 
-                      {/* Cultural Significance */}
-                      <div className="mt-3 text-xs text-[var(--text-secondary)] font-sans">
-                        <strong className="text-[var(--accent-primary)]">✨ {lineage.significance}</strong>
+                      <div className="p-3 rounded-2xl bg-[var(--bg-elevated)] border border-[var(--border-gold)] text-xs text-[var(--accent-primary)] font-semibold font-hindi">
+                        ✨ <strong>महत्व:</strong> {lineage?.significance || "पारिवारिक आशीर्वाद एवं मांगलिक मंगल।"}
                       </div>
                     </div>
-                  )}
 
-                  {/* Back Footer */}
-                  <div className="pt-3 border-t border-[var(--border-gold)] flex items-center justify-between">
-                    <span className="font-serif text-xs italic text-[var(--text-muted)]">
-                      Luhach Family Heritage • Vill. Nandha ki Dhani
-                    </span>
-                    <button
-                      onClick={() => toggleFlip(index)}
-                      className="text-xs font-bold text-[var(--accent-gold)] hover:underline flex items-center space-x-1"
-                    >
-                      <span>{t.showDetailsBtn}</span>
-                    </button>
+                    {/* Bottom Return Button */}
+                    <div className="pt-3 border-t border-[var(--border-gold)]">
+                      <button
+                        onClick={() => toggleFlip(index)}
+                        className="w-full py-2.5 rounded-xl bg-gradient-to-r from-[var(--accent-gold)] to-[#AA7C11] text-white font-bold text-xs shadow-md hover:opacity-95 transition-all flex items-center justify-center space-x-1.5"
+                      >
+                        <span>{t.showDetailsBtn || "Show Event Details →"}</span>
+                      </button>
+                    </div>
+
                   </div>
-
                 </div>
 
               </div>
