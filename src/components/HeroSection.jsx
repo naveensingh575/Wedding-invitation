@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Heart, MapPin, Sparkles, Clock, Camera } from 'lucide-react';
 
-export default function HeroSection({ customCouplePhoto, setCustomCouplePhoto, openVideoModal, t }) {
+export default function HeroSection({ customCouplePhoto, setCustomCouplePhoto, openVideoModal, t, sideData }) {
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+
+  const activeData = sideData || t.groom || t;
 
   useEffect(() => {
     const targetDate = new Date('2026-11-20T19:00:00+05:30').getTime();
@@ -56,30 +58,30 @@ export default function HeroSection({ customCouplePhoto, setCustomCouplePhoto, o
       {/* Inviter Honor Tag */}
       <div className="mb-3 max-w-3xl">
         <span className="text-xs uppercase tracking-widest text-[var(--badge-text)] font-semibold bg-[var(--badge-bg)] px-4 py-1.5 rounded-full border border-[var(--badge-border)]">
-          {t.invitationTag}
+          {activeData.invitationTag}
         </span>
         
         <h2 className="font-serif text-2xl sm:text-3xl font-extrabold text-[var(--text-primary)] mt-3">
-          {t.inviter}
+          {activeData.inviter}
         </h2>
         <p className="text-xs text-[var(--text-secondary)] font-sans mt-1">
-          {t.inviterSub}
+          {activeData.inviterSub}
         </p>
       </div>
 
       {/* Main Headline */}
       <h1 className="font-serif text-3xl sm:text-5xl md:text-6xl font-extrabold text-[var(--text-primary)] tracking-tight max-w-4xl my-2 pt-2 pb-1 px-2 leading-normal sm:leading-snug">
-        {t.heroHeading}
+        {activeData.heroHeading}
       </h1>
 
       {/* Lineage Detail Card - Positioned BELOW the Main Headline */}
       <div className="my-3 max-w-2xl px-5 py-2.5 rounded-2xl bg-[var(--bg-card)] border border-[var(--border-gold)] text-[11px] sm:text-xs text-[var(--text-secondary)] leading-relaxed font-sans shadow-sm">
-        {t.lineage}
+        {activeData.lineage}
       </div>
 
       {/* Subheading Quote */}
       <p className="font-hindi text-base sm:text-xl text-[var(--text-secondary)] max-w-2xl mb-8 leading-relaxed italic">
-        "{t.heroSubheading}"
+        "{activeData.heroSubheading}"
       </p>
 
       {/* Single Common Couple Photo Showcase Card (Centered Clean Luxury Frame) */}
@@ -162,7 +164,7 @@ export default function HeroSection({ customCouplePhoto, setCustomCouplePhoto, o
         <div className="flex items-center justify-center space-x-2 text-[var(--text-primary)] mb-4">
           <Clock className="w-5 h-5 text-[var(--accent-gold)]" />
           <h3 className="font-serif text-base sm:text-lg font-bold tracking-wide">
-            {t.countdownHeading}
+            {activeData.countdownHeading}
           </h3>
         </div>
 
