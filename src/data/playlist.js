@@ -1,6 +1,26 @@
-// Real Local Wedding Playlist with 5 Categorized Indian & Haryanvi Wedding Songs
+// Real Local Wedding Playlist with Categorized Indian & Haryanvi Wedding Songs
 
 export const WEDDING_PLAYLIST = [
+  {
+    id: 'byaah-ki-tyari',
+    title: 'Byaah Ki Tyari (Haryanvi Wedding)',
+    artist: 'Khasa Aala Chahar | Khushi Verma',
+    category: '🪘 Haryanvi Wedding Songs',
+    categoryKey: 'haryanvi',
+    tag: 'Haryanvi Vivah Celebration & Dance',
+    url: '/assets/audio/byaah_ki_tyari.webm',
+    durationEst: '3:30',
+  },
+  {
+    id: 'hat-ja-tau',
+    title: 'Hat Ja Tau Pachhe Ne',
+    artist: 'Vikas Kumar',
+    category: '🥁 Baraat / Celebration',
+    categoryKey: 'baraat',
+    tag: 'Legendary Haryanvi Wedding & Baraat Anthem',
+    url: '/assets/audio/hat_ja_tau.webm',
+    durationEst: '3:20',
+  },
   {
     id: 'bridal-entry',
     title: 'Din Shagna Da',
@@ -22,16 +42,6 @@ export const WEDDING_PLAYLIST = [
     durationEst: '4:25',
   },
   {
-    id: 'haryanvi-wedding',
-    title: 'Bairan (Haryanvi Sangeet)',
-    artist: 'Traditional Folk & Dholak Beats',
-    category: '🪘 Haryanvi Wedding Songs',
-    categoryKey: 'haryanvi',
-    tag: 'Groom Sangeet & Folk Dance',
-    url: '/assets/audio/bairan_song.webm',
-    durationEst: '2:45',
-  },
-  {
     id: 'couple-romantic',
     title: 'Aaj Sajeya (Couple Wedding Special)',
     artist: 'Alaya F | Goldie Sohel | Punit M',
@@ -43,8 +53,8 @@ export const WEDDING_PLAYLIST = [
   },
   {
     id: 'baraat-celebration',
-    title: 'Desi Dhol & Baraat Celebration',
-    artist: 'Haryanvi Dholak & Nagada Celebration',
+    title: 'Desi Dhol & Nagada Celebration',
+    artist: 'Haryanvi Dholak & Nagada Beats',
     category: '🥁 Baraat / Celebration',
     categoryKey: 'baraat',
     tag: 'Baraat Dance & Ghurchhari Beats',
@@ -55,9 +65,9 @@ export const WEDDING_PLAYLIST = [
 
 export const MUSIC_CATEGORIES = [
   { key: 'all', label: '🌟 All Songs' },
+  { key: 'haryanvi', label: '🪘 Haryanvi Wedding' },
   { key: 'bridal', label: '👰 Bridal Entry' },
   { key: 'hindi', label: '❤️ Hindi Wedding' },
-  { key: 'haryanvi', label: '🪘 Haryanvi Wedding' },
   { key: 'couple', label: '💍 Couple / Romantic' },
   { key: 'baraat', label: '🥁 Baraat / Celebration' },
 ];
