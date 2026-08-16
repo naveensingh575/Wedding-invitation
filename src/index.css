@@ -1,0 +1,218 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Rozha+One&family=Yatra+One&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: var(--text-primary);
+    background-color: var(--bg-primary);
+  }
+}
+
+/* ============================================================
+   5 CURATED LUXURY AESTHETIC THEMES (Including Dark Theme)
+============================================================ */
+
+/* Theme 1: Elegant Ivory & Sage (Default / Top Recommendation) */
+:root,
+.theme-sage-ivory {
+  --bg-primary: #F8F5EF;
+  --bg-surface: #F2EFE8;
+  --bg-card: rgba(255, 255, 255, 0.88);
+  --bg-elevated: #FFFFFF;
+  --text-primary: #292824;
+  --text-secondary: #53624D;
+  --text-muted: #75836E;
+  --accent-gold: #C9A96E;
+  --accent-primary: #6B7C63;
+  --accent-secondary: #C9A6A0;
+  --border-gold: rgba(201, 169, 110, 0.45);
+  --card-shadow: 0 15px 35px rgba(107, 124, 99, 0.08), 0 5px 15px rgba(0, 0, 0, 0.04);
+  --hero-glow: rgba(201, 169, 110, 0.15);
+  --badge-bg: rgba(107, 124, 99, 0.12);
+  --badge-text: #4E5D46;
+  --badge-border: rgba(107, 124, 99, 0.25);
+  --nav-bg: rgba(248, 245, 239, 0.92);
+}
+
+/* Theme 2: Midnight Obsidian & Gold (Sleek Modern Dark Theme) */
+.theme-royal-dark {
+  --bg-primary: #0B0D11;
+  --bg-surface: #141720;
+  --bg-card: rgba(20, 23, 32, 0.88);
+  --bg-elevated: #1B202C;
+  --text-primary: #F8FAFC;
+  --text-secondary: #CBD5E1;
+  --text-muted: #94A3B8;
+  --accent-gold: #E5C07B;
+  --accent-primary: #D4AF37;
+  --accent-secondary: #F3BA4F;
+  --border-gold: rgba(229, 192, 123, 0.35);
+  --card-shadow: 0 20px 45px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 245, 192, 0.1);
+  --hero-glow: rgba(229, 192, 123, 0.15);
+  --badge-bg: rgba(229, 192, 123, 0.15);
+  --badge-text: #FDE68A;
+  --badge-border: rgba(229, 192, 123, 0.3);
+  --nav-bg: rgba(11, 13, 17, 0.95);
+}
+
+/* Theme 3: Royal Maroon & Gold (Grand, Traditional, Luxurious) */
+.theme-royal-maroon {
+  --bg-primary: #461117;
+  --bg-surface: #5A1820;
+  --bg-card: rgba(90, 24, 32, 0.88);
+  --bg-elevated: #360B10;
+  --text-primary: #FFF9F0;
+  --text-secondary: #F7EFE3;
+  --text-muted: #E2D3BE;
+  --accent-gold: #D4AF6A;
+  --accent-primary: #85222E;
+  --accent-secondary: #E8C178;
+  --border-gold: rgba(212, 175, 106, 0.45);
+  --card-shadow: 0 20px 45px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 245, 192, 0.15);
+  --hero-glow: rgba(212, 175, 106, 0.2);
+  --badge-bg: rgba(212, 175, 106, 0.18);
+  --badge-text: #FFEBBA;
+  --badge-border: rgba(212, 175, 106, 0.4);
+  --nav-bg: rgba(70, 17, 23, 0.95);
+}
+
+/* Theme 4: Blush Pink & Champagne (Soft, Romantic, Modern) */
+.theme-blush-champagne {
+  --bg-primary: #FAF2F0;
+  --bg-surface: #F7E6E2;
+  --bg-card: rgba(255, 255, 255, 0.9);
+  --bg-elevated: #FFFFFF;
+  --text-primary: #2F2426;
+  --text-secondary: #7A535B;
+  --text-muted: #9E747D;
+  --accent-gold: #C9A96E;
+  --accent-primary: #B87383;
+  --accent-secondary: #E8B4BE;
+  --border-gold: rgba(201, 169, 110, 0.45);
+  --card-shadow: 0 15px 35px rgba(184, 115, 131, 0.08), 0 5px 15px rgba(0, 0, 0, 0.03);
+  --hero-glow: rgba(232, 180, 190, 0.25);
+  --badge-bg: rgba(184, 115, 131, 0.12);
+  --badge-text: #7A3F4E;
+  --badge-border: rgba(184, 115, 131, 0.25);
+  --nav-bg: rgba(250, 242, 240, 0.94);
+}
+
+/* Theme 5: Terracotta & Beige (Warm, Earthy, Modern Indian) */
+.theme-terracotta-beige {
+  --bg-primary: #F8F3EB;
+  --bg-surface: #EFE6D8;
+  --bg-card: rgba(255, 255, 255, 0.88);
+  --bg-elevated: #FFFFFF;
+  --text-primary: #2C231F;
+  --text-secondary: #734333;
+  --text-muted: #996250;
+  --accent-gold: #C99E5C;
+  --accent-primary: #B7654A;
+  --accent-secondary: #DDA18A;
+  --border-gold: rgba(201, 158, 92, 0.45);
+  --card-shadow: 0 15px 35px rgba(183, 101, 74, 0.08), 0 5px 15px rgba(0, 0, 0, 0.03);
+  --hero-glow: rgba(183, 101, 74, 0.15);
+  --badge-bg: rgba(183, 101, 74, 0.12);
+  --badge-text: #7A3520;
+  --badge-border: rgba(183, 101, 74, 0.25);
+  --nav-bg: rgba(248, 243, 235, 0.94);
+}
+
+/* Smooth Theme Transitions */
+.theme-transition {
+  transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease;
+}
+
+/* 3D Flip Card Effect */
+.perspective-1000 {
+  perspective: 1000px;
+}
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+/* Typography Helpers */
+.font-serif {
+  font-family: 'Cormorant Garamond', 'Rozha One', serif;
+}
+
+.font-hindi {
+  font-family: 'Rozha One', 'Yatra One', 'Cormorant Garamond', serif;
+}
+
+/* Glassmorphism Luxury Cards */
+.glass-wedding-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-gold);
+  box-shadow: var(--card-shadow);
+  color: var(--text-primary);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Clean Luxury Backdrop Gradient (Zero Dots) */
+.royal-pattern {
+  background: radial-gradient(circle at 50% 15%, var(--bg-surface) 0%, var(--bg-primary) 85%);
+}
+
+/* Gold Gradient Text */
+.gold-gradient-text {
+  background: linear-gradient(135deg, #DFBF82 0%, #C9A96E 50%, #9B7637 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Shimmer Animation */
+.shimmer-gold {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-gold::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    60deg,
+    transparent 30%,
+    rgba(201, 169, 110, 0.2) 50%,
+    transparent 70%
+  );
+  transform: rotate(30deg);
+  animation: shimmer 6s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%) rotate(30deg); }
+  100% { transform: translateX(100%) rotate(30deg); }
+}
+
+/* Custom Clean Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--accent-gold);
+  border-radius: 4px;
+}
