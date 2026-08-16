@@ -2,6 +2,26 @@
 
 export const WEDDING_PLAYLIST = [
   {
+    id: 'couple-romantic',
+    title: 'Aaj Sajeya (Couple Wedding Special)',
+    artist: 'Alaya F | Goldie Sohel | Punit M',
+    category: '💍 Couple / Romantic Songs',
+    categoryKey: 'couple',
+    tag: 'Wedding Theme for Naveen & Manisha (#Navisha)',
+    url: '/assets/audio/aaj_sajeya.webm',
+    durationEst: '3:50',
+  },
+  {
+    id: 'bairan-couple',
+    title: 'Bairan (Couple & Folk Special)',
+    artist: 'Traditional Folk & Melodic Sangeet Beats',
+    category: '💍 Couple / Romantic Songs',
+    categoryKey: 'couple',
+    tag: 'Haryanvi Sangeet & Couple Celebration',
+    url: '/assets/audio/bairan_song.webm',
+    durationEst: '2:45',
+  },
+  {
     id: 'hindi-wedding',
     title: 'Kudmayi (Royal Wedding Theme)',
     artist: 'Shahid Mallya | Rocky Aur Rani',
@@ -20,16 +40,6 @@ export const WEDDING_PLAYLIST = [
     tag: 'Royal Bride Entry Anthem',
     url: '/assets/audio/din_shagna_da.webm',
     durationEst: '3:35',
-  },
-  {
-    id: 'couple-romantic',
-    title: 'Aaj Sajeya (Couple Wedding Special)',
-    artist: 'Alaya F | Goldie Sohel | Punit M',
-    category: '💍 Couple / Romantic Songs',
-    categoryKey: 'couple',
-    tag: 'Wedding Theme for Naveen & Manisha (#Navisha)',
-    url: '/assets/audio/aaj_sajeya.webm',
-    durationEst: '3:50',
   },
   {
     id: 'byaah-ki-tyari',
@@ -55,9 +65,9 @@ export const WEDDING_PLAYLIST = [
 
 export const MUSIC_CATEGORIES = [
   { key: 'all', label: '🌟 All Songs' },
+  { key: 'couple', label: '💍 Couple Special' },
   { key: 'hindi', label: '❤️ Hindi Wedding' },
   { key: 'bridal', label: '👰 Bridal Entry' },
-  { key: 'couple', label: '💍 Couple / Romantic' },
   { key: 'haryanvi', label: '🪘 Haryanvi Wedding' },
   { key: 'baraat', label: '🥁 Baraat / Celebration' },
 ];
