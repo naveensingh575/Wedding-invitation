@@ -61,7 +61,7 @@ export default function LocationsSection({ t, sideData, isBrideSide }) {
         {/* Distances info */}
         <div className="mt-4 text-xs text-[var(--text-muted)] space-y-1 border-t border-[var(--border-gold)] pt-3">
           <p>• <strong>Key Distances:</strong> Badhra (10 KM) | Loharu (19 KM) | Satnali (26 KM)</p>
-          <p>• <strong>Railway Station:</strong> Charkhi Dadri (~2 KM) | Loharu Junction (~19 KM)</p>
+          <p>• <strong>Railway Stations:</strong> Loharu Junction (~19 KM) | Satnali (~26 KM) | Charkhi Dadri (~40 KM)</p>
         </div>
       </div>
 
@@ -138,7 +138,7 @@ export default function LocationsSection({ t, sideData, isBrideSide }) {
         {/* Distances info */}
         <div className="mt-4 text-xs text-[var(--text-muted)] space-y-1 border-t border-[var(--border-gold)] pt-3">
           <p>• <strong>Distance from Nandha:</strong> ~18 KM via Badhra-Dadri Road</p>
-          <p>• <strong>Railway:</strong> Charkhi Dadri Station CKD (~2 KM) | Loharu (~19 KM)</p>
+          <p>• <strong>Nearby Stations:</strong> Loharu Junction (~19 KM) | Satnali (~26 KM) | Charkhi Dadri CKD (~40 KM)</p>
         </div>
       </div>
 
