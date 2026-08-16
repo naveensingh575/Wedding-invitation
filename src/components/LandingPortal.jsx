@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Heart, Sparkles, Clock, MapPin, ArrowRight } from 'lucide-react';
+import { Heart, Sparkles, Clock, MapPin, ArrowRight, Camera } from 'lucide-react';
 import MusicPlayer from './MusicPlayer';
 
 export default function LandingPortal({ onSelectSide, currentLang, setCurrentLang, t, musicPlayerProps }) {
@@ -70,6 +70,46 @@ export default function LandingPortal({ onSelectSide, currentLang, setCurrentLan
         </p>
       </div>
 
+      {/* Couple Dual Portrait Showcase on Landing Portal */}
+      <div className="flex items-center justify-center -space-x-4 sm:-space-x-6 my-6 z-10">
+        {/* Groom Photo Frame */}
+        <div className="relative group cursor-pointer" onClick={() => onSelectSide('groom')}>
+          <div className="w-28 h-36 sm:w-36 sm:h-48 rounded-2xl overflow-hidden border-2 border-[var(--border-gold)] shadow-2xl bg-black rotate-[-4deg] group-hover:rotate-0 group-hover:scale-105 transition-all duration-500">
+            <img
+              src="/assets/real_photos/groom_portal.jpg"
+              alt="Groom Naveen Luhach"
+              className="w-full h-full object-cover object-top"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end justify-center pb-2">
+              <span className="text-[11px] sm:text-xs font-bold text-white tracking-wider font-serif">
+                Naveen (वर)
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Center Heart Icon */}
+        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[var(--bg-elevated)] border-2 border-[var(--accent-gold)] flex items-center justify-center shadow-2xl z-20 animate-pulse">
+          <Heart className="w-5 h-5 sm:w-6 sm:h-6 text-rose-500 fill-rose-500" />
+        </div>
+
+        {/* Bride Photo Frame */}
+        <div className="relative group cursor-pointer" onClick={() => onSelectSide('bride')}>
+          <div className="w-28 h-36 sm:w-36 sm:h-48 rounded-2xl overflow-hidden border-2 border-[var(--border-gold)] shadow-2xl bg-black rotate-[4deg] group-hover:rotate-0 group-hover:scale-105 transition-all duration-500">
+            <img
+              src="/assets/real_photos/bride_portal.jpg"
+              alt="Bride Manisha Sheoran"
+              className="w-full h-full object-cover object-top"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end justify-center pb-2">
+              <span className="text-[11px] sm:text-xs font-bold text-white tracking-wider font-serif">
+                Manisha (वधू)
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Side Selection Prompt */}
       <div className="my-6 max-w-xl mx-auto">
         <p className="text-sm sm:text-base font-bold text-[var(--text-primary)] font-serif bg-[var(--bg-elevated)] border border-[var(--border-gold)] px-6 py-2.5 rounded-full shadow-sm">
@@ -102,7 +142,7 @@ export default function LandingPortal({ onSelectSide, currentLang, setCurrentLan
             <div className="flex items-center space-x-4 mb-4">
               <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden border-2 border-[var(--accent-gold)] shadow-md bg-black shrink-0">
                 <img
-                  src="/assets/doodles/groom_haldi.jpg"
+                  src="/assets/real_photos/groom_portal.jpg"
                   alt="Groom Side"
                   className="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-500"
                 />
@@ -162,7 +202,7 @@ export default function LandingPortal({ onSelectSide, currentLang, setCurrentLan
             <div className="flex items-center space-x-4 mb-4">
               <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden border-2 border-[var(--accent-gold)] shadow-md bg-black shrink-0">
                 <img
-                  src="/assets/doodles/haldi.jpg"
+                  src="/assets/real_photos/bride_portal.jpg"
                   alt="Bride Side"
                   className="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-500"
                 />
