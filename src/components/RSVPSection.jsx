@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import confetti from 'canvas-confetti';
-import { Send, CheckCircle, UserCheck, AlertCircle, Sparkles, MessageCircle, PhoneCall } from 'lucide-react';
+import { Send, CheckCircle, UserCheck, AlertCircle, Sparkles, Loader2 } from 'lucide-react';
 
 export default function RSVPSection({ t }) {
   const [submitted, setSubmitted] = useState(false);
   const [isSending, setIsSending] = useState(false);
   const [submitError, setSubmitError] = useState('');
   const [phoneError, setPhoneError] = useState('');
-  const [lastWhatsAppUrl, setLastWhatsAppUrl] = useState('');
-  const [lastSmsUrl, setLastSmsUrl] = useState('');
   const [formData, setFormData] = useState({
     guestName: '',
     phone: '',
@@ -17,7 +15,7 @@ export default function RSVPSection({ t }) {
     message: '',
   });
 
-  // Strict 10-digit phone number validation
+  // 10-digit phone number validation
   const handlePhoneChange = (e) => {
     const rawVal = e.target.value;
     const numericVal = rawVal.replace(/\D/g, '').slice(0, 10);
@@ -26,22 +24,10 @@ export default function RSVPSection({ t }) {
     if (numericVal.length === 0) {
       setPhoneError('');
     } else if (numericVal.length < 10) {
-      setPhoneError('⚠️ Only 10-digit mobile number allowed (Entered: ' + numericVal.length + '/10)');
+      setPhoneError('⚠️ Please enter 10 digits (Entered: ' + numericVal.length + '/10)');
     } else {
       setPhoneError('');
     }
-  };
-
-  const formatRsvpMessage = (cleanPhone) => {
-    return `🌸 *Wedding RSVP Confirmation (#Navisha)* 🌸
-━━━━━━━━━━━━━━━━━━
-👤 *Guest Name:* ${formData.guestName.trim()}
-📱 *Phone:* +91 ${cleanPhone}
-👥 *Total Guests Attending:* ${formData.headcount}
-📅 *Functions:* ${formData.attendance}
-💌 *Personal Message / Wishes:* ${formData.message.trim() || 'Heartiest Congratulations & Best Wishes to Naveen & Manisha! 🎉'}
-━━━━━━━━━━━━━━━━━━
-Sent via https://naveenwedsmanisha.online/`;
   };
 
   const handleSubmit = async (e) => {
@@ -49,11 +35,11 @@ Sent via https://naveenwedsmanisha.online/`;
     const cleanPhone = formData.phone.replace(/\D/g, '');
 
     if (!formData.guestName.trim()) {
-      setSubmitError('Please enter your full name');
+      setSubmitError('Please enter your full name / कृपया अपना नाम दर्ज करें');
       return;
     }
 
-    if (cleanPhone.length !== 10) {
+    if (cleanPhone.length > 0 && cleanPhone.length !== 10) {
       setPhoneError('⚠️ Please enter a valid 10-digit mobile number / कृपया 10 अंकों का मोबाइल नंबर दर्ज करें');
       return;
     }
@@ -61,30 +47,24 @@ Sent via https://naveenwedsmanisha.online/`;
     setIsSending(true);
     setSubmitError('');
 
-    const formattedMsg = formatRsvpMessage(cleanPhone);
-    const whatsappUrl = `https://wa.me/917229960539?text=${encodeURIComponent(formattedMsg)}`;
-    const smsUrl = `sms:+917229960539?body=${encodeURIComponent(formattedMsg)}`;
-
-    setLastWhatsAppUrl(whatsappUrl);
-    setLastSmsUrl(smsUrl);
-
     const rsvpPayload = {
-      _subject: `💍 New Wedding RSVP: ${formData.guestName} (#Navisha)`,
-      Guest_Name: formData.guestName,
-      Mobile_Number: `+91 ${cleanPhone}`,
-      Raw_Phone: `91${cleanPhone}`,
+      _subject: `💍 New Wedding RSVP: ${formData.guestName.trim()} (#Navisha)`,
+      Guest_Name: formData.guestName.trim(),
+      Mobile_Number: cleanPhone ? `+91 ${cleanPhone}` : 'Not Provided',
+      Raw_Phone: cleanPhone ? `91${cleanPhone}` : '',
       Guests_Attending: formData.headcount,
       Events_Selected: formData.attendance,
-      Blessings_Message: formData.message || 'None',
-      Target_WhatsApp: '+917229960539',
+      Blessings_Message: formData.message.trim() || 'None',
       Target_Email: 'Navisingh2100@gmail.com',
+      Target_WhatsApp: '+917229960539',
+      Target_SMS: '+917229960539',
       Submitted_At: new Date().toISOString(),
       _template: 'table',
     };
 
     try {
       // 1. Silent Background Email Dispatch to Navisingh2100@gmail.com via FormSubmit AJAX
-      fetch('https://formsubmit.co/ajax/Navisingh2100@gmail.com', {
+      const emailPromise = fetch('https://formsubmit.co/ajax/Navisingh2100@gmail.com', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -95,11 +75,28 @@ Sent via https://naveenwedsmanisha.online/`;
         console.warn('FormSubmit background notification notice:', err);
       });
 
-      // 2. Trigger celebratory festive confetti
+      // 2. Silent Background Webhook / Serverless API (/api/rsvp)
+      const webhookPromise = fetch('/api/rsvp', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(rsvpPayload),
+      }).catch((err) => {
+        console.info('Webhook route handled gracefully:', err);
+      });
+
+      // Await background notifications
+      await Promise.allSettled([emailPromise, webhookPromise]);
+
+      setIsSending(false);
+      setSubmitted(true);
+
+      // Festive celebratory confetti
       try {
         confetti({
-          particleCount: 130,
-          spread: 85,
+          particleCount: 120,
+          spread: 80,
           origin: { y: 0.6 },
           colors: ['#C9A96E', '#7A8B72', '#C9A6A0', '#DFBF82'],
         });
@@ -107,17 +104,10 @@ Sent via https://naveenwedsmanisha.online/`;
         console.log('Confetti effect handled', confettiErr);
       }
 
-      setIsSending(false);
-      setSubmitted(true);
-
-      // 3. Open WhatsApp directly with the formatted RSVP message
-      window.open(whatsappUrl, '_blank');
-
     } catch (error) {
-      console.error('RSVP submission error:', error);
+      console.error('RSVP background submission error:', error);
       setIsSending(false);
       setSubmitted(true);
-      window.open(whatsappUrl, '_blank');
     }
   };
 
@@ -155,7 +145,7 @@ Sent via https://naveenwedsmanisha.online/`;
         
         {submitted ? (
           /* ============================================================
-              CLEAN & ELEGANT SUCCESS CONFIRMATION STATE WITH WHATSAPP & SMS BUTTONS
+              CLEAN INLINE SUCCESS CONFIRMATION STATE (NO REDIRECTS/EXTERNAL LINKS)
           ============================================================ */
           <div className="text-center py-8 space-y-5 animate-fadeIn">
             <div className="w-20 h-20 mx-auto rounded-full bg-[var(--badge-bg)] border-2 border-[var(--accent-gold)] flex items-center justify-center text-[var(--accent-gold)] shadow-lg">
@@ -165,7 +155,7 @@ Sent via https://naveenwedsmanisha.online/`;
             <div className="space-y-1">
               <div className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-[var(--badge-bg)] border border-[var(--badge-border)] text-[11px] font-bold text-[var(--accent-primary)] mb-2">
                 <Sparkles className="w-3.5 h-3.5 text-[var(--accent-gold)]" />
-                <span>RSVP Successfully Created</span>
+                <span>RSVP Successfully Received</span>
               </div>
               <h3 className="font-serif text-2xl sm:text-4xl font-extrabold text-[var(--text-primary)]">
                 Thank You, {formData.guestName}!
@@ -173,53 +163,32 @@ Sent via https://naveenwedsmanisha.online/`;
             </div>
 
             <p className="font-hindi text-lg sm:text-xl text-[var(--accent-primary)] font-semibold">
-              "आपकी उपस्थिति हमारे लिए अत्यंत हर्ष का विषय होगी"
+              "धन्यवाद! आपकी उपस्थिति दर्ज कर ली गई है।"
             </p>
 
             <div className="max-w-md mx-auto p-4 rounded-2xl bg-[var(--bg-elevated)] border border-[var(--border-gold)] text-xs sm:text-sm text-[var(--text-secondary)] font-sans text-left space-y-1.5 shadow-sm">
-              <p>• <strong>Guest:</strong> {formData.guestName} (+91 {formData.phone})</p>
-              <p>• <strong>Attending:</strong> {formData.headcount} Guest(s)</p>
+              <p>• <strong>Guest Name:</strong> {formData.guestName} {formData.phone ? `(+91 ${formData.phone})` : ''}</p>
+              <p>• <strong>Total Attending:</strong> {formData.headcount} Guest(s)</p>
               <p>• <strong>Functions:</strong> {formData.attendance}</p>
-              {formData.message && <p>• <strong>Blessings:</strong> "{formData.message}"</p>}
+              {formData.message && <p>• <strong>Wishes / Message:</strong> "{formData.message}"</p>}
             </div>
 
-            {/* Direct 1-Tap WhatsApp & SMS Action Buttons */}
-            <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3 max-w-md mx-auto">
-              {lastWhatsAppUrl && (
-                <a
-                  href={lastWhatsAppUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full sm:flex-1 py-3 px-4 rounded-2xl bg-[#25D366] hover:bg-[#1EBE5D] text-white font-bold text-xs sm:text-sm shadow-md transition-all flex items-center justify-center space-x-2"
-                >
-                  <MessageCircle className="w-4 h-4 fill-current" />
-                  <span>Send via WhatsApp</span>
-                </a>
-              )}
-
-              {lastSmsUrl && (
-                <a
-                  href={lastSmsUrl}
-                  className="w-full sm:flex-1 py-3 px-4 rounded-2xl bg-[var(--bg-surface)] hover:bg-[var(--bg-card)] border border-[var(--border-gold)] text-[var(--text-primary)] font-bold text-xs sm:text-sm shadow-sm transition-all flex items-center justify-center space-x-2"
-                >
-                  <PhoneCall className="w-4 h-4 text-[var(--accent-gold)]" />
-                  <span>Send via Direct SMS</span>
-                </a>
-              )}
-            </div>
+            <p className="text-xs text-[var(--text-muted)] font-sans max-w-sm mx-auto">
+              Your response has been delivered to the host family. We look forward to welcoming you!
+            </p>
 
             <div className="pt-4 border-t border-[var(--border-gold)]/60">
               <button
                 onClick={handleReset}
-                className="px-6 py-2.5 rounded-full bg-[var(--bg-elevated)] hover:bg-[var(--bg-surface)] border border-[var(--border-gold)] text-[var(--text-secondary)] text-xs font-bold shadow-sm transition-all"
+                className="px-8 py-3 rounded-full bg-gradient-to-r from-[var(--accent-gold)] to-[#AA7C11] text-white text-xs sm:text-sm font-bold shadow-md hover:scale-105 active:scale-95 transition-all"
               >
-                🔄 Submit Another RSVP
+                Submit Another RSVP / अन्य उपस्थिति दर्ज करें
               </button>
             </div>
           </div>
         ) : (
           /* ============================================================
-              RSVP SUBMISSION FORM WITH REAL-TIME 10-DIGIT VALIDATION
+              SIMPLE, ELEGANT RSVP SUBMISSION FORM
           ============================================================ */
           <form onSubmit={handleSubmit} className="space-y-6">
             
@@ -235,7 +204,7 @@ Sent via https://naveenwedsmanisha.online/`;
               {/* Guest Name */}
               <div>
                 <label className="block text-xs font-bold text-[var(--text-primary)] uppercase tracking-wider mb-2">
-                  Full Name / परिवार का नाम *
+                  Full Name / आपका नाम *
                 </label>
                 <input
                   type="text"
@@ -247,25 +216,26 @@ Sent via https://naveenwedsmanisha.online/`;
                 />
               </div>
 
-              {/* Phone / WhatsApp - Strict 10-digit restriction */}
+              {/* Mobile Number (Optional / 10-digit) */}
               <div>
                 <div className="flex items-center justify-between mb-2">
                   <label className="block text-xs font-bold text-[var(--text-primary)] uppercase tracking-wider">
-                    Mobile / WhatsApp Number *
+                    Mobile Number / मोबाइल नंबर
                   </label>
-                  <span className="text-[10px] text-[var(--accent-gold)] font-bold">
-                    {formData.phone.length}/10 Digits
-                  </span>
+                  {formData.phone.length > 0 && (
+                    <span className="text-[10px] text-[var(--accent-gold)] font-bold">
+                      {formData.phone.length}/10 Digits
+                    </span>
+                  )}
                 </div>
                 
                 <div className="relative">
                   <input
                     type="tel"
-                    required
                     inputMode="numeric"
                     pattern="[0-9]{10}"
                     maxLength={10}
-                    placeholder="10-digit Number (e.g. 9876543210)"
+                    placeholder="10-digit Mobile Number (e.g. 9876543210)"
                     value={formData.phone}
                     onChange={handlePhoneChange}
                     className={`w-full px-4 py-3 rounded-2xl bg-[var(--bg-elevated)] border text-sm text-[var(--text-primary)] placeholder-[var(--text-muted)]/50 focus:outline-none shadow-sm font-mono ${
@@ -276,7 +246,6 @@ Sent via https://naveenwedsmanisha.online/`;
                   />
                 </div>
 
-                {/* Inline Validation Error Notice */}
                 {phoneError && (
                   <div className="mt-1.5 flex items-center space-x-1.5 text-xs text-rose-500 font-semibold animate-fadeIn">
                     <AlertCircle className="w-3.5 h-3.5 shrink-0" />
@@ -288,7 +257,7 @@ Sent via https://naveenwedsmanisha.online/`;
               {/* Number of Guests */}
               <div>
                 <label className="block text-xs font-bold text-[var(--text-primary)] uppercase tracking-wider mb-2">
-                  Number of Guests Attending
+                  Number of Guests / अतिथियों की संख्या
                 </label>
                 <select
                   value={formData.headcount}
@@ -305,7 +274,7 @@ Sent via https://naveenwedsmanisha.online/`;
               {/* Events Attending */}
               <div>
                 <label className="block text-xs font-bold text-[var(--text-primary)] uppercase tracking-wider mb-2">
-                  Which Events Will You Attend?
+                  Events Attending / समारोह
                 </label>
                 <select
                   value={formData.attendance}
@@ -325,35 +294,44 @@ Sent via https://naveenwedsmanisha.online/`;
             {/* Optional Message */}
             <div>
               <label className="block text-xs font-bold text-[var(--text-primary)] uppercase tracking-wider mb-2">
-                Blessings & Message for Couple / परिवार के लिए संदेश
+                Blessings & Wishes / परिवार के लिए संदेश
               </label>
               <textarea
                 rows="3"
-                placeholder="Write your wishes & blessings here..."
+                placeholder="Write your blessings and heartfelt wishes here..."
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                 className="w-full px-4 py-3 rounded-2xl bg-[var(--bg-elevated)] border border-[var(--border-gold)] text-sm text-[var(--text-primary)] placeholder-[var(--text-muted)]/50 focus:outline-none focus:border-[var(--accent-gold)] shadow-sm"
               ></textarea>
             </div>
 
-            {/* Submit Button */}
-            <div className="space-y-3">
+            {/* Single Submit Button with Loading State */}
+            <div>
               <button
                 type="submit"
                 disabled={isSending || (formData.phone.length > 0 && formData.phone.length !== 10)}
-                className={`w-full py-4 rounded-2xl bg-gradient-to-r from-[#25D366] to-[#128C7E] text-white font-extrabold text-base shadow-lg transition-all flex items-center justify-center space-x-2 ${
+                className={`w-full py-4 rounded-2xl bg-gradient-to-r from-[var(--accent-gold)] to-[#AA7C11] text-white font-extrabold text-base shadow-lg transition-all flex items-center justify-center space-x-2 ${
                   isSending || (formData.phone.length > 0 && formData.phone.length !== 10)
                     ? 'opacity-70 cursor-not-allowed'
                     : 'hover:opacity-95 hover:scale-[1.01] active:scale-[0.99]'
                 }`}
               >
-                <MessageCircle className="w-5 h-5 fill-current" />
-                <span>{isSending ? "Submitting RSVP..." : "Submit RSVP via WhatsApp (+91 7229960539)"}</span>
+                {isSending ? (
+                  <>
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                    <span>Sending... / भेजा जा रहा है...</span>
+                  </>
+                ) : (
+                  <>
+                    <Send className="w-5 h-5 fill-current" />
+                    <span>Submit RSVP / निमंत्रण भेजें</span>
+                  </>
+                )}
               </button>
             </div>
 
             <div className="text-center text-[11px] text-[var(--text-muted)] font-sans">
-              🔒 Direct WhatsApp & SMS confirmation sent to +91 7229960539.
+              🔒 Your response is privately recorded and delivered to the hosts.
             </div>
           </form>
         )}
