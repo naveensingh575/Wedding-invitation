@@ -19,7 +19,7 @@ export default function App() {
     return localStorage.getItem('navisha_theme') || 'theme-sage-ivory';
   });
 
-  // 2. Active 3-Page Route State ('portal' | 'groom' | 'bride')
+  // 2. Active 3-Page Route State ('portal' | 'groom' | 'bride') with Clean URL Routing
   const [activePage, setActivePage] = useState(() => {
     const hash = window.location.hash.toLowerCase();
     if (hash.includes('groom')) return 'groom';
@@ -27,21 +27,51 @@ export default function App() {
     return 'portal';
   });
 
-  // Synchronize URL hash with active page
+  // Clean URL Routing & Hash Synchronization (No '#portal' in URL bar)
   useEffect(() => {
-    if (activePage === 'groom') window.location.hash = 'groom';
-    else if (activePage === 'bride') window.location.hash = 'bride';
-    else window.location.hash = 'portal';
+    if (activePage === 'groom') {
+      if (window.location.hash !== '#groom') {
+        window.history.replaceState(null, '', '#groom');
+      }
+    } else if (activePage === 'bride') {
+      if (window.location.hash !== '#bride') {
+        window.history.replaceState(null, '', '#bride');
+      }
+    } else {
+      // Clean URL: Remove any hash when on portal/home
+      if (window.location.hash) {
+        window.history.replaceState(null, '', window.location.pathname + window.location.search);
+      }
+    }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [activePage]);
 
-  // Persist language and theme changes
+  // Browser Back/Forward navigation listener
+  useEffect(() => {
+    const handleLocationChange = () => {
+      const hash = window.location.hash.toLowerCase();
+      if (hash.includes('groom')) setActivePage('groom');
+      else if (hash.includes('bride')) setActivePage('bride');
+      else setActivePage('portal');
+    };
+
+    window.addEventListener('hashchange', handleLocationChange);
+    window.addEventListener('popstate', handleLocationChange);
+    return () => {
+      window.removeEventListener('hashchange', handleLocationChange);
+      window.removeEventListener('popstate', handleLocationChange);
+    };
+  }, []);
+
+  // Persist language and theme changes to localStorage & DOM
   useEffect(() => {
     localStorage.setItem('navisha_lang', currentLang);
   }, [currentLang]);
 
   useEffect(() => {
     localStorage.setItem('navisha_theme', currentTheme);
+    document.documentElement.className = currentTheme;
+    document.documentElement.setAttribute('data-theme', currentTheme);
   }, [currentTheme]);
 
   // 3. Audio & Music Player States
@@ -61,7 +91,7 @@ export default function App() {
   const audioRef = useRef(null);
   const t = translations[currentLang] || translations.en;
 
-  // Initialize HTML5 Audio Element
+  // Initialize HTML5 Audio Element & Mobile Auto-Play Unlock
   useEffect(() => {
     const audio = new Audio();
     audio.preload = 'auto';
@@ -93,38 +123,45 @@ export default function App() {
     audio.addEventListener('ended', handleEnded);
     audio.addEventListener('error', handleError);
 
-    // Touch/click gesture listener
-    const startUnmutedAudio = () => {
-      if (audioRef.current) {
+    // One-time global interaction listener for Mobile Safari & Chrome auto-play unlock
+    const unlockAndPlayAudio = () => {
+      if (audioRef.current && audioRef.current.paused) {
         audioRef.current.muted = false;
         audioRef.current.volume = 0.85;
         audioRef.current.play().then(() => {
           setIsPlaying(true);
           setIsMuted(false);
         }).catch((err) => {
-          console.log("Audio play gesture:", err);
+          console.log("Audio unlock gesture handled:", err);
         });
       }
-      window.removeEventListener('click', startUnmutedAudio);
-      window.removeEventListener('touchstart', startUnmutedAudio);
-      window.removeEventListener('keydown', startUnmutedAudio);
-      window.removeEventListener('scroll', startUnmutedAudio);
+      removeUnlockListeners();
     };
 
-    window.addEventListener('click', startUnmutedAudio, { once: true });
-    window.addEventListener('touchstart', startUnmutedAudio, { once: true });
-    window.addEventListener('keydown', startUnmutedAudio, { once: true });
-    window.addEventListener('scroll', startUnmutedAudio, { once: true });
+    const removeUnlockListeners = () => {
+      window.removeEventListener('click', unlockAndPlayAudio);
+      window.removeEventListener('touchstart', unlockAndPlayAudio);
+      window.removeEventListener('pointerdown', unlockAndPlayAudio);
+      window.removeEventListener('keydown', unlockAndPlayAudio);
+      window.removeEventListener('scroll', unlockAndPlayAudio);
+      document.removeEventListener('click', unlockAndPlayAudio);
+      document.removeEventListener('touchstart', unlockAndPlayAudio);
+    };
+
+    window.addEventListener('click', unlockAndPlayAudio, { once: true, passive: true });
+    window.addEventListener('touchstart', unlockAndPlayAudio, { once: true, passive: true });
+    window.addEventListener('pointerdown', unlockAndPlayAudio, { once: true, passive: true });
+    window.addEventListener('keydown', unlockAndPlayAudio, { once: true, passive: true });
+    window.addEventListener('scroll', unlockAndPlayAudio, { once: true, passive: true });
+    document.addEventListener('click', unlockAndPlayAudio, { once: true, passive: true });
+    document.addEventListener('touchstart', unlockAndPlayAudio, { once: true, passive: true });
 
     return () => {
       audio.removeEventListener('timeupdate', handleTimeUpdate);
       audio.removeEventListener('loadedmetadata', handleLoadedMetadata);
       audio.removeEventListener('ended', handleEnded);
       audio.removeEventListener('error', handleError);
-      window.removeEventListener('click', startUnmutedAudio);
-      window.removeEventListener('touchstart', startUnmutedAudio);
-      window.removeEventListener('keydown', startUnmutedAudio);
-      window.removeEventListener('scroll', startUnmutedAudio);
+      removeUnlockListeners();
       audio.pause();
       audio.src = '';
     };
@@ -159,21 +196,15 @@ export default function App() {
         audioRef.current.currentTime = 0;
         audioRef.current.play().then(() => setIsPlaying(true));
       }
-      return;
+    } else if (repeatMode === 'all') {
+      handlePlayNext();
+    } else {
+      if (currentTrackIndex < WEDDING_PLAYLIST.length - 1) {
+        handlePlayNext();
+      } else {
+        setIsPlaying(false);
+      }
     }
-
-    if (isShuffle) {
-      const randomIndex = Math.floor(Math.random() * WEDDING_PLAYLIST.length);
-      changeTrack(randomIndex, true);
-      return;
-    }
-
-    if (repeatMode === 'off' && currentTrackIndex === WEDDING_PLAYLIST.length - 1) {
-      setIsPlaying(false);
-      return;
-    }
-
-    changeTrack(currentTrackIndex + 1, true);
   };
 
   const handlePlayNext = () => {
