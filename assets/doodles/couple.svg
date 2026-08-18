@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2D060C"/>
+      <stop offset="50%" stop-color="#4A0810"/>
+      <stop offset="100%" stop-color="#1C0307"/>
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FFF5C0"/>
+      <stop offset="50%" stop-color="#D4AF37"/>
+      <stop offset="100%" stop-color="#AA7C11"/>
+    </linearGradient>
+    <radialGradient id="halo" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFD700" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#D4AF37" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background Layer -->
+  <rect width="800" height="800" fill="url(#bgGrad)"/>
+  <circle cx="400" cy="380" r="320" fill="url(#halo)"/>
+
+  <!-- Marigold Flower Garland Border Arch -->
+  <g fill="#FFB800" stroke="#CC8800" stroke-width="2">
+    <!-- Top Garland Chain -->
+    <path d="M 50,120 Q 200,180 400,180 Q 600,180 750,120" fill="none" stroke="#FFA000" stroke-width="12" stroke-dasharray="24 12"/>
+    <circle cx="100" cy="135" r="18"/><circle cx="150" cy="150" r="18"/><circle cx="200" cy="162" r="18"/>
+    <circle cx="250" cy="170" r="18"/><circle cx="300" cy="175" r="18"/><circle cx="350" cy="178" r="18"/>
+    <circle cx="400" cy="180" r="22" fill="#FF8C00"/>
+    <circle cx="450" cy="178" r="18"/><circle cx="500" cy="175" r="18"/><circle cx="550" cy="170" r="18"/>
+    <circle cx="600" cy="162" r="18"/><circle cx="650" cy="150" r="18"/><circle cx="700" cy="135" r="18"/>
+  </g>
+
+  <!-- Top Sacred Mantra Header -->
+  <text x="400" y="80" text-anchor="middle" font-family="'Rozha One', 'Cinzel', serif" font-size="28" fill="#FFD700" font-weight="bold">
+    🕉️ ॥ श्री गणेशाय नमः ॥ 🚩
+  </text>
+  <text x="400" y="115" text-anchor="middle" font-family="'Rozha One', 'Cinzel', serif" font-size="22" fill="#FFF5C0">
+    Naveen Luhach  ❤️  Monika Sheoran (Manisha)
+  </text>
+
+  <!-- GROOM NAVEEN ILLUSTRATION (Left) -->
+  <g transform="translate(180, 200)">
+    <!-- Royal Red Safa Turban -->
+    <path d="M 80,130 C 60,70 140,40 170,70 C 190,40 260,70 240,130 Z" fill="#8B0000" stroke="#FFD700" stroke-width="4"/>
+    <!-- Turban Kalgi Feather -->
+    <path d="M 160,50 Q 150,10 165,5 Q 175,10 170,50 Z" fill="#FFF5C0" stroke="#FFD700" stroke-width="2"/>
+    <circle cx="165" cy="52" r="8" fill="#FFD700"/>
+
+    <!-- Groom Face -->
+    <ellipse cx="160" cy="160" rx="45" ry="50" fill="#F5CBA7" stroke="#D35400" stroke-width="2"/>
+    <!-- Eyes & Smile & Mustache -->
+    <circle cx="140" cy="150" r="4" fill="#333"/><circle cx="180" cy="150" r="4" fill="#333"/>
+    <path d="M 135,170 Q 160,185 185,170" fill="none" stroke="#5D4037" stroke-width="5" stroke-linecap="round"/>
+    <path d="M 145,185 Q 160,195 175,185" fill="none" stroke="#333" stroke-width="3"/>
+    <!-- Tilak -->
+    <rect x="157" y="125" width="6" height="15" fill="#8B0000" rx="3"/>
+
+    <!-- Sherwani Torso -->
+    <path d="M 90,210 L 230,210 L 250,440 L 70,440 Z" fill="#FFFBF0" stroke="#D4AF37" stroke-width="4"/>
+    <!-- Royal Red Stole (Dupatta) -->
+    <path d="M 90,210 Q 160,260 230,210 L 245,440 L 225,440 Q 160,280 90,440 Z" fill="#8B0000" opacity="0.9"/>
+    <!-- Royal Necklace -->
+    <path d="M 120,220 Q 160,270 200,220" fill="none" stroke="#FFD700" stroke-width="6" stroke-dasharray="10 5"/>
+
+    <!-- Left Arm resting by side -->
+    <path d="M 90,210 L 60,330 L 85,340 L 110,230 Z" fill="#FFFBF0" stroke="#D4AF37" stroke-width="2"/>
+    <!-- Right Arm extending out to hold Monika's hand (Single right hand!) -->
+    <path d="M 230,210 L 290,320 L 270,330 L 215,230 Z" fill="#FFFBF0" stroke="#D4AF37" stroke-width="2"/>
+    <!-- Groom Hand -->
+    <ellipse cx="290" cy="330" rx="14" ry="12" fill="#F5CBA7"/>
+  </g>
+
+  <!-- BRIDE MONIKA ILLUSTRATION (Right) -->
+  <g transform="translate(380, 200)">
+    <!-- Bride Red Dupatta Veil over head -->
+    <path d="M 80,120 C 60,60 220,60 200,120 L 240,440 L 40,440 Z" fill="#8B0000" opacity="0.9" stroke="#FFD700" stroke-width="3"/>
+    
+    <!-- Bride Face -->
+    <ellipse cx="140" cy="160" rx="42" ry="48" fill="#FAD7A0" stroke="#D35400" stroke-width="2"/>
+    <!-- Maang Tika -->
+    <circle cx="140" cy="118" r="6" fill="#FFD700"/>
+    <line x1="140" y1="112" x2="140" y2="135" stroke="#FFD700" stroke-width="2"/>
+    <circle cx="140" cy="135" r="4" fill="#8B0000"/>
+
+    <!-- Eyes & Smile -->
+    <circle cx="122" cy="152" r="4" fill="#333"/><circle cx="158" cy="152" r="4" fill="#333"/>
+    <path d="M 125,178 Q 140,190 155,178" fill="none" stroke="#8B0000" stroke-width="3"/>
+
+    <!-- Bridal Lehenga Torso & Choli -->
+    <path d="M 85,215 L 195,215 L 210,270 L 70,270 Z" fill="#8B0000" stroke="#FFD700" stroke-width="3"/>
+    <!-- Heavy Lehenga Skirt -->
+    <path d="M 70,270 L 210,270 L 260,450 L 20,450 Z" fill="#6B0F1A" stroke="#FFD700" stroke-width="4"/>
+    <!-- Gold Embroidery Lines -->
+    <path d="M 100,270 L 70,450 M 140,270 L 140,450 M 180,270 L 210,450" stroke="#FFD700" stroke-width="3" stroke-dasharray="12 6"/>
+
+    <!-- Bride Left Hand holding Groom's Hand -->
+    <path d="M 85,215 L 45,320 L 65,330 L 100,225 Z" fill="#8B0000" stroke="#FFD700" stroke-width="2"/>
+    <!-- Bride Hand -->
+    <ellipse cx="45" cy="325" rx="14" ry="12" fill="#FAD7A0"/>
+    <!-- Red Bridal Chooda Bangles -->
+    <rect x="50" y="295" width="22" height="20" fill="#FF0000" rx="3" stroke="#FFD700" stroke-width="2"/>
+
+    <!-- Bride Right Arm resting down -->
+    <path d="M 195,215 L 220,320 L 200,330 L 180,225 Z" fill="#8B0000" stroke="#FFD700" stroke-width="2"/>
+  </g>
+
+  <!-- HAND HOLDING CONNECTION SPOT -->
+  <!-- Groom Naveen's hand (at x=470, y=530) holding Bride Monika's hand -->
+  <g transform="translate(465, 525)">
+    <circle cx="0" cy="0" r="16" fill="#FFD700" opacity="0.3"/>
+    <path d="M -8,0 Q 0,-10 8,0 Q 0,10 -8,0" fill="#FFD700"/>
+    <!-- Heart icon at hand holding spot -->
+    <path d="M 0,-4 C -4,-10 -10,-4 0,4 C 10,-4 4,-10 0,-4 Z" fill="#8B0000"/>
+  </g>
+
+  <!-- Bottom Golden Banner Card -->
+  <g transform="translate(150, 680)">
+    <rect width="500" height="85" rx="25" fill="#1C0307" stroke="#FFD700" stroke-width="4"/>
+    <text x="250" y="38" text-anchor="middle" font-family="'Rozha One', 'Cinzel', serif" font-size="28" fill="#FFD700" font-weight="bold">
+      Naveen  ❤️  Monika (Manisha)
+    </text>
+    <text x="250" y="66" text-anchor="middle" font-family="'Plus Jakarta Sans', sans-serif" font-size="18" fill="#FFF5C0" font-weight="600">
+      #Navisha  •  20 November 2026  •  Charkhi Dadri
+    </text>
+  </g>
+</svg>
