@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import confetti from 'canvas-confetti';
-import { Send, CheckCircle, UserCheck, AlertCircle, Sparkles } from 'lucide-react';
+import { Send, CheckCircle, UserCheck, AlertCircle, Sparkles, MessageCircle, PhoneCall } from 'lucide-react';
 
 export default function RSVPSection({ t }) {
   const [submitted, setSubmitted] = useState(false);
   const [isSending, setIsSending] = useState(false);
   const [submitError, setSubmitError] = useState('');
   const [phoneError, setPhoneError] = useState('');
+  const [lastWhatsAppUrl, setLastWhatsAppUrl] = useState('');
+  const [lastSmsUrl, setLastSmsUrl] = useState('');
   const [formData, setFormData] = useState({
     guestName: '',
     phone: '',
@@ -30,6 +32,18 @@ export default function RSVPSection({ t }) {
     }
   };
 
+  const formatRsvpMessage = (cleanPhone) => {
+    return `🌸 *Wedding RSVP Confirmation (#Navisha)* 🌸
+━━━━━━━━━━━━━━━━━━
+👤 *Guest Name:* ${formData.guestName.trim()}
+📱 *Phone:* +91 ${cleanPhone}
+👥 *Total Guests Attending:* ${formData.headcount}
+📅 *Functions:* ${formData.attendance}
+💌 *Personal Message / Wishes:* ${formData.message.trim() || 'Heartiest Congratulations & Best Wishes to Naveen & Manisha! 🎉'}
+━━━━━━━━━━━━━━━━━━
+Sent via https://naveenwedsmanisha.online/`;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const cleanPhone = formData.phone.replace(/\D/g, '');
@@ -47,6 +61,13 @@ export default function RSVPSection({ t }) {
     setIsSending(true);
     setSubmitError('');
 
+    const formattedMsg = formatRsvpMessage(cleanPhone);
+    const whatsappUrl = `https://wa.me/917229960539?text=${encodeURIComponent(formattedMsg)}`;
+    const smsUrl = `sms:+917229960539?body=${encodeURIComponent(formattedMsg)}`;
+
+    setLastWhatsAppUrl(whatsappUrl);
+    setLastSmsUrl(smsUrl);
+
     const rsvpPayload = {
       _subject: `💍 New Wedding RSVP: ${formData.guestName} (#Navisha)`,
       Guest_Name: formData.guestName,
@@ -63,7 +84,7 @@ export default function RSVPSection({ t }) {
 
     try {
       // 1. Silent Background Email Dispatch to Navisingh2100@gmail.com via FormSubmit AJAX
-      const emailPromise = fetch('https://formsubmit.co/ajax/Navisingh2100@gmail.com', {
+      fetch('https://formsubmit.co/ajax/Navisingh2100@gmail.com', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -74,25 +95,7 @@ export default function RSVPSection({ t }) {
         console.warn('FormSubmit background notification notice:', err);
       });
 
-      // 2. Silent Background Serverless / Webhook WhatsApp notification API (/api/rsvp)
-      const backendPromise = fetch('/api/rsvp', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(rsvpPayload),
-      }).catch((err) => {
-        // Fallback gracefully if serverless route is not hosted locally
-        console.info('Backend webhook route handled gracefully:', err);
-      });
-
-      // Await both notifications concurrently in the background
-      await Promise.allSettled([emailPromise, backendPromise]);
-
-      setIsSending(false);
-      setSubmitted(true);
-
-      // Trigger celebratory festive confetti
+      // 2. Trigger celebratory festive confetti
       try {
         confetti({
           particleCount: 130,
@@ -104,11 +107,17 @@ export default function RSVPSection({ t }) {
         console.log('Confetti effect handled', confettiErr);
       }
 
-    } catch (error) {
-      console.error('RSVP submission error:', error);
-      // Even if network glitches, confirm reception to user to maintain positive experience
       setIsSending(false);
       setSubmitted(true);
+
+      // 3. Open WhatsApp directly with the formatted RSVP message
+      window.open(whatsappUrl, '_blank');
+
+    } catch (error) {
+      console.error('RSVP submission error:', error);
+      setIsSending(false);
+      setSubmitted(true);
+      window.open(whatsappUrl, '_blank');
     }
   };
 
@@ -137,7 +146,7 @@ export default function RSVPSection({ t }) {
           {t.rsvp?.heading || "Confirm Your Attendance (RSVP)"}
         </h2>
         <p className="text-[var(--text-secondary)] text-sm sm:text-base max-w-xl mx-auto mt-2 font-sans">
-          {t.rsvp?.subheading || "Hon. Capt. Satyavir Singh & Luhach family request the pleasure of your company"}
+          {t.rsvp?.subheading || "Hon. Capt. Satyavir Singh & Luhach family & Sheoran family request the pleasure of your company"}
         </p>
       </div>
 
@@ -146,9 +155,9 @@ export default function RSVPSection({ t }) {
         
         {submitted ? (
           /* ============================================================
-              CLEAN & ELEGANT SUCCESS CONFIRMATION STATE (NO POPUPS/TABS)
+              CLEAN & ELEGANT SUCCESS CONFIRMATION STATE WITH WHATSAPP & SMS BUTTONS
           ============================================================ */
-          <div className="text-center py-10 space-y-5 animate-fadeIn">
+          <div className="text-center py-8 space-y-5 animate-fadeIn">
             <div className="w-20 h-20 mx-auto rounded-full bg-[var(--badge-bg)] border-2 border-[var(--accent-gold)] flex items-center justify-center text-[var(--accent-gold)] shadow-lg">
               <CheckCircle className="w-10 h-10" />
             </div>
@@ -156,7 +165,7 @@ export default function RSVPSection({ t }) {
             <div className="space-y-1">
               <div className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-[var(--badge-bg)] border border-[var(--badge-border)] text-[11px] font-bold text-[var(--accent-primary)] mb-2">
                 <Sparkles className="w-3.5 h-3.5 text-[var(--accent-gold)]" />
-                <span>RSVP Successfully Recorded</span>
+                <span>RSVP Successfully Created</span>
               </div>
               <h3 className="font-serif text-2xl sm:text-4xl font-extrabold text-[var(--text-primary)]">
                 Thank You, {formData.guestName}!
@@ -168,22 +177,43 @@ export default function RSVPSection({ t }) {
             </p>
 
             <div className="max-w-md mx-auto p-4 rounded-2xl bg-[var(--bg-elevated)] border border-[var(--border-gold)] text-xs sm:text-sm text-[var(--text-secondary)] font-sans text-left space-y-1.5 shadow-sm">
-              <p>• <strong>Guest:</strong> {formData.guestName} ({formData.phone})</p>
+              <p>• <strong>Guest:</strong> {formData.guestName} (+91 {formData.phone})</p>
               <p>• <strong>Attending:</strong> {formData.headcount} Guest(s)</p>
               <p>• <strong>Functions:</strong> {formData.attendance}</p>
               {formData.message && <p>• <strong>Blessings:</strong> "{formData.message}"</p>}
             </div>
 
-            <p className="text-xs text-[var(--text-muted)] font-sans max-w-sm mx-auto">
-              Automated notifications have been dispatched to the hosts. We eagerly look forward to welcoming you!
-            </p>
+            {/* Direct 1-Tap WhatsApp & SMS Action Buttons */}
+            <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3 max-w-md mx-auto">
+              {lastWhatsAppUrl && (
+                <a
+                  href={lastWhatsAppUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full sm:flex-1 py-3 px-4 rounded-2xl bg-[#25D366] hover:bg-[#1EBE5D] text-white font-bold text-xs sm:text-sm shadow-md transition-all flex items-center justify-center space-x-2"
+                >
+                  <MessageCircle className="w-4 h-4 fill-current" />
+                  <span>Send via WhatsApp</span>
+                </a>
+              )}
 
-            <div>
+              {lastSmsUrl && (
+                <a
+                  href={lastSmsUrl}
+                  className="w-full sm:flex-1 py-3 px-4 rounded-2xl bg-[var(--bg-surface)] hover:bg-[var(--bg-card)] border border-[var(--border-gold)] text-[var(--text-primary)] font-bold text-xs sm:text-sm shadow-sm transition-all flex items-center justify-center space-x-2"
+                >
+                  <PhoneCall className="w-4 h-4 text-[var(--accent-gold)]" />
+                  <span>Send via Direct SMS</span>
+                </a>
+              )}
+            </div>
+
+            <div className="pt-4 border-t border-[var(--border-gold)]/60">
               <button
                 onClick={handleReset}
-                className="mt-2 px-8 py-3 rounded-full bg-gradient-to-r from-[var(--accent-gold)] to-[#AA7C11] text-white text-xs sm:text-sm font-bold shadow-md hover:scale-105 active:scale-95 transition-all"
+                className="px-6 py-2.5 rounded-full bg-[var(--bg-elevated)] hover:bg-[var(--bg-surface)] border border-[var(--border-gold)] text-[var(--text-secondary)] text-xs font-bold shadow-sm transition-all"
               >
-                Submit Another RSVP
+                🔄 Submit Another RSVP
               </button>
             </div>
           </div>
@@ -307,21 +337,23 @@ export default function RSVPSection({ t }) {
             </div>
 
             {/* Submit Button */}
-            <button
-              type="submit"
-              disabled={isSending || (formData.phone.length > 0 && formData.phone.length !== 10)}
-              className={`w-full py-4 rounded-2xl bg-gradient-to-r from-[var(--accent-gold)] to-[#AA7C11] text-white font-extrabold text-base shadow-lg transition-all flex items-center justify-center space-x-2 ${
-                isSending || (formData.phone.length > 0 && formData.phone.length !== 10)
-                  ? 'opacity-70 cursor-not-allowed'
-                  : 'hover:opacity-95 hover:scale-[1.01] active:scale-[0.99]'
-              }`}
-            >
-              <Send className="w-5 h-5 fill-current" />
-              <span>{isSending ? "Recording RSVP..." : "Confirm RSVP"}</span>
-            </button>
+            <div className="space-y-3">
+              <button
+                type="submit"
+                disabled={isSending || (formData.phone.length > 0 && formData.phone.length !== 10)}
+                className={`w-full py-4 rounded-2xl bg-gradient-to-r from-[#25D366] to-[#128C7E] text-white font-extrabold text-base shadow-lg transition-all flex items-center justify-center space-x-2 ${
+                  isSending || (formData.phone.length > 0 && formData.phone.length !== 10)
+                    ? 'opacity-70 cursor-not-allowed'
+                    : 'hover:opacity-95 hover:scale-[1.01] active:scale-[0.99]'
+                }`}
+              >
+                <MessageCircle className="w-5 h-5 fill-current" />
+                <span>{isSending ? "Submitting RSVP..." : "Submit RSVP via WhatsApp (+91 7229960539)"}</span>
+              </button>
+            </div>
 
             <div className="text-center text-[11px] text-[var(--text-muted)] font-sans">
-              🔒 Your details are privately delivered to the hosts.
+              🔒 Direct WhatsApp & SMS confirmation sent to +91 7229960539.
             </div>
           </form>
         )}

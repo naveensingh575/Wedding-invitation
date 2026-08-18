@@ -56,8 +56,8 @@ export default function MusicPlayer({
   const progressPercentage = duration > 0 ? (currentTime / duration) * 100 : 0;
 
   return (
-    <section id="music-player" className="max-w-5xl mx-auto px-4 my-8 relative">
-      <div className="glass-wedding-card rounded-3xl p-5 sm:p-7 border-2 border-[var(--border-gold)] shadow-2xl bg-[var(--bg-elevated)]/95 relative overflow-hidden theme-transition">
+    <section id="music-player" className="w-full max-w-5xl mx-auto px-0 sm:px-2 my-6 relative">
+      <div className="glass-wedding-card rounded-3xl p-4 sm:p-7 border-2 border-[var(--border-gold)] shadow-2xl bg-[var(--bg-elevated)]/95 relative overflow-hidden theme-transition">
         
         {/* Ambient Glows */}
         <div className="absolute top-0 right-0 w-80 h-80 bg-[var(--hero-glow)] rounded-full blur-3xl pointer-events-none" />
