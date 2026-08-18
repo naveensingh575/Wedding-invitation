@@ -4,8 +4,8 @@ import { Heart, Share2, MapPin, ArrowUp } from 'lucide-react';
 export default function Footer({ t, isBrideSide }) {
   const shareText = encodeURIComponent(
     isBrideSide
-      ? "You are cordially invited to the Wedding Ceremony of Manisha Sheoran & Naveen Luhach (#Navisha) on 20th Nov 2026 at Arya Nagar, Charkhi Dadri! Invitation from Shri Jagvir Singh Sheoran & Sheoran Family. View digital invitation card & map locations: "
-      : "You are cordially invited to the Wedding Ceremony of Naveen Luhach & Manisha Sheoran (#Navisha) on 20th Nov 2026 at Nandha ki Dhani, Badhra, Charkhi Dadri! Invitation from Hon. Capt. Satyavir Singh & Luhach Family. View digital invitation card & map locations: "
+      ? "You are cordially invited to the Wedding Ceremony of Manisha Sheoran & Naveen Luhach (#Navisha) on 20th Nov 2026 at Arya Nagar, Tehsil Badhra! Invitation from Shri Jagvir Singh Sheoran & Sheoran Family. View digital invitation card: https://naveenwedsmanisha.online/"
+      : "You are cordially invited to the Wedding Ceremony of Naveen Luhach & Manisha Sheoran (#Navisha) on 20th Nov 2026 at Nandha ki Dhani, Badhra! Invitation from Hon. Capt. Satyavir Singh & Luhach Family. View digital invitation card: https://naveenwedsmanisha.online/"
   );
 
   const scrollToTop = () => {
