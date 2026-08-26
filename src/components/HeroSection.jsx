@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Heart, MapPin, Sparkles, Clock, Camera } from 'lucide-react';
+import { Heart, Sparkles } from 'lucide-react';
 
-export default function HeroSection({ customCouplePhoto, setCustomCouplePhoto, openVideoModal, t, sideData }) {
+export default function HeroSection({ customCouplePhoto, openVideoModal, t, sideData }) {
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
   const activeData = sideData || t.groom || t;
@@ -28,17 +28,6 @@ export default function HeroSection({ customCouplePhoto, setCustomCouplePhoto, o
     const interval = setInterval(updateTimer, 1000);
     return () => clearInterval(interval);
   }, []);
-
-  const handlePhotoUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setCustomCouplePhoto(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
 
   return (
     <section className="relative min-h-screen pt-28 pb-16 px-4 sm:px-6 lg:px-8 flex flex-col justify-center items-center text-center royal-pattern overflow-hidden theme-transition">
@@ -84,7 +73,7 @@ export default function HeroSection({ customCouplePhoto, setCustomCouplePhoto, o
         "{activeData.heroSubheading}"
       </p>
 
-      {/* Single Common Couple Photo Showcase Card (Centered Clean Luxury Frame) */}
+      {/* Single Common Couple Photo Showcase Card (Clean Official Frame without guest upload) */}
       <div className="relative group max-w-md w-full mb-10">
         <div className="absolute -inset-1.5 bg-gradient-to-r from-[var(--accent-gold)] via-[var(--accent-secondary)] to-[var(--accent-gold)] rounded-3xl blur-md opacity-40 group-hover:opacity-75 transition duration-700"></div>
         <div className="relative glass-wedding-card rounded-3xl p-5 border border-[var(--border-gold)] shadow-2xl flex flex-col items-center">
@@ -97,22 +86,6 @@ export default function HeroSection({ customCouplePhoto, setCustomCouplePhoto, o
               className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
-
-            {/* Custom Photo Overlay Button */}
-            <label
-              htmlFor="couple-photo-input"
-              className="absolute bottom-3 right-3 cursor-pointer bg-[var(--bg-elevated)]/90 hover:bg-[var(--accent-gold)] text-[var(--text-primary)] hover:text-white text-xs px-3 py-1.5 rounded-full border border-[var(--border-gold)] flex items-center space-x-1.5 shadow-lg transition-all z-10 font-medium"
-            >
-              <Camera className="w-3.5 h-3.5" />
-              <span>{customCouplePhoto ? "Change Photo" : "Upload Photo"}</span>
-            </label>
-            <input
-              id="couple-photo-input"
-              type="file"
-              accept="image/*"
-              className="hidden"
-              onChange={handlePhotoUpload}
-            />
 
             {/* Artwork Badge Tag */}
             <div className="absolute top-3 left-3 bg-[var(--bg-elevated)]/90 border border-[var(--border-gold)] backdrop-blur-md px-3 py-1 rounded-full text-[11px] text-[var(--accent-primary)] font-semibold flex items-center space-x-1 z-10 shadow-sm">
@@ -136,65 +109,6 @@ export default function HeroSection({ customCouplePhoto, setCustomCouplePhoto, o
             <p className="text-xs text-[var(--text-secondary)] mt-1.5 font-sans">
               Vill. Nandha Ki Dhani, Badhra &nbsp;❤️&nbsp; Arya Nagar, Charkhi Dadri
             </p>
-          </div>
-        </div>
-      </div>
-
-      {/* Action Buttons */}
-      <div className="flex flex-wrap items-center justify-center gap-4 mb-12" id="video-invite">
-        <button
-          onClick={openVideoModal}
-          className="px-7 py-3.5 rounded-full bg-gradient-to-r from-[var(--accent-gold)] to-[#AA7C11] text-white font-bold text-sm sm:text-base shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all flex items-center space-x-2"
-        >
-          <span>🎬</span>
-          <span>Watch Video Invitation</span>
-        </button>
-
-        <a
-          href="#locations"
-          className="px-7 py-3.5 rounded-full bg-[var(--bg-elevated)] hover:bg-[var(--bg-surface)] text-[var(--text-primary)] border border-[var(--border-gold)] font-bold text-sm sm:text-base shadow-md hover:scale-105 active:scale-95 transition-all flex items-center space-x-2"
-        >
-          <MapPin className="w-4 h-4 text-[var(--accent-gold)]" />
-          <span>Get Location & Maps</span>
-        </a>
-      </div>
-
-      {/* Live Wedding Countdown Timer Card */}
-      <div className="w-full max-w-3xl glass-wedding-card rounded-3xl p-6 border border-[var(--border-gold)] shadow-xl">
-        <div className="flex items-center justify-center space-x-2 text-[var(--text-primary)] mb-4">
-          <Clock className="w-5 h-5 text-[var(--accent-gold)]" />
-          <h3 className="font-serif text-base sm:text-lg font-bold tracking-wide">
-            {activeData.countdownHeading}
-          </h3>
-        </div>
-
-        <div className="grid grid-cols-4 gap-3 sm:gap-6">
-          <div className="bg-[var(--bg-elevated)] rounded-2xl p-3 sm:p-4 border border-[var(--border-gold)] flex flex-col items-center shadow-sm">
-            <span className="font-serif text-2xl sm:text-4xl font-extrabold text-[var(--accent-primary)]">
-              {timeLeft.days}
-            </span>
-            <span className="text-[10px] sm:text-xs text-[var(--text-muted)] uppercase tracking-widest mt-1">Days</span>
-          </div>
-
-          <div className="bg-[var(--bg-elevated)] rounded-2xl p-3 sm:p-4 border border-[var(--border-gold)] flex flex-col items-center shadow-sm">
-            <span className="font-serif text-2xl sm:text-4xl font-extrabold text-[var(--accent-primary)]">
-              {timeLeft.hours}
-            </span>
-            <span className="text-[10px] sm:text-xs text-[var(--text-muted)] uppercase tracking-widest mt-1">Hours</span>
-          </div>
-
-          <div className="bg-[var(--bg-elevated)] rounded-2xl p-3 sm:p-4 border border-[var(--border-gold)] flex flex-col items-center shadow-sm">
-            <span className="font-serif text-2xl sm:text-4xl font-extrabold text-[var(--accent-primary)]">
-              {timeLeft.minutes}
-            </span>
-            <span className="text-[10px] sm:text-xs text-[var(--text-muted)] uppercase tracking-widest mt-1">Mins</span>
-          </div>
-
-          <div className="bg-[var(--bg-elevated)] rounded-2xl p-3 sm:p-4 border border-[var(--border-gold)] flex flex-col items-center shadow-sm">
-            <span className="font-serif text-2xl sm:text-4xl font-extrabold text-[var(--accent-gold)] animate-pulse">
-              {timeLeft.seconds}
-            </span>
-            <span className="text-[10px] sm:text-xs text-[var(--text-muted)] uppercase tracking-widest mt-1">Secs</span>
           </div>
         </div>
       </div>
