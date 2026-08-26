@@ -61,18 +61,13 @@ export default function ProgramSchedule({ t, sideData }) {
                 <div className="absolute inset-0 w-full h-full backface-hidden glass-wedding-card rounded-3xl p-6 sm:p-7 border border-[var(--border-gold)] shadow-xl flex flex-col justify-between overflow-hidden bg-[var(--bg-elevated)]/95">
                   <div className="relative z-10 flex flex-col h-full justify-between">
                     
-                    {/* Top Row: Date & Day Badges (Elegantly Aligned) */}
-                    <div className="flex items-center justify-between pb-3.5 border-b border-[var(--border-gold)]">
-                      <div className="flex items-center space-x-2.5 flex-wrap gap-y-1">
-                        <span className="px-3.5 py-1.5 rounded-full bg-[var(--accent-primary)] text-white text-xs font-extrabold shadow-sm font-sans tracking-wide">
-                          🗓️ {event.date}
-                        </span>
-                        <span className="px-3 py-1 rounded-full bg-[var(--badge-bg)] text-[var(--accent-primary)] border border-[var(--badge-border)] text-xs font-bold font-sans">
-                          {event.day}
-                        </span>
-                      </div>
-                      <span className="text-[11px] text-[var(--accent-gold)] font-mono font-semibold uppercase tracking-wider hidden sm:inline-block">
-                        Function {index + 1}
+                    {/* Top Row: Date & Day Badges (Aligned & Function No Removed) */}
+                    <div className="flex items-center space-x-2.5 pb-3.5 border-b border-[var(--border-gold)] w-full">
+                      <span className="px-3.5 py-1.5 rounded-full bg-[var(--accent-primary)] text-white text-xs font-extrabold shadow-sm font-sans tracking-wide shrink-0">
+                        🗓️ {event.date}
+                      </span>
+                      <span className="px-3.5 py-1.5 rounded-full bg-[var(--badge-bg)] text-[var(--accent-primary)] border border-[var(--badge-border)] text-xs font-extrabold font-sans shadow-sm shrink-0">
+                        {event.day}
                       </span>
                     </div>
 
@@ -153,9 +148,6 @@ export default function ProgramSchedule({ t, sideData }) {
                           {t.lineageHeader || "Cultural Heritage & Origin"}
                         </span>
                       </div>
-                      <span className="text-xs text-[var(--accent-gold)] font-mono font-bold">
-                        {event.title.split(' ')[0]}
-                      </span>
                     </div>
 
                     {/* Content Details */}
