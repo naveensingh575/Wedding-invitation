@@ -1,33 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Heart, Sparkles, Clock, MapPin, ArrowRight } from 'lucide-react';
-import confetti from 'canvas-confetti';
 import MusicPlayer from './MusicPlayer';
+import { triggerSkyShotFireworks } from '../utils/skyshots';
 
 export default function LandingPortal({ onSelectSide, currentLang, setCurrentLang, t, musicPlayerProps }) {
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
   const [isCompleted, setIsCompleted] = useState(false);
-
-  const triggerSkyShotFireworks = () => {
-    const duration = 5 * 1000;
-    const animationEnd = Date.now() + duration;
-    const defaults = { startVelocity: 35, spread: 360, ticks: 60, zIndex: 9999 };
-
-    const randomInRange = (min, max) => Math.random() * (max - min) + min;
-
-    const interval = setInterval(() => {
-      const timeLeft = animationEnd - Date.now();
-
-      if (timeLeft <= 0) {
-        return clearInterval(interval);
-      }
-
-      const particleCount = 50 * (timeLeft / duration);
-      // Sky shot left burst
-      confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } });
-      // Sky shot right burst
-      confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } });
-    }, 250);
-  };
 
   useEffect(() => {
     // Target: 20 November 2026 at 11:59 PM IST
@@ -191,7 +169,7 @@ export default function LandingPortal({ onSelectSide, currentLang, setCurrentLan
             {/* Inviter & Venue Details */}
             <div className="p-4 rounded-2xl bg-[var(--bg-elevated)] border border-[var(--border-gold)] text-xs font-sans space-y-2 shadow-sm">
               <p className="text-[var(--text-primary)] font-bold">
-                👨‍gsub‍👧‍👦 {p.groomCard?.hosts || "Hon. Capt. Satyavir Singh & Luhach Family"}
+                👨‍👩‍👧‍👦 {p.groomCard?.hosts || "Hon. Capt. Satyavir Singh & Luhach Family"}
               </p>
               <p className="text-[var(--text-secondary)] flex items-center space-x-1.5">
                 <MapPin className="w-3.5 h-3.5 text-[var(--accent-gold)] shrink-0" />
@@ -284,13 +262,13 @@ export default function LandingPortal({ onSelectSide, currentLang, setCurrentLan
             </h3>
           </div>
 
-          {/* Quick Sky Shot Fireworks Preview Button */}
+          {/* Vibrant Blue & Gold Sky Shots Launcher */}
           <button
             onClick={triggerSkyShotFireworks}
-            className="px-3 py-1 rounded-full bg-[var(--badge-bg)] border border-[var(--badge-border)] text-[10px] font-bold text-[var(--accent-primary)] hover:bg-[var(--accent-gold)] hover:text-white transition-all shadow-sm flex items-center space-x-1"
-            title="Launch Sky Shot Fireworks Animation"
+            className="px-4 py-1.5 rounded-full bg-gradient-to-r from-blue-600 to-amber-500 text-white font-extrabold text-xs shadow-md hover:scale-105 active:scale-95 transition-all flex items-center space-x-1.5"
+            title="Launch Royal Blue & Gold Sky Shots from Bottom of Webpage"
           >
-            <span>🎆 Launch Sky Shots</span>
+            <span>✨ SKY SHOTS 🎆</span>
           </button>
         </div>
 
