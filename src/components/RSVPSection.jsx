@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import confetti from 'canvas-confetti';
 import { Send, CheckCircle, UserCheck, AlertCircle, Sparkles, Loader2 } from 'lucide-react';
+import { useCelebration } from '../hooks/useCelebration';
 
 export default function RSVPSection({ t }) {
+  const { triggerCelebration } = useCelebration();
   const [submitted, setSubmitted] = useState(false);
   const [isSending, setIsSending] = useState(false);
   const [submitError, setSubmitError] = useState('');
@@ -92,16 +94,11 @@ export default function RSVPSection({ t }) {
       setIsSending(false);
       setSubmitted(true);
 
-      // Festive celebratory confetti
+      // Trigger Disney+ Hotstar style Skyshot Celebration
       try {
-        confetti({
-          particleCount: 120,
-          spread: 80,
-          origin: { y: 0.6 },
-          colors: ['#C9A96E', '#7A8B72', '#C9A6A0', '#DFBF82'],
-        });
-      } catch (confettiErr) {
-        console.log('Confetti effect handled', confettiErr);
+        triggerCelebration();
+      } catch (e) {
+        console.log('Celebration trigger handled', e);
       }
 
     } catch (error) {

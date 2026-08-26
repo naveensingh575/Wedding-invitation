@@ -6,6 +6,10 @@ import BridePage from './components/BridePage';
 import VideoInvitationModal from './components/VideoInvitationModal';
 import ThemeSwitcher from './components/ThemeSwitcher';
 
+import { CelebrationProvider } from './context/CelebrationContext';
+import CelebrationCanvas from './components/CelebrationCanvas';
+import FloatingCelebrateButton from './components/FloatingCelebrateButton';
+
 import { WEDDING_PLAYLIST } from './data/playlist';
 import { translations } from './data/translations';
 
@@ -163,211 +167,179 @@ export default function App() {
       audio.removeEventListener('error', handleError);
       removeUnlockListeners();
       audio.pause();
-      audio.src = '';
     };
   }, []);
 
-  // Track Change Handler
-  const changeTrack = (newIndex, shouldPlay = true) => {
+  // Update track source when currentTrackIndex changes
+  useEffect(() => {
     if (!audioRef.current) return;
-    const boundedIndex = (newIndex + WEDDING_PLAYLIST.length) % WEDDING_PLAYLIST.length;
-    setCurrentTrackIndex(boundedIndex);
-    setCurrentTime(0);
+    const audio = audioRef.current;
+    audio.src = WEDDING_PLAYLIST[currentTrackIndex].url;
+    audio.currentTime = 0;
 
-    audioRef.current.src = WEDDING_PLAYLIST[boundedIndex].url;
-    audioRef.current.load();
-    audioRef.current.muted = false;
-    audioRef.current.volume = volume;
-
-    if (shouldPlay || isPlaying) {
-      audioRef.current.play().then(() => {
-        setIsPlaying(true);
-        setIsMuted(false);
-      }).catch((err) => {
-        console.log("Track play error:", err);
-      });
+    if (isPlaying) {
+      audio.play().catch((err) => console.log("Track change auto-play:", err));
     }
-  };
+  }, [currentTrackIndex]);
 
-  // Next Track Logic
-  const handleTrackEnd = () => {
-    if (repeatMode === 'one') {
-      if (audioRef.current) {
-        audioRef.current.currentTime = 0;
-        audioRef.current.play().then(() => setIsPlaying(true));
-      }
-    } else if (repeatMode === 'all') {
-      handlePlayNext();
-    } else {
-      if (currentTrackIndex < WEDDING_PLAYLIST.length - 1) {
-        handlePlayNext();
-      } else {
-        setIsPlaying(false);
-      }
-    }
-  };
-
-  const handlePlayNext = () => {
-    if (isShuffle) {
-      const randomIndex = Math.floor(Math.random() * WEDDING_PLAYLIST.length);
-      changeTrack(randomIndex, true);
-    } else {
-      changeTrack(currentTrackIndex + 1, true);
-    }
-  };
-
-  const handlePlayPrev = () => {
-    if (audioRef.current && audioRef.current.currentTime > 3) {
-      audioRef.current.currentTime = 0;
-    } else {
-      changeTrack(currentTrackIndex - 1, true);
-    }
-  };
-
-  // Play / Pause Toggle
-  const handleTogglePlay = () => {
+  // Audio Playback Controls
+  const togglePlayPause = () => {
     if (!audioRef.current) return;
-
     if (isPlaying) {
       audioRef.current.pause();
       setIsPlaying(false);
     } else {
-      audioRef.current.muted = false;
-      audioRef.current.volume = volume > 0 ? volume : 0.85;
       audioRef.current.play().then(() => {
         setIsPlaying(true);
-        setIsMuted(false);
-      }).catch((err) => {
-        console.log("Audio play policy error:", err);
-      });
+      }).catch((err) => console.log("Play error:", err));
     }
   };
 
-  // Seek, Volume, Mute, Shuffle, Repeat Controls
-  const handleSeek = (time) => {
-    if (audioRef.current && !isNaN(time)) {
-      audioRef.current.currentTime = time;
-      setCurrentTime(time);
+  const handleNextTrack = () => {
+    if (isShuffle) {
+      let nextIdx;
+      do {
+        nextIdx = Math.floor(Math.random() * WEDDING_PLAYLIST.length);
+      } while (nextIdx === currentTrackIndex && WEDDING_PLAYLIST.length > 1);
+      setCurrentTrackIndex(nextIdx);
+    } else {
+      setCurrentTrackIndex((prev) => (prev + 1) % WEDDING_PLAYLIST.length);
     }
+  };
+
+  const handlePrevTrack = () => {
+    setCurrentTrackIndex((prev) => (prev - 1 + WEDDING_PLAYLIST.length) % WEDDING_PLAYLIST.length);
+  };
+
+  const handleTrackEnd = () => {
+    if (repeatMode === 'one') {
+      if (audioRef.current) {
+        audioRef.current.currentTime = 0;
+        audioRef.current.play().catch(() => {});
+      }
+    } else {
+      handleNextTrack();
+    }
+  };
+
+  const toggleMute = () => {
+    if (!audioRef.current) return;
+    const nextMute = !isMuted;
+    audioRef.current.muted = nextMute;
+    setIsMuted(nextMute);
   };
 
   const handleVolumeChange = (newVol) => {
+    if (!audioRef.current) return;
     setVolume(newVol);
-    if (audioRef.current) {
-      audioRef.current.volume = newVol;
-      if (newVol > 0 && isMuted) {
-        audioRef.current.muted = false;
-        setIsMuted(false);
-      }
+    audioRef.current.volume = newVol;
+    if (newVol === 0) {
+      setIsMuted(true);
+      audioRef.current.muted = true;
+    } else if (isMuted) {
+      setIsMuted(false);
+      audioRef.current.muted = false;
     }
   };
 
-  const handleToggleMute = () => {
+  const handleSeek = (newTime) => {
     if (!audioRef.current) return;
-    const nextMuted = !isMuted;
-    audioRef.current.muted = nextMuted;
-    setIsMuted(nextMuted);
+    audioRef.current.currentTime = newTime;
+    setCurrentTime(newTime);
   };
 
-  const handleToggleShuffle = () => {
-    setIsShuffle(!isShuffle);
-  };
-
-  const handleToggleRepeat = () => {
-    if (repeatMode === 'off') setRepeatMode('all');
-    else if (repeatMode === 'all') setRepeatMode('one');
-    else setRepeatMode('off');
-  };
-
+  // Common Props Bundle for MusicPlayer Component
   const musicPlayerProps = {
     playlist: WEDDING_PLAYLIST,
     currentTrackIndex,
+    setCurrentTrackIndex,
     isPlaying,
+    togglePlayPause,
+    handleNextTrack,
+    handlePrevTrack,
     currentTime,
     duration,
+    handleSeek,
     volume,
+    handleVolumeChange,
     isMuted,
+    toggleMute,
     isShuffle,
+    setIsShuffle,
     repeatMode,
-    onTogglePlay: handleTogglePlay,
-    onPlayNext: handlePlayNext,
-    onPlayPrev: handlePlayPrev,
-    onSelectTrack: (index) => changeTrack(index, true),
-    onSeek: handleSeek,
-    onVolumeChange: handleVolumeChange,
-    onToggleMute: handleToggleMute,
-    onToggleShuffle: handleToggleShuffle,
-    onToggleRepeat: handleToggleRepeat,
+    setRepeatMode,
+    t,
   };
 
   return (
-    <div className={`${currentTheme} min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] font-sans theme-transition relative selection:bg-wedding-gold selection:text-wedding-deepMaroon`}>
-      
-      {/* Top Navbar with Clean 3-Pill Language Toggle, Theme Switcher & Audio Sync */}
-      <Navbar
-        isMuted={!isPlaying || isMuted}
-        setIsMuted={handleTogglePlay}
-        currentLang={currentLang}
-        setCurrentLang={setCurrentLang}
-        activePage={activePage}
-        setActivePage={setActivePage}
-        currentTheme={currentTheme}
-        setCurrentTheme={setCurrentTheme}
-        t={t}
-      />
+    <CelebrationProvider>
+      <div className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] relative theme-transition selection:bg-[var(--accent-gold)] selection:text-white font-sans">
+        {/* Fullscreen Hotstar Style Skyshot Fireworks Canvas Overlay */}
+        <CelebrationCanvas />
 
-      {/* ============================================================
-          PAGE ROUTING: PORTAL HOME / GROOM PAGE / BRIDE PAGE
-      ============================================================ */}
-      <main>
-        {activePage === 'portal' && (
-          <LandingPortal
-            onSelectSide={(side) => setActivePage(side)}
-            currentLang={currentLang}
-            setCurrentLang={setCurrentLang}
-            t={t}
-            musicPlayerProps={musicPlayerProps}
-          />
-        )}
+        {/* Floating Manual Skyshot Trigger Button */}
+        <FloatingCelebrateButton />
 
-        {activePage === 'groom' && (
-          <GroomPage
-            customCouplePhoto={customCouplePhoto}
-            setCustomCouplePhoto={setCustomCouplePhoto}
-            openVideoModal={() => setIsVideoModalOpen(true)}
-            t={t}
-            onBackToPortal={() => setActivePage('portal')}
-            onSwitchToBride={() => setActivePage('bride')}
-            musicPlayerProps={musicPlayerProps}
-          />
-        )}
+        {/* Sticky Luxury Navbar */}
+        <Navbar
+          activePage={activePage}
+          setActivePage={setActivePage}
+          currentLang={currentLang}
+          setCurrentLang={setCurrentLang}
+          t={t}
+        />
 
-        {activePage === 'bride' && (
-          <BridePage
-            customCouplePhoto={customCouplePhoto}
-            setCustomCouplePhoto={setCustomCouplePhoto}
-            openVideoModal={() => setIsVideoModalOpen(true)}
-            t={t}
-            onBackToPortal={() => setActivePage('portal')}
-            onSwitchToGroom={() => setActivePage('groom')}
-            musicPlayerProps={musicPlayerProps}
-          />
-        )}
-      </main>
+        {/* Dynamic 3-Page View Container */}
+        <main>
+          {activePage === 'portal' && (
+            <LandingPortal
+              onSelectSide={(side) => setActivePage(side)}
+              currentLang={currentLang}
+              setCurrentLang={setCurrentLang}
+              t={t}
+              musicPlayerProps={musicPlayerProps}
+            />
+          )}
 
-      {/* Video Invitation Modal */}
-      <VideoInvitationModal
-        isOpen={isVideoModalOpen}
-        onClose={() => setIsVideoModalOpen(false)}
-        customVideoUrl={customVideoUrl}
-        setCustomVideoUrl={setCustomVideoUrl}
-      />
+          {activePage === 'groom' && (
+            <GroomPage
+              customCouplePhoto={customCouplePhoto}
+              setCustomCouplePhoto={setCustomCouplePhoto}
+              openVideoModal={() => setIsVideoModalOpen(true)}
+              t={t}
+              onBackToPortal={() => setActivePage('portal')}
+              onSwitchToBride={() => setActivePage('bride')}
+              musicPlayerProps={musicPlayerProps}
+            />
+          )}
 
-      {/* Floating Theme Switcher Widget */}
-      <ThemeSwitcher
-        currentTheme={currentTheme}
-        setCurrentTheme={setCurrentTheme}
-      />
-    </div>
+          {activePage === 'bride' && (
+            <BridePage
+              customCouplePhoto={customCouplePhoto}
+              setCustomCouplePhoto={setCustomCouplePhoto}
+              openVideoModal={() => setIsVideoModalOpen(true)}
+              t={t}
+              onBackToPortal={() => setActivePage('portal')}
+              onSwitchToGroom={() => setActivePage('groom')}
+              musicPlayerProps={musicPlayerProps}
+            />
+          )}
+        </main>
+
+        {/* Video Invitation Modal */}
+        <VideoInvitationModal
+          isOpen={isVideoModalOpen}
+          onClose={() => setIsVideoModalOpen(false)}
+          customVideoUrl={customVideoUrl}
+          setCustomVideoUrl={setCustomVideoUrl}
+        />
+
+        {/* Floating Theme Switcher Widget */}
+        <ThemeSwitcher
+          currentTheme={currentTheme}
+          setCurrentTheme={setCurrentTheme}
+        />
+      </div>
+    </CelebrationProvider>
   );
 }

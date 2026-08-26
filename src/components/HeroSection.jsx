@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Heart, Sparkles } from 'lucide-react';
-import { triggerSkyShotFireworks } from '../utils/skyshots';
+import { useCelebration } from '../hooks/useCelebration';
 
 export default function HeroSection({ customCouplePhoto, openVideoModal, t, sideData }) {
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+  const { triggerCelebration } = useCelebration();
 
   const activeData = sideData || t.groom || t;
 
@@ -140,7 +141,7 @@ export default function HeroSection({ customCouplePhoto, openVideoModal, t, side
 
         {/* Sky Shot Fireworks Button */}
         <button
-          onClick={triggerSkyShotFireworks}
+          onClick={triggerCelebration}
           className="w-full sm:w-1/3 py-3.5 px-4 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-amber-500 text-white font-serif font-extrabold text-xs shadow-xl hover:scale-105 active:scale-95 transition-all duration-300 flex items-center justify-center space-x-1.5 border border-blue-300/40 cursor-pointer"
         >
           <span className="text-sm">✨</span>
