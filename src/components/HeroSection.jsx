@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Heart, Sparkles } from 'lucide-react';
+import { Heart, Sparkles, MapPin, Film } from 'lucide-react';
 import { useCelebration } from '../hooks/useCelebration';
 
 export default function HeroSection({ customCouplePhoto, openVideoModal, t, sideData }) {
@@ -96,21 +96,30 @@ export default function HeroSection({ customCouplePhoto, openVideoModal, t, side
             </div>
           </div>
 
-          {/* Couple Name Tag */}
+          {/* Couple Name Tag & Styled Location Badge */}
           <div className="mt-5 text-center w-full">
             <div className="flex items-center justify-center space-x-2 text-2xl sm:text-3xl font-serif font-extrabold text-[var(--text-primary)] flex-wrap">
               <span>Naveen Luhach</span>
               <Heart className="w-5 h-5 text-rose-500 fill-rose-500 animate-pulse" />
               <span>Manisha Sheoran</span>
             </div>
+            
             <div className="mt-2 flex items-center justify-center space-x-2 text-xs">
               <span className="px-3 py-0.5 rounded-full bg-[var(--badge-bg)] text-[var(--badge-text)] border border-[var(--badge-border)] font-bold">
                 #Navisha
               </span>
             </div>
-            <p className="text-xs text-[var(--text-secondary)] mt-1.5 font-sans">
-              Vill. Nandha Ki Dhani, Badhra &nbsp;❤️&nbsp; Arya Nagar, Charkhi Dadri
-            </p>
+
+            {/* Elegant Styled Location Badge (Replacing raw location emoji) */}
+            <div className="mt-3 inline-flex items-center justify-center px-4 py-2 rounded-2xl bg-[var(--bg-elevated)] border border-[var(--border-gold)] text-xs text-[var(--text-secondary)] font-sans shadow-sm">
+              <MapPin className="w-4 h-4 text-[var(--accent-gold)] shrink-0 mr-1.5" />
+              <span className="font-semibold text-[var(--text-primary)]">
+                {activeData.isBrideSide
+                  ? "Arya Nagar, Post & Tehsil Badhra, Distt. Charkhi Dadri (Haryana) — 127306"
+                  : "Vill. Nandha Ki Dhani, Post & Tehsil Badhra, Distt. Charkhi Dadri (Haryana) — 127308"}
+              </span>
+            </div>
+
           </div>
         </div>
       </div>
@@ -122,11 +131,11 @@ export default function HeroSection({ customCouplePhoto, openVideoModal, t, side
           onClick={openVideoModal}
           className="w-full sm:w-1/2 py-3.5 px-6 rounded-2xl bg-gradient-to-r from-[var(--accent-gold)] via-[#B8860B] to-[#AA7C11] text-white font-serif font-bold text-sm shadow-xl hover:scale-105 active:scale-95 transition-all duration-300 flex items-center justify-center space-x-2 border border-amber-300/40 group cursor-pointer"
         >
-          <span className="text-base group-hover:scale-110 transition-transform">🎬</span>
+          <Film className="w-4 h-4 text-white group-hover:scale-110 transition-transform" />
           <span className="tracking-wide">Watch Video Invitation</span>
         </button>
 
-        {/* Get Location & Maps Button */}
+        {/* Get Location & Maps Button (Styled MapPin icon) */}
         <a
           href="#locations"
           onClick={(e) => {
@@ -135,7 +144,7 @@ export default function HeroSection({ customCouplePhoto, openVideoModal, t, side
           }}
           className="w-full sm:w-1/2 py-3.5 px-6 rounded-2xl bg-[var(--bg-elevated)] hover:bg-[var(--bg-card)] border-2 border-[var(--border-gold)] text-[var(--text-primary)] hover:text-[var(--accent-primary)] font-serif font-bold text-sm shadow-xl hover:border-[var(--accent-gold)] hover:scale-105 active:scale-95 transition-all duration-300 flex items-center justify-center space-x-2 group cursor-pointer"
         >
-          <span className="text-base group-hover:scale-110 transition-transform">📍</span>
+          <MapPin className="w-4 h-4 text-[var(--accent-gold)] group-hover:scale-110 transition-transform" />
           <span className="tracking-wide">Get Location & Maps</span>
         </a>
       </div>

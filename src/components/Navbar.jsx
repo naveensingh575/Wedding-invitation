@@ -29,7 +29,7 @@ export default function Navbar({
     { id: 'theme-terracotta-beige', name: 'Terracotta & Beige 🪔' },
   ];
 
-  // Single Click Theme Cycling (No Dropdown)
+  // Single Click Theme Cycling
   const cycleNextTheme = () => {
     const currentIndex = themes.findIndex((thm) => thm.id === currentTheme);
     const nextIndex = (currentIndex + 1) % themes.length;
@@ -58,7 +58,7 @@ export default function Navbar({
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           
-          {/* Brand Logo & Title - Clicking returns to Home / Landing Portal */}
+          {/* Brand Logo & Title */}
           <div
             onClick={() => setActivePage('portal')}
             className="flex items-center space-x-2.5 sm:space-x-3 cursor-pointer group"
@@ -80,10 +80,10 @@ export default function Navbar({
             </div>
           </div>
 
-          {/* Right Controls: 3-Pill Language Selector, 1-Tap Theme Cycle Button & Direct Music Button */}
+          {/* Right Controls: 3-Pill Language Selector, 1-Tap Theme Cycle & Clean Music Button */}
           <div className="flex items-center space-x-1.5 sm:space-x-3">
             
-            {/* Horizontal 3-Button Language Selector */}
+            {/* Language Selector */}
             <div className="flex items-center bg-[var(--bg-elevated)] p-0.5 sm:p-1 rounded-full border border-[var(--border-gold)] shadow-sm">
               {languages.map((lang) => (
                 <button
@@ -100,7 +100,7 @@ export default function Navbar({
               ))}
             </div>
 
-            {/* Direct 1-Tap Theme Cycle Button (No Dropdown - Sequential 5-Theme Cycle) */}
+            {/* Direct 1-Tap Theme Cycle Button */}
             <button
               onClick={cycleNextTheme}
               className="p-2 sm:px-3 sm:py-1.5 rounded-full bg-[var(--bg-elevated)] hover:bg-[var(--bg-card)] border border-[var(--border-gold)] text-xs font-bold text-[var(--text-primary)] flex items-center space-x-1.5 shadow-sm transition-all cursor-pointer"
@@ -110,7 +110,7 @@ export default function Navbar({
               <span className="hidden sm:inline text-[11px]">Theme</span>
             </button>
 
-            {/* Direct Audio Play / Stop Button */}
+            {/* Clean Music Play / Stop Button (No duplicate emojis before text) */}
             <button
               onClick={handleMusicClick}
               className={`p-2 sm:px-3 sm:py-1.5 rounded-full border text-xs font-bold flex items-center space-x-1.5 shadow-sm transition-all relative cursor-pointer ${
@@ -118,18 +118,18 @@ export default function Navbar({
                   ? 'bg-[var(--badge-bg)] text-[var(--accent-gold)] border-[var(--border-gold)] ring-1 ring-[var(--accent-gold)]'
                   : 'bg-[var(--bg-elevated)] text-[var(--text-muted)] border-[var(--border-gold)] hover:text-[var(--text-primary)]'
               }`}
-              title={isAudioActive ? "Pause Music 🎵" : "Play Music 🎵"}
+              title={isAudioActive ? "Pause Music" : "Play Music"}
             >
               {isAudioActive ? (
                 <>
                   <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-[var(--accent-gold)] rounded-full animate-ping" />
                   <Volume2 className="w-4 h-4 text-[var(--accent-gold)] animate-bounce" />
-                  <span className="hidden md:inline text-[11px]">🎵 Music</span>
+                  <span className="hidden md:inline text-[11px]">Music</span>
                 </>
               ) : (
                 <>
                   <VolumeX className="w-4 h-4 text-rose-400" />
-                  <span className="hidden md:inline text-[11px]">🔇 Muted</span>
+                  <span className="hidden md:inline text-[11px]">Muted</span>
                 </>
               )}
             </button>

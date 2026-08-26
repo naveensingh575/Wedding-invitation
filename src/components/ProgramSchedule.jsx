@@ -71,10 +71,10 @@ export default function ProgramSchedule({ t, sideData }) {
                       </span>
                     </div>
 
-                    {/* Middle Row: Doodle & Event Info */}
+                    {/* Middle Row: Doodle Artwork (Mobile Full-Width Responsive) & Event Details */}
                     <div className="my-4 flex flex-col sm:flex-row items-center gap-5">
-                      {/* Event Doodle Artwork */}
-                      <div className="w-32 h-32 sm:w-36 sm:h-36 rounded-2xl overflow-hidden border-2 border-[var(--border-gold)] shadow-md bg-black/10 shrink-0 relative group">
+                      {/* Responsive Doodle Image Container */}
+                      <div className="w-full sm:w-36 h-48 sm:h-36 rounded-2xl overflow-hidden border-2 border-[var(--border-gold)] shadow-md bg-black/10 shrink-0 relative group">
                         <img
                           src={event.doodle}
                           alt={event.title}
@@ -84,7 +84,7 @@ export default function ProgramSchedule({ t, sideData }) {
                       </div>
 
                       {/* Titles & Highlights */}
-                      <div className="flex-1 text-left">
+                      <div className="flex-1 text-left w-full sm:w-auto">
                         <div className="inline-block px-2.5 py-0.5 rounded-md bg-[var(--badge-bg)] text-[10px] font-bold text-[var(--accent-primary)] border border-[var(--badge-border)] mb-1.5">
                           {event.highlight}
                         </div>
