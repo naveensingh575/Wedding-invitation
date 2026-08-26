@@ -19,26 +19,60 @@ function formatTime(seconds) {
   return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
 }
 
-export default function MusicPlayer({
-  playlist,
-  currentTrackIndex,
-  isPlaying,
-  currentTime,
-  duration,
-  volume,
-  isMuted,
-  isShuffle,
-  repeatMode,
-  onTogglePlay,
-  onPlayNext,
-  onPlayPrev,
-  onSeek,
-  onVolumeChange,
-  onToggleMute,
-  onToggleShuffle,
-  onToggleRepeat,
-}) {
-  const currentTrack = playlist[currentTrackIndex] || playlist[0];
+export default function MusicPlayer(props) {
+  const {
+    playlist = [],
+    currentTrackIndex = 0,
+    isPlaying = false,
+    currentTime = 0,
+    duration = 0,
+    volume = 0.85,
+    isMuted = false,
+    isShuffle = false,
+    repeatMode = 'all',
+    // Support both prop naming conventions from App.jsx and legacy components
+    togglePlayPause,
+    onTogglePlay,
+    handleNextTrack,
+    onPlayNext,
+    handlePrevTrack,
+    onPlayPrev,
+    handleSeek,
+    onSeek,
+    handleVolumeChange,
+    onVolumeChange,
+    toggleMute,
+    onToggleMute,
+    setIsShuffle,
+    onToggleShuffle,
+    setRepeatMode,
+    onToggleRepeat,
+  } = props;
+
+  const currentTrack = playlist[currentTrackIndex] || playlist[0] || {
+    title: 'Aaj Sajeya (Couple Special)',
+    artist: 'Goldie Sohel',
+    durationEst: '3:50',
+  };
+
+  const playPauseHandler = togglePlayPause || onTogglePlay;
+  const nextTrackHandler = handleNextTrack || onPlayNext;
+  const prevTrackHandler = handlePrevTrack || onPlayPrev;
+  const seekHandler = handleSeek || onSeek;
+  const volumeHandler = handleVolumeChange || onVolumeChange;
+  const muteHandler = toggleMute || onToggleMute;
+
+  const shuffleHandler = () => {
+    if (onToggleShuffle) onToggleShuffle();
+    else if (setIsShuffle) setIsShuffle((prev) => !prev);
+  };
+
+  const repeatHandler = () => {
+    if (onToggleRepeat) onToggleRepeat();
+    else if (setRepeatMode) {
+      setRepeatMode((prev) => (prev === 'off' ? 'all' : prev === 'all' ? 'one' : 'off'));
+    }
+  };
 
   return (
     <section id="music-player" className="w-full mx-auto px-0 sm:px-2 my-6 relative">
@@ -90,25 +124,23 @@ export default function MusicPlayer({
             {/* Playback Controls (Shuffle, Previous, Play/Pause, Next, Repeat) */}
             <div className="flex items-center space-x-2.5 sm:space-x-3.5 shrink-0">
               
-              {/* Shuffle Toggle */}
-              {onToggleShuffle && (
-                <button
-                  onClick={onToggleShuffle}
-                  className={`p-2.5 sm:p-3 rounded-full border transition-all shadow-sm ${
-                    isShuffle
-                      ? 'bg-[var(--accent-gold)] text-white border-[var(--accent-gold)]'
-                      : 'bg-[var(--bg-surface)] text-[var(--text-muted)] border-[var(--border-gold)] hover:text-[var(--text-primary)]'
-                  }`}
-                  title={isShuffle ? "Shuffle On" : "Shuffle Off"}
-                >
-                  <Shuffle className="w-4 h-4" />
-                </button>
-              )}
+              {/* Shuffle / Re-shuffle Toggle */}
+              <button
+                onClick={shuffleHandler}
+                className={`p-2.5 sm:p-3 rounded-full border transition-all shadow-sm cursor-pointer ${
+                  isShuffle
+                    ? 'bg-[var(--accent-gold)] text-white border-[var(--accent-gold)] shadow-md'
+                    : 'bg-[var(--bg-surface)] text-[var(--text-muted)] border-[var(--border-gold)] hover:text-[var(--text-primary)]'
+                }`}
+                title={isShuffle ? "Shuffle On (Re-shuffling playlist)" : "Shuffle Off"}
+              >
+                <Shuffle className="w-4 h-4" />
+              </button>
 
               {/* Previous Track */}
               <button
-                onClick={onPlayPrev}
-                className="p-2.5 sm:p-3 rounded-full bg-[var(--bg-surface)] hover:bg-[var(--bg-card)] text-[var(--text-primary)] border border-[var(--border-gold)] hover:border-[var(--accent-gold)] transition-all shadow-md active:scale-95"
+                onClick={prevTrackHandler}
+                className="p-2.5 sm:p-3 rounded-full bg-[var(--bg-surface)] hover:bg-[var(--bg-card)] text-[var(--text-primary)] border border-[var(--border-gold)] hover:border-[var(--accent-gold)] transition-all shadow-md active:scale-95 cursor-pointer"
                 title="Previous Track"
               >
                 <SkipBack className="w-4 h-4 sm:w-5 sm:h-5 fill-current" />
@@ -116,8 +148,8 @@ export default function MusicPlayer({
 
               {/* Play / Pause Main Button */}
               <button
-                onClick={onTogglePlay}
-                className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-to-r from-[var(--accent-gold)] to-[#AA7C11] text-white flex items-center justify-center font-bold shadow-xl hover:scale-105 active:scale-95 transition-all"
+                onClick={playPauseHandler}
+                className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-to-r from-[var(--accent-gold)] to-[#AA7C11] text-white flex items-center justify-center font-bold shadow-xl hover:scale-105 active:scale-95 transition-all cursor-pointer"
                 title={isPlaying ? "Pause" : "Play"}
               >
                 {isPlaying ? (
@@ -129,27 +161,25 @@ export default function MusicPlayer({
 
               {/* Next Track */}
               <button
-                onClick={onPlayNext}
-                className="p-2.5 sm:p-3 rounded-full bg-[var(--bg-surface)] hover:bg-[var(--bg-card)] text-[var(--text-primary)] border border-[var(--border-gold)] hover:border-[var(--accent-gold)] transition-all shadow-md active:scale-95"
+                onClick={nextTrackHandler}
+                className="p-2.5 sm:p-3 rounded-full bg-[var(--bg-surface)] hover:bg-[var(--bg-card)] text-[var(--text-primary)] border border-[var(--border-gold)] hover:border-[var(--accent-gold)] transition-all shadow-md active:scale-95 cursor-pointer"
                 title="Next Track"
               >
                 <SkipForward className="w-4 h-4 sm:w-5 sm:h-5 fill-current" />
               </button>
 
               {/* Repeat Toggle */}
-              {onToggleRepeat && (
-                <button
-                  onClick={onToggleRepeat}
-                  className={`p-2.5 sm:p-3 rounded-full border transition-all shadow-sm ${
-                    repeatMode !== 'off'
-                      ? 'bg-[var(--accent-gold)] text-white border-[var(--accent-gold)]'
-                      : 'bg-[var(--bg-surface)] text-[var(--text-muted)] border-[var(--border-gold)] hover:text-[var(--text-primary)]'
-                  }`}
-                  title={`Repeat: ${repeatMode}`}
-                >
-                  {repeatMode === 'one' ? <Repeat1 className="w-4 h-4" /> : <Repeat className="w-4 h-4" />}
-                </button>
-              )}
+              <button
+                onClick={repeatHandler}
+                className={`p-2.5 sm:p-3 rounded-full border transition-all shadow-sm cursor-pointer ${
+                  repeatMode !== 'off'
+                    ? 'bg-[var(--accent-gold)] text-white border-[var(--accent-gold)] shadow-md'
+                    : 'bg-[var(--bg-surface)] text-[var(--text-muted)] border-[var(--border-gold)] hover:text-[var(--text-primary)]'
+                }`}
+                title={`Repeat Mode: ${repeatMode}`}
+              >
+                {repeatMode === 'one' ? <Repeat1 className="w-4 h-4" /> : <Repeat className="w-4 h-4" />}
+              </button>
 
             </div>
 
@@ -169,7 +199,7 @@ export default function MusicPlayer({
                   min="0"
                   max={duration || 100}
                   value={currentTime || 0}
-                  onChange={(e) => onSeek(parseFloat(e.target.value))}
+                  onChange={(e) => seekHandler && seekHandler(parseFloat(e.target.value))}
                   className="w-full h-2 rounded-lg bg-[var(--bg-surface)] border border-[var(--border-gold)] appearance-none cursor-pointer accent-[var(--accent-gold)] focus:outline-none"
                 />
               </div>
@@ -181,8 +211,8 @@ export default function MusicPlayer({
               {/* Volume Slider & Mute Toggle */}
               <div className="hidden sm:flex items-center space-x-2 pl-3 border-l border-[var(--border-gold)]">
                 <button
-                  onClick={onToggleMute}
-                  className="p-1 rounded-full text-[var(--text-muted)] hover:text-[var(--accent-gold)] transition-colors"
+                  onClick={muteHandler}
+                  className="p-1 rounded-full text-[var(--text-muted)] hover:text-[var(--accent-gold)] transition-colors cursor-pointer"
                   title={isMuted ? "Unmute" : "Mute"}
                 >
                   {isMuted || volume === 0 ? (
@@ -197,15 +227,15 @@ export default function MusicPlayer({
                   max="1"
                   step="0.05"
                   value={isMuted ? 0 : volume}
-                  onChange={(e) => onVolumeChange(parseFloat(e.target.value))}
-                  className="w-16 h-1.5 rounded-lg bg-[var(--bg-surface)] appearance-none cursor-pointer accent-[var(--accent-gold)]"
+                  onChange={(e) => volumeHandler && volumeHandler(parseFloat(e.target.value))}
+                  className="w-16 h-1.5 rounded-lg bg-[var(--bg-surface)] border border-[var(--border-gold)] appearance-none cursor-pointer accent-[var(--accent-gold)]"
                 />
               </div>
+
             </div>
           </div>
 
         </div>
-
       </div>
     </section>
   );
