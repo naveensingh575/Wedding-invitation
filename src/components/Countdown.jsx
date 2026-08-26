@@ -7,7 +7,7 @@ export default function Countdown({ targetDateStr = '2026-11-20T23:59:00+05:30',
   const [isCompleted, setIsCompleted] = useState(false);
   const hasTriggeredRef = useRef(false);
 
-  const { triggerCelebration } = useCelebration();
+  const { triggerSkyshots, triggerCelebration } = useCelebration();
 
   useEffect(() => {
     const targetDate = new Date(targetDateStr).getTime();
@@ -21,7 +21,7 @@ export default function Countdown({ targetDateStr = '2026-11-20T23:59:00+05:30',
         const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-        
+
         setTimeLeft({ days, hours, minutes, seconds });
         setIsCompleted(false);
       } else {
@@ -31,7 +31,11 @@ export default function Countdown({ targetDateStr = '2026-11-20T23:59:00+05:30',
         // Prevent infinite re-triggering using hasTriggeredRef
         if (!hasTriggeredRef.current) {
           hasTriggeredRef.current = true;
-          triggerCelebration();
+          if (typeof triggerSkyshots === 'function') {
+            triggerSkyshots();
+          } else if (typeof triggerCelebration === 'function') {
+            triggerCelebration();
+          }
         }
       }
     };
@@ -39,7 +43,15 @@ export default function Countdown({ targetDateStr = '2026-11-20T23:59:00+05:30',
     updateTimer();
     const interval = setInterval(updateTimer, 1000);
     return () => clearInterval(interval);
-  }, [targetDateStr, triggerCelebration]);
+  }, [targetDateStr, triggerSkyshots, triggerCelebration]);
+
+  const handleTestSkyshots = () => {
+    if (typeof triggerSkyshots === 'function') {
+      triggerSkyshots();
+    } else if (typeof triggerCelebration === 'function') {
+      triggerCelebration();
+    }
+  };
 
   return (
     <div className="w-full max-w-5xl glass-wedding-card rounded-3xl p-6 border border-[var(--border-gold)] shadow-xl my-6">
@@ -62,35 +74,49 @@ export default function Countdown({ targetDateStr = '2026-11-20T23:59:00+05:30',
           </p>
         </div>
       ) : (
-        <div className="grid grid-cols-4 gap-3 sm:gap-6">
-          <div className="bg-[var(--bg-elevated)] rounded-2xl p-3 sm:p-4 border border-[var(--border-gold)] flex flex-col items-center shadow-sm">
-            <span className="font-serif text-2xl sm:text-4xl font-extrabold text-[var(--accent-primary)]">
-              {timeLeft.days}
-            </span>
-            <span className="text-[10px] sm:text-xs text-[var(--text-muted)] uppercase tracking-widest mt-1">Days</span>
+        <>
+          <div className="grid grid-cols-4 gap-3 sm:gap-6">
+            <div className="bg-[var(--bg-elevated)] rounded-2xl p-3 sm:p-4 border border-[var(--border-gold)] flex flex-col items-center shadow-sm">
+              <span className="font-serif text-2xl sm:text-4xl font-extrabold text-[var(--accent-primary)]">
+                {timeLeft.days}
+              </span>
+              <span className="text-[10px] sm:text-xs text-[var(--text-muted)] uppercase tracking-widest mt-1">Days</span>
+            </div>
+
+            <div className="bg-[var(--bg-elevated)] rounded-2xl p-3 sm:p-4 border border-[var(--border-gold)] flex flex-col items-center shadow-sm">
+              <span className="font-serif text-2xl sm:text-4xl font-extrabold text-[var(--accent-primary)]">
+                {timeLeft.hours}
+              </span>
+              <span className="text-[10px] sm:text-xs text-[var(--text-muted)] uppercase tracking-widest mt-1">Hours</span>
+            </div>
+
+            <div className="bg-[var(--bg-elevated)] rounded-2xl p-3 sm:p-4 border border-[var(--border-gold)] flex flex-col items-center shadow-sm">
+              <span className="font-serif text-2xl sm:text-4xl font-extrabold text-[var(--accent-primary)]">
+                {timeLeft.minutes}
+              </span>
+              <span className="text-[10px] sm:text-xs text-[var(--text-muted)] uppercase tracking-widest mt-1">Mins</span>
+            </div>
+
+            <div className="bg-[var(--bg-elevated)] rounded-2xl p-3 sm:p-4 border border-[var(--border-gold)] flex flex-col items-center shadow-sm">
+              <span className="font-serif text-2xl sm:text-4xl font-extrabold text-[var(--accent-gold)] animate-pulse">
+                {timeLeft.seconds}
+              </span>
+              <span className="text-[10px] sm:text-xs text-[var(--text-muted)] uppercase tracking-widest mt-1">Secs</span>
+            </div>
           </div>
 
-          <div className="bg-[var(--bg-elevated)] rounded-2xl p-3 sm:p-4 border border-[var(--border-gold)] flex flex-col items-center shadow-sm">
-            <span className="font-serif text-2xl sm:text-4xl font-extrabold text-[var(--accent-primary)]">
-              {timeLeft.hours}
-            </span>
-            <span className="text-[10px] sm:text-xs text-[var(--text-muted)] uppercase tracking-widest mt-1">Hours</span>
+          {/* Discreet Test Skyshots Button (Only beneath the timer numbers) */}
+          <div className="mt-4 flex justify-center">
+            <button
+              onClick={handleTestSkyshots}
+              className="px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/30 text-white text-xs font-semibold backdrop-blur-sm transition-all shadow-sm flex items-center space-x-1.5 cursor-pointer"
+              title="Test Pure Bright White Commercial Skyshots Fireworks Animation"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-white" />
+              <span>🎉 Test Skyshots</span>
+            </button>
           </div>
-
-          <div className="bg-[var(--bg-elevated)] rounded-2xl p-3 sm:p-4 border border-[var(--border-gold)] flex flex-col items-center shadow-sm">
-            <span className="font-serif text-2xl sm:text-4xl font-extrabold text-[var(--accent-primary)]">
-              {timeLeft.minutes}
-            </span>
-            <span className="text-[10px] sm:text-xs text-[var(--text-muted)] uppercase tracking-widest mt-1">Mins</span>
-          </div>
-
-          <div className="bg-[var(--bg-elevated)] rounded-2xl p-3 sm:p-4 border border-[var(--border-gold)] flex flex-col items-center shadow-sm">
-            <span className="font-serif text-2xl sm:text-4xl font-extrabold text-[var(--accent-gold)] animate-pulse">
-              {timeLeft.seconds}
-            </span>
-            <span className="text-[10px] sm:text-xs text-[var(--text-muted)] uppercase tracking-widest mt-1">Secs</span>
-          </div>
-        </div>
+        </>
       )}
     </div>
   );
