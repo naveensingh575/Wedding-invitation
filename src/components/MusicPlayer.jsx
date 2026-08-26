@@ -6,6 +6,9 @@ import {
   SkipForward,
   Volume2,
   VolumeX,
+  Shuffle,
+  Repeat,
+  Repeat1,
   Music,
 } from 'lucide-react';
 
@@ -24,24 +27,28 @@ export default function MusicPlayer({
   duration,
   volume,
   isMuted,
+  isShuffle,
+  repeatMode,
   onTogglePlay,
   onPlayNext,
   onPlayPrev,
   onSeek,
   onVolumeChange,
   onToggleMute,
+  onToggleShuffle,
+  onToggleRepeat,
 }) {
   const currentTrack = playlist[currentTrackIndex] || playlist[0];
 
   return (
-    <section id="music-player" className="w-full max-w-5xl mx-auto px-0 sm:px-2 my-6 relative">
+    <section id="music-player" className="w-full mx-auto px-0 sm:px-2 my-6 relative">
       <div className="glass-wedding-card rounded-3xl p-4 sm:p-6 border-2 border-[var(--border-gold)] shadow-2xl bg-[var(--bg-elevated)]/95 relative overflow-hidden theme-transition">
         
         {/* Ambient Glows */}
         <div className="absolute top-0 right-0 w-72 h-72 bg-[var(--hero-glow)] rounded-full blur-3xl pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-52 h-52 bg-[var(--badge-bg)] rounded-full blur-2xl pointer-events-none" />
 
-        {/* Minimal Audio Control Bar */}
+        {/* Minimal Elegant Audio Control Bar */}
         <div className="relative z-10">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             
@@ -80,9 +87,24 @@ export default function MusicPlayer({
               </div>
             </div>
 
-            {/* Playback Controls (Previous, Play/Pause, Next) */}
-            <div className="flex items-center space-x-3 sm:space-x-4 shrink-0">
+            {/* Playback Controls (Shuffle, Previous, Play/Pause, Next, Repeat) */}
+            <div className="flex items-center space-x-2.5 sm:space-x-3.5 shrink-0">
               
+              {/* Shuffle Toggle */}
+              {onToggleShuffle && (
+                <button
+                  onClick={onToggleShuffle}
+                  className={`p-2.5 sm:p-3 rounded-full border transition-all shadow-sm ${
+                    isShuffle
+                      ? 'bg-[var(--accent-gold)] text-white border-[var(--accent-gold)]'
+                      : 'bg-[var(--bg-surface)] text-[var(--text-muted)] border-[var(--border-gold)] hover:text-[var(--text-primary)]'
+                  }`}
+                  title={isShuffle ? "Shuffle On" : "Shuffle Off"}
+                >
+                  <Shuffle className="w-4 h-4" />
+                </button>
+              )}
+
               {/* Previous Track */}
               <button
                 onClick={onPlayPrev}
@@ -113,6 +135,21 @@ export default function MusicPlayer({
               >
                 <SkipForward className="w-4 h-4 sm:w-5 sm:h-5 fill-current" />
               </button>
+
+              {/* Repeat Toggle */}
+              {onToggleRepeat && (
+                <button
+                  onClick={onToggleRepeat}
+                  className={`p-2.5 sm:p-3 rounded-full border transition-all shadow-sm ${
+                    repeatMode !== 'off'
+                      ? 'bg-[var(--accent-gold)] text-white border-[var(--accent-gold)]'
+                      : 'bg-[var(--bg-surface)] text-[var(--text-muted)] border-[var(--border-gold)] hover:text-[var(--text-primary)]'
+                  }`}
+                  title={`Repeat: ${repeatMode}`}
+                >
+                  {repeatMode === 'one' ? <Repeat1 className="w-4 h-4" /> : <Repeat className="w-4 h-4" />}
+                </button>
+              )}
 
             </div>
 

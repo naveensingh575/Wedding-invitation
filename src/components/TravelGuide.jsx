@@ -9,7 +9,6 @@ export default function TravelGuide({ t, sideData, isBrideSide }) {
     { place: "Loharu Junction (LHU)", dist: "19 KM", note: "Major rail junction & road" },
     { place: "Satnali Station (STNL)", dist: "26 KM", note: "Closest railway stop" },
     { place: "Charkhi Dadri (CKD)", dist: "40 KM", note: "City railway station & connectivity" },
-    { place: "Badhra (बाढड़ा)", dist: "10 KM", note: "Direct state highway route" },
   ];
 
   const groomDistances = [

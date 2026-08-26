@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Heart, Sparkles, Clock, MapPin, ArrowRight, Camera } from 'lucide-react';
+import { Heart, Sparkles, Clock, MapPin, ArrowRight } from 'lucide-react';
 import MusicPlayer from './MusicPlayer';
 
 export default function LandingPortal({ onSelectSide, currentLang, setCurrentLang, t, musicPlayerProps }) {
@@ -161,14 +161,14 @@ export default function LandingPortal({ onSelectSide, currentLang, setCurrentLan
             {/* Inviter & Venue Details */}
             <div className="p-4 rounded-2xl bg-[var(--bg-elevated)] border border-[var(--border-gold)] text-xs font-sans space-y-2 shadow-sm">
               <p className="text-[var(--text-primary)] font-bold">
-                👨‍👩‍👧‍👦 {p.groomCard?.hosts || "Hon. Capt. Satyavir Singh & Luhach Family"}
+                👨‍👩‍👦 {p.groomCard?.hosts || "Hon. Capt. Satyavir Singh & Luhach Family"}
               </p>
               <p className="text-[var(--text-secondary)] flex items-center space-x-1.5">
                 <MapPin className="w-3.5 h-3.5 text-[var(--accent-gold)] shrink-0" />
                 <span>{p.groomCard?.venue || "Vill. Nandha ki Dhani, Badhra"}</span>
               </p>
               <p className="text-[11px] text-[var(--text-muted)] border-t border-[var(--border-gold)]/60 pt-2">
-                🌾 {p.groomCard?.desc || "Haldi, Bhaat, Ghurchhari Horse Ceremony & Barat Departure"}
+                🌾 {p.groomCard?.desc || "1st Ban & Haldi, Mahila Sangeet, Bhaat & Lagan, Ghurchhari & Barat"}
               </p>
             </div>
           </div>
@@ -182,12 +182,12 @@ export default function LandingPortal({ onSelectSide, currentLang, setCurrentLan
           </div>
         </div>
 
-        {/* 2. BRIDE SIDE CARD (वधू पक्ष - आर्यनगर) */}
+        {/* 2. BRIDE SIDE CARD (वधू पक्ष - आर्य नगर) */}
         <div
           onClick={() => onSelectSide('bride')}
-          className="group relative rounded-3xl p-6 sm:p-8 glass-wedding-card border-2 border-[var(--border-gold)] hover:border-[var(--accent-gold)] shadow-2xl hover:shadow-[0_20px_50px_rgba(201,166,160,0.3)] cursor-pointer transition-all duration-500 flex flex-col justify-between overflow-hidden transform hover:-translate-y-2 text-left"
+          className="group relative rounded-3xl p-6 sm:p-8 glass-wedding-card border-2 border-[var(--border-gold)] hover:border-[var(--accent-gold)] shadow-2xl hover:shadow-[0_20px_50px_rgba(201,169,110,0.3)] cursor-pointer transition-all duration-500 flex flex-col justify-between overflow-hidden transform hover:-translate-y-2 text-left"
         >
-          <div className="absolute top-0 right-0 w-36 h-36 bg-[var(--badge-bg)] rounded-full blur-2xl pointer-events-none" />
+          <div className="absolute top-0 right-0 w-36 h-36 bg-[var(--hero-glow)] rounded-full blur-2xl pointer-events-none" />
 
           <div>
             {/* Top Badge */}
@@ -221,7 +221,7 @@ export default function LandingPortal({ onSelectSide, currentLang, setCurrentLan
             {/* Inviter & Venue Details */}
             <div className="p-4 rounded-2xl bg-[var(--bg-elevated)] border border-[var(--border-gold)] text-xs font-sans space-y-2 shadow-sm">
               <p className="text-[var(--text-primary)] font-bold">
-                👨‍👩‍👧‍👦 {p.brideCard?.hosts || "Shri Jagvir Singh Sheoran & Sheoran Family"}
+                👨‍gsub‍👧‍👦 {p.brideCard?.hosts || "Shri Jagvir Singh Sheoran & Sheoran Family"}
               </p>
               <p className="text-[var(--text-secondary)] flex items-center space-x-1.5">
                 <MapPin className="w-3.5 h-3.5 text-[var(--accent-gold)] shrink-0" />
@@ -244,8 +244,8 @@ export default function LandingPortal({ onSelectSide, currentLang, setCurrentLan
 
       </div>
 
-      {/* Live Wedding Countdown Timer Card */}
-      <div className="w-full max-w-3xl glass-wedding-card rounded-3xl p-6 border border-[var(--border-gold)] shadow-xl my-6">
+      {/* Live Wedding Countdown Timer Card (Equal width max-w-5xl) */}
+      <div className="w-full max-w-5xl glass-wedding-card rounded-3xl p-6 border border-[var(--border-gold)] shadow-xl my-6">
         <div className="flex items-center justify-center space-x-2 text-[var(--text-primary)] mb-4">
           <Clock className="w-5 h-5 text-[var(--accent-gold)]" />
           <h3 className="font-serif text-base sm:text-lg font-bold tracking-wide">

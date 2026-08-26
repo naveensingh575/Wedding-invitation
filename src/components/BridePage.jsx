@@ -54,9 +54,9 @@ export default function BridePage({
         sideData={sideData}
       />
 
-      {/* Minimal Audio Control Bar directly below the Countdown Timer */}
+      {/* Audio Control Bar equal in width to Child's Loving Invitation (max-w-4xl) */}
       {musicPlayerProps && (
-        <div className="max-w-7xl mx-auto my-4">
+        <div className="max-w-4xl mx-auto px-4 my-4">
           <MusicPlayer {...musicPlayerProps} />
         </div>
       )}
@@ -70,7 +70,7 @@ export default function BridePage({
       {/* Locations & Maps (Aryanagar Venue Card First) */}
       <LocationsSection t={t} sideData={sideData} isBrideSide={true} />
 
-      {/* Travel Guide (Nearest Railway Stations & Towns: Loharu 19 KM, Satnali 26 KM, Charkhi Dadri 40 KM, Badhra 10 KM) */}
+      {/* Travel Guide (Nearest Railway Stations: Loharu 19 KM, Satnali 26 KM, Charkhi Dadri 40 KM) */}
       <TravelGuide t={t} sideData={sideData} isBrideSide={true} />
 
       {/* AI Doodle & Photo Gallery */}

@@ -54,9 +54,9 @@ export default function GroomPage({
         sideData={sideData}
       />
 
-      {/* Minimal Audio Control Bar directly below the Countdown Timer */}
+      {/* Audio Control Bar equal in width to Child's Loving Invitation (max-w-4xl) */}
       {musicPlayerProps && (
-        <div className="max-w-7xl mx-auto my-4">
+        <div className="max-w-4xl mx-auto px-4 my-4">
           <MusicPlayer {...musicPlayerProps} />
         </div>
       )}
