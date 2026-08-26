@@ -73,7 +73,7 @@ export default function HeroSection({ customCouplePhoto, openVideoModal, t, side
         "{activeData.heroSubheading}"
       </p>
 
-      {/* Single Common Couple Photo Showcase Card (Clean Official Frame without guest upload) */}
+      {/* Single Common Couple Photo Showcase Card (Clean Official Frame) */}
       <div className="relative group max-w-md w-full mb-10">
         <div className="absolute -inset-1.5 bg-gradient-to-r from-[var(--accent-gold)] via-[var(--accent-secondary)] to-[var(--accent-gold)] rounded-3xl blur-md opacity-40 group-hover:opacity-75 transition duration-700"></div>
         <div className="relative glass-wedding-card rounded-3xl p-5 border border-[var(--border-gold)] shadow-2xl flex flex-col items-center">
@@ -94,7 +94,7 @@ export default function HeroSection({ customCouplePhoto, openVideoModal, t, side
             </div>
           </div>
 
-          {/* Couple Name Tag */}
+          {/* Couple Name Tag & Action Buttons */}
           <div className="mt-5 text-center w-full">
             <div className="flex items-center justify-center space-x-2 text-2xl sm:text-3xl font-serif font-extrabold text-[var(--text-primary)] flex-wrap">
               <span>Naveen Luhach</span>
@@ -109,6 +109,27 @@ export default function HeroSection({ customCouplePhoto, openVideoModal, t, side
             <p className="text-xs text-[var(--text-secondary)] mt-1.5 font-sans">
               Vill. Nandha Ki Dhani, Badhra &nbsp;❤️&nbsp; Arya Nagar, Charkhi Dadri
             </p>
+
+            {/* Hero Action Buttons: Watch Video Invitation & Get Location & Maps */}
+            <div className="mt-5 flex flex-col sm:flex-row items-center justify-center gap-3">
+              <button
+                onClick={openVideoModal}
+                className="w-full sm:w-auto px-5 py-2.5 rounded-full bg-gradient-to-r from-[var(--accent-gold)] to-[#AA7C11] text-white font-bold text-xs shadow-md hover:scale-105 active:scale-95 transition-all flex items-center justify-center space-x-2"
+              >
+                <span>🎬 Watch Video Invitation</span>
+              </button>
+              <a
+                href="#locations"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.getElementById('locations')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="w-full sm:w-auto px-5 py-2.5 rounded-full bg-[var(--bg-elevated)] hover:bg-[var(--bg-card)] border border-[var(--border-gold)] text-[var(--text-primary)] font-bold text-xs shadow-sm hover:border-[var(--accent-gold)] transition-all flex items-center justify-center space-x-2"
+              >
+                <span>🗺️ Get Location & Maps</span>
+              </a>
+            </div>
+
           </div>
         </div>
       </div>

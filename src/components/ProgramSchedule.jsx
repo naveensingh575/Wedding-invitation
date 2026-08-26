@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Calendar, Clock, MapPin, Sparkles, CalendarPlus, ExternalLink, RotateCcw, BookOpen } from 'lucide-react';
+import { Sparkles, Clock, MapPin, CalendarPlus, ExternalLink } from 'lucide-react';
 
 export default function ProgramSchedule({ t, sideData }) {
   const [flippedCards, setFlippedCards] = useState({});
@@ -61,26 +61,19 @@ export default function ProgramSchedule({ t, sideData }) {
                 <div className="absolute inset-0 w-full h-full backface-hidden glass-wedding-card rounded-3xl p-6 sm:p-7 border border-[var(--border-gold)] shadow-xl flex flex-col justify-between overflow-hidden bg-[var(--bg-elevated)]/95">
                   <div className="relative z-10 flex flex-col h-full justify-between">
                     
-                    {/* Top Row: Date Badge & Flip Button */}
-                    <div className="flex items-center justify-between pb-3 border-b border-[var(--border-gold)]">
-                      <div className="flex items-center space-x-2">
-                        <span className="px-3.5 py-1 rounded-full bg-[var(--accent-primary)] text-white text-xs font-bold shadow-sm">
-                          {event.date}
+                    {/* Top Row: Date & Day Badges (Elegantly Aligned) */}
+                    <div className="flex items-center justify-between pb-3.5 border-b border-[var(--border-gold)]">
+                      <div className="flex items-center space-x-2.5 flex-wrap gap-y-1">
+                        <span className="px-3.5 py-1.5 rounded-full bg-[var(--accent-primary)] text-white text-xs font-extrabold shadow-sm font-sans tracking-wide">
+                          🗓️ {event.date}
                         </span>
-                        <span className="text-xs text-[var(--text-muted)] font-medium">
+                        <span className="px-3 py-1 rounded-full bg-[var(--badge-bg)] text-[var(--accent-primary)] border border-[var(--badge-border)] text-xs font-bold font-sans">
                           {event.day}
                         </span>
                       </div>
-
-                      {/* 3D Flip Button to View Cultural Heritage */}
-                      <button
-                        onClick={() => toggleFlip(index)}
-                        className="px-3 py-1.5 rounded-full bg-[var(--badge-bg)] hover:bg-[var(--badge-border)] text-[var(--badge-text)] text-xs font-bold border border-[var(--badge-border)] flex items-center space-x-1.5 shadow-sm transition-all active:scale-95"
-                        title="Click to flip & learn cultural origin story"
-                      >
-                        <BookOpen className="w-3.5 h-3.5 text-[var(--accent-gold)]" />
-                        <span>{t.flipBtn || "Cultural Heritage 🔄"}</span>
-                      </button>
+                      <span className="text-[11px] text-[var(--accent-gold)] font-mono font-semibold uppercase tracking-wider hidden sm:inline-block">
+                        Function {index + 1}
+                      </span>
                     </div>
 
                     {/* Middle Row: Doodle & Event Info */}
@@ -121,7 +114,7 @@ export default function ProgramSchedule({ t, sideData }) {
                       </div>
                     </div>
 
-                    {/* Action Bar: 1-Tap Google Calendar */}
+                    {/* Action Bar: 1-Tap Google Calendar & Origin Story Flip */}
                     <div className="mt-4 pt-3 border-t border-[var(--border-gold)] flex items-center justify-between gap-3">
                       <a
                         href={calendarLinks[index] || calendarLinks[3]}
@@ -136,7 +129,7 @@ export default function ProgramSchedule({ t, sideData }) {
 
                       <button
                         onClick={() => toggleFlip(index)}
-                        className="py-2.5 px-3 rounded-xl bg-[var(--bg-surface)] hover:bg-[var(--bg-card)] border border-[var(--border-gold)] text-xs font-semibold text-[var(--text-secondary)] flex items-center space-x-1 transition-all"
+                        className="py-2.5 px-3 rounded-xl bg-[var(--bg-surface)] hover:bg-[var(--bg-card)] border border-[var(--border-gold)] text-xs font-semibold text-[var(--text-secondary)] hover:text-[var(--text-primary)] flex items-center space-x-1 transition-all"
                       >
                         <span>Origin Story</span>
                         <span>📖</span>
@@ -160,44 +153,50 @@ export default function ProgramSchedule({ t, sideData }) {
                           {t.lineageHeader || "Cultural Heritage & Origin"}
                         </span>
                       </div>
-
-                      <button
-                        onClick={() => toggleFlip(index)}
-                        className="px-3 py-1 rounded-full bg-[var(--bg-elevated)] border border-[var(--border-gold)] text-xs font-bold text-[var(--text-primary)] hover:bg-[var(--accent-gold)] hover:text-white transition-all flex items-center space-x-1"
-                      >
-                        <RotateCcw className="w-3.5 h-3.5" />
-                        <span>{t.backBtn || "Back"}</span>
-                      </button>
+                      <span className="text-xs text-[var(--accent-gold)] font-mono font-bold">
+                        {event.title.split(' ')[0]}
+                      </span>
                     </div>
 
-                    {/* Content */}
-                    <div className="my-3 space-y-3 overflow-y-auto pr-1">
-                      <h4 className="font-serif text-lg sm:text-xl font-extrabold text-[var(--text-primary)]">
-                        {lineage?.title || event.title}
-                      </h4>
+                    {/* Content Details */}
+                    {lineage ? (
+                      <div className="my-4 space-y-3">
+                        <div className="p-3 rounded-xl bg-[var(--badge-bg)] border border-[var(--badge-border)]">
+                          <span className="text-[10px] uppercase font-bold text-[var(--accent-primary)] tracking-wider block">
+                            Cultural Roots:
+                          </span>
+                          <span className="text-xs font-serif font-bold text-[var(--text-primary)]">
+                            {lineage.origin}
+                          </span>
+                        </div>
 
-                      <div className="inline-block px-3 py-1 rounded-full bg-[var(--badge-bg)] text-[11px] font-bold text-[var(--accent-primary)] border border-[var(--badge-border)]">
-                        🌟 {lineage?.origin || "Vedic & Folk Heritage"}
+                        <div>
+                          <span className="text-[11px] font-bold text-[var(--text-primary)] block mb-1">
+                            Vedic & Folk Story:
+                          </span>
+                          <p className="text-xs text-[var(--text-secondary)] font-sans leading-relaxed">
+                            {lineage.story}
+                          </p>
+                        </div>
+
+                        <div className="p-3 rounded-xl bg-[var(--bg-surface)] border border-[var(--border-gold)] text-[11px] text-[var(--text-primary)] italic">
+                          <span className="font-bold not-italic text-[var(--accent-gold)]">Spiritual Essence: </span>
+                          "{lineage.significance}"
+                        </div>
                       </div>
-
-                      <p className="text-xs sm:text-sm text-[var(--text-secondary)] font-sans leading-relaxed">
-                        {lineage?.story || event.description}
-                      </p>
-
-                      <div className="p-3 rounded-2xl bg-[var(--bg-elevated)] border border-[var(--border-gold)] text-xs text-[var(--accent-primary)] font-semibold font-hindi">
-                        ✨ <strong>महत्व:</strong> {lineage?.significance || "पारिवारिक आशीर्वाद एवं मांगलिक मंगल।"}
+                    ) : (
+                      <div className="my-6 text-center text-xs text-[var(--text-muted)]">
+                        Haryanvi Vedic Rituals & Traditions
                       </div>
-                    </div>
+                    )}
 
-                    {/* Bottom Return Button */}
-                    <div className="pt-3 border-t border-[var(--border-gold)]">
-                      <button
-                        onClick={() => toggleFlip(index)}
-                        className="w-full py-2.5 rounded-xl bg-gradient-to-r from-[var(--accent-gold)] to-[#AA7C11] text-white font-bold text-xs shadow-md hover:opacity-95 transition-all flex items-center justify-center space-x-1.5"
-                      >
-                        <span>{t.showDetailsBtn || "Show Event Details →"}</span>
-                      </button>
-                    </div>
+                    {/* Back Button to Flip Front */}
+                    <button
+                      onClick={() => toggleFlip(index)}
+                      className="w-full py-3 px-4 rounded-2xl bg-[var(--accent-primary)] hover:opacity-95 text-white font-bold text-xs shadow-md transition-all flex items-center justify-center space-x-2 mt-2"
+                    >
+                      <span>← {t.backBtn || "Back to Program Details"}</span>
+                    </button>
 
                   </div>
                 </div>
