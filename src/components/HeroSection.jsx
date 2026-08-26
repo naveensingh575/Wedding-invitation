@@ -7,7 +7,7 @@ export default function HeroSection({ customCouplePhoto, openVideoModal, t, side
   const activeData = sideData || t.groom || t;
 
   useEffect(() => {
-    const targetDate = new Date('2026-11-20T19:00:00+05:30').getTime();
+    const targetDate = new Date('2026-11-20T23:59:00+05:30').getTime();
 
     const updateTimer = () => {
       const now = new Date().getTime();

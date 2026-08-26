@@ -1,12 +1,37 @@
 import React, { useState, useEffect } from 'react';
 import { Heart, Sparkles, Clock, MapPin, ArrowRight } from 'lucide-react';
+import confetti from 'canvas-confetti';
 import MusicPlayer from './MusicPlayer';
 
 export default function LandingPortal({ onSelectSide, currentLang, setCurrentLang, t, musicPlayerProps }) {
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+  const [isCompleted, setIsCompleted] = useState(false);
+
+  const triggerSkyShotFireworks = () => {
+    const duration = 5 * 1000;
+    const animationEnd = Date.now() + duration;
+    const defaults = { startVelocity: 35, spread: 360, ticks: 60, zIndex: 9999 };
+
+    const randomInRange = (min, max) => Math.random() * (max - min) + min;
+
+    const interval = setInterval(() => {
+      const timeLeft = animationEnd - Date.now();
+
+      if (timeLeft <= 0) {
+        return clearInterval(interval);
+      }
+
+      const particleCount = 50 * (timeLeft / duration);
+      // Sky shot left burst
+      confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } });
+      // Sky shot right burst
+      confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } });
+    }, 250);
+  };
 
   useEffect(() => {
-    const targetDate = new Date('2026-11-20T19:00:00+05:30').getTime();
+    // Target: 20 November 2026 at 11:59 PM IST
+    const targetDate = new Date('2026-11-20T23:59:00+05:30').getTime();
 
     const updateTimer = () => {
       const now = new Date().getTime();
@@ -18,15 +43,20 @@ export default function LandingPortal({ onSelectSide, currentLang, setCurrentLan
         const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((difference % (1000 * 60)) / 1000);
         setTimeLeft({ days, hours, minutes, seconds });
+        setIsCompleted(false);
       } else {
         setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+        if (!isCompleted) {
+          setIsCompleted(true);
+          triggerSkyShotFireworks();
+        }
       }
     };
 
     updateTimer();
     const interval = setInterval(updateTimer, 1000);
     return () => clearInterval(interval);
-  }, []);
+  }, [isCompleted]);
 
   const p = t.portal || {};
 
@@ -161,7 +191,7 @@ export default function LandingPortal({ onSelectSide, currentLang, setCurrentLan
             {/* Inviter & Venue Details */}
             <div className="p-4 rounded-2xl bg-[var(--bg-elevated)] border border-[var(--border-gold)] text-xs font-sans space-y-2 shadow-sm">
               <p className="text-[var(--text-primary)] font-bold">
-                👨‍👩‍👦 {p.groomCard?.hosts || "Hon. Capt. Satyavir Singh & Luhach Family"}
+                👨‍gsub‍👧‍👦 {p.groomCard?.hosts || "Hon. Capt. Satyavir Singh & Luhach Family"}
               </p>
               <p className="text-[var(--text-secondary)] flex items-center space-x-1.5">
                 <MapPin className="w-3.5 h-3.5 text-[var(--accent-gold)] shrink-0" />
@@ -221,7 +251,7 @@ export default function LandingPortal({ onSelectSide, currentLang, setCurrentLan
             {/* Inviter & Venue Details */}
             <div className="p-4 rounded-2xl bg-[var(--bg-elevated)] border border-[var(--border-gold)] text-xs font-sans space-y-2 shadow-sm">
               <p className="text-[var(--text-primary)] font-bold">
-                👨‍gsub‍👧‍👦 {p.brideCard?.hosts || "Shri Jagvir Singh Sheoran & Sheoran Family"}
+                👨‍👩‍👧‍👦 {p.brideCard?.hosts || "Shri Jagvir Singh Sheoran & Sheoran Family"}
               </p>
               <p className="text-[var(--text-secondary)] flex items-center space-x-1.5">
                 <MapPin className="w-3.5 h-3.5 text-[var(--accent-gold)] shrink-0" />
@@ -244,44 +274,66 @@ export default function LandingPortal({ onSelectSide, currentLang, setCurrentLan
 
       </div>
 
-      {/* Live Wedding Countdown Timer Card (Equal width max-w-5xl) */}
+      {/* Live Wedding Countdown Timer Card (Target: 20 Nov 2026 11:59 PM IST) */}
       <div className="w-full max-w-5xl glass-wedding-card rounded-3xl p-6 border border-[var(--border-gold)] shadow-xl my-6">
-        <div className="flex items-center justify-center space-x-2 text-[var(--text-primary)] mb-4">
-          <Clock className="w-5 h-5 text-[var(--accent-gold)]" />
-          <h3 className="font-serif text-base sm:text-lg font-bold tracking-wide">
-            {p.countdownLabel || "Countdown to Grand Vivah — 20 November 2026"}
-          </h3>
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center space-x-2 text-[var(--text-primary)]">
+            <Clock className="w-5 h-5 text-[var(--accent-gold)]" />
+            <h3 className="font-serif text-base sm:text-lg font-bold tracking-wide">
+              {p.countdownLabel || "Countdown to Grand Vivah — 20 November 2026 (11:59 PM)"}
+            </h3>
+          </div>
+
+          {/* Quick Sky Shot Fireworks Preview Button */}
+          <button
+            onClick={triggerSkyShotFireworks}
+            className="px-3 py-1 rounded-full bg-[var(--badge-bg)] border border-[var(--badge-border)] text-[10px] font-bold text-[var(--accent-primary)] hover:bg-[var(--accent-gold)] hover:text-white transition-all shadow-sm flex items-center space-x-1"
+            title="Launch Sky Shot Fireworks Animation"
+          >
+            <span>🎆 Launch Sky Shots</span>
+          </button>
         </div>
 
-        <div className="grid grid-cols-4 gap-3 sm:gap-6">
-          <div className="bg-[var(--bg-elevated)] rounded-2xl p-3 sm:p-4 border border-[var(--border-gold)] flex flex-col items-center shadow-sm">
-            <span className="font-serif text-2xl sm:text-4xl font-extrabold text-[var(--accent-primary)]">
-              {timeLeft.days}
-            </span>
-            <span className="text-[10px] sm:text-xs text-[var(--text-muted)] uppercase tracking-widest mt-1">Days</span>
+        {isCompleted ? (
+          <div className="py-8 px-4 rounded-2xl bg-[var(--bg-elevated)] border-2 border-[var(--accent-gold)] shadow-2xl animate-bounce text-center">
+            <div className="text-2xl sm:text-4xl font-serif font-extrabold text-[var(--accent-gold)] tracking-wide">
+              🎉 Congratulations to Naveen & Manisha! 💍✨
+            </div>
+            <p className="text-sm sm:text-lg font-hindi text-[var(--text-primary)] mt-3 font-bold">
+              नवीन एवं मनीषा को शुभ विवाह की हार्दिक शुभकामनाएं!
+            </p>
           </div>
+        ) : (
+          <div className="grid grid-cols-4 gap-3 sm:gap-6">
+            <div className="bg-[var(--bg-elevated)] rounded-2xl p-3 sm:p-4 border border-[var(--border-gold)] flex flex-col items-center shadow-sm">
+              <span className="font-serif text-2xl sm:text-4xl font-extrabold text-[var(--accent-primary)]">
+                {timeLeft.days}
+              </span>
+              <span className="text-[10px] sm:text-xs text-[var(--text-muted)] uppercase tracking-widest mt-1">Days</span>
+            </div>
 
-          <div className="bg-[var(--bg-elevated)] rounded-2xl p-3 sm:p-4 border border-[var(--border-gold)] flex flex-col items-center shadow-sm">
-            <span className="font-serif text-2xl sm:text-4xl font-extrabold text-[var(--accent-primary)]">
-              {timeLeft.hours}
-            </span>
-            <span className="text-[10px] sm:text-xs text-[var(--text-muted)] uppercase tracking-widest mt-1">Hours</span>
-          </div>
+            <div className="bg-[var(--bg-elevated)] rounded-2xl p-3 sm:p-4 border border-[var(--border-gold)] flex flex-col items-center shadow-sm">
+              <span className="font-serif text-2xl sm:text-4xl font-extrabold text-[var(--accent-primary)]">
+                {timeLeft.hours}
+              </span>
+              <span className="text-[10px] sm:text-xs text-[var(--text-muted)] uppercase tracking-widest mt-1">Hours</span>
+            </div>
 
-          <div className="bg-[var(--bg-elevated)] rounded-2xl p-3 sm:p-4 border border-[var(--border-gold)] flex flex-col items-center shadow-sm">
-            <span className="font-serif text-2xl sm:text-4xl font-extrabold text-[var(--accent-primary)]">
-              {timeLeft.minutes}
-            </span>
-            <span className="text-[10px] sm:text-xs text-[var(--text-muted)] uppercase tracking-widest mt-1">Mins</span>
-          </div>
+            <div className="bg-[var(--bg-elevated)] rounded-2xl p-3 sm:p-4 border border-[var(--border-gold)] flex flex-col items-center shadow-sm">
+              <span className="font-serif text-2xl sm:text-4xl font-extrabold text-[var(--accent-primary)]">
+                {timeLeft.minutes}
+              </span>
+              <span className="text-[10px] sm:text-xs text-[var(--text-muted)] uppercase tracking-widest mt-1">Mins</span>
+            </div>
 
-          <div className="bg-[var(--bg-elevated)] rounded-2xl p-3 sm:p-4 border border-[var(--border-gold)] flex flex-col items-center shadow-sm">
-            <span className="font-serif text-2xl sm:text-4xl font-extrabold text-[var(--accent-gold)] animate-pulse">
-              {timeLeft.seconds}
-            </span>
-            <span className="text-[10px] sm:text-xs text-[var(--text-muted)] uppercase tracking-widest mt-1">Secs</span>
+            <div className="bg-[var(--bg-elevated)] rounded-2xl p-3 sm:p-4 border border-[var(--border-gold)] flex flex-col items-center shadow-sm">
+              <span className="font-serif text-2xl sm:text-4xl font-extrabold text-[var(--accent-gold)] animate-pulse">
+                {timeLeft.seconds}
+              </span>
+              <span className="text-[10px] sm:text-xs text-[var(--text-muted)] uppercase tracking-widest mt-1">Secs</span>
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
       {/* Interactive Music Playlist directly below the Countdown Timer */}
