@@ -2,17 +2,31 @@ import React, { useEffect, useRef } from 'react';
 import { useCelebration } from '../hooks/useCelebration';
 
 /**
- * Pure Bright White Realistic Commercial "Skyshot" Fireworks System
- * Overlay: fixed inset-0 pointer-events-none z-50
- * Visuals: Pure bright white (#FFFFFF), brilliant shimmer, thin glowing trails,
- * dense white starburst apex, and faint vanishing crackling trails.
+ * High-Contrast Pyrotechnic Skyshots Fireworks System
+ * Tailored for high-visibility across ALL 5 themes (Ivory & Sage, Midnight Obsidian, Royal Maroon, Blush Pink, Terracotta)
+ * Color Palette:
+ * - Warm Amber & Radiant Gold (#FFD700, #FF9F1C)
+ * - Deep Ruby / Maroon Accent Sparks (#D62828, #E63946)
+ * - Champagne Silver-White Flash Core (#FFF3B0, #FFFFFF)
+ * - Emerald Sparkle Accent (#2A9D8F)
  */
-class WhiteRocket {
+const HIGH_CONTRAST_PYRO_PALETTE = [
+  '#FFD700', // Warm Radiant Gold
+  '#FF9F1C', // Amber Firework Glow
+  '#D62828', // Deep Ruby Accent Spark
+  '#FFF3B0', // Champagne Flash Core
+  '#FFFFFF', // Pure White Flash Center
+  '#E63946', // Vibrant Crimson Spark
+  '#2A9D8F', // Emerald Sparkle Accent
+];
+
+class HighContrastRocket {
   constructor(targetX, targetY, isMobile) {
     this.x = targetX + (Math.random() - 0.5) * 60;
     this.y = window.innerHeight;
     this.targetX = targetX;
     this.targetY = targetY;
+    this.color = HIGH_CONTRAST_PYRO_PALETTE[Math.floor(Math.random() * HIGH_CONTRAST_PYRO_PALETTE.length)];
 
     const angle = Math.atan2(targetY - this.y, targetX - this.x);
     const speed = isMobile ? 15 + Math.random() * 4 : 20 + Math.random() * 6;
@@ -37,12 +51,12 @@ class WhiteRocket {
   }
 
   draw(ctx) {
-    // Very thin, bright white trail
+    // High contrast glowing rocket trail
     ctx.save();
-    ctx.lineWidth = 1.8;
-    ctx.strokeStyle = '#FFFFFF';
-    ctx.shadowBlur = 10;
-    ctx.shadowColor = '#FFFFFF';
+    ctx.lineWidth = 2.2;
+    ctx.strokeStyle = this.color;
+    ctx.shadowBlur = 12;
+    ctx.shadowColor = this.color;
 
     ctx.beginPath();
     for (let i = 0; i < this.trail.length; i++) {
@@ -55,22 +69,23 @@ class WhiteRocket {
     ctx.stroke();
     ctx.restore();
 
-    // Intense White Rocket Core
+    // Intense Gold/White Core
     ctx.save();
     ctx.shadowBlur = 16;
-    ctx.shadowColor = '#FFFFFF';
+    ctx.shadowColor = '#FFD700';
     ctx.fillStyle = '#FFFFFF';
     ctx.beginPath();
-    ctx.arc(this.x, this.y, 2.2, 0, Math.PI * 2);
+    ctx.arc(this.x, this.y, 2.5, 0, Math.PI * 2);
     ctx.fill();
     ctx.restore();
   }
 }
 
-class WhiteStarburstParticle {
+class HighContrastParticle {
   constructor(x, y, isMobile) {
     this.x = x;
     this.y = y;
+    this.color = HIGH_CONTRAST_PYRO_PALETTE[Math.floor(Math.random() * HIGH_CONTRAST_PYRO_PALETTE.length)];
 
     const angle = Math.random() * Math.PI * 2;
     const speed = Math.random() * (isMobile ? 8 : 13) + 2;
@@ -80,7 +95,7 @@ class WhiteStarburstParticle {
     this.alpha = 1.0;
     this.decay = Math.random() * 0.016 + 0.012;
     this.gravity = 0.07;
-    this.size = Math.random() * 2.2 + 1.2;
+    this.size = Math.random() * 2.4 + 1.4;
     this.trail = [];
     this.twinkle = Math.random() > 0.3;
     this.dead = false;
@@ -110,28 +125,31 @@ class WhiteStarburstParticle {
   draw(ctx) {
     if (this.alpha <= 0) return;
 
-    // Faint vanishing crackling trail
+    // Vanishing spark trail with high contrast stroke
     ctx.save();
-    ctx.lineWidth = 1.2;
-    ctx.strokeStyle = '#FFFFFF';
+    ctx.lineWidth = 1.4;
+    ctx.strokeStyle = this.color;
     for (let i = 0; i < this.trail.length; i++) {
       const tp = this.trail[i];
-      ctx.globalAlpha = Math.max(0, tp.alpha * (i / this.trail.length) * 0.6);
+      ctx.globalAlpha = Math.max(0, tp.alpha * (i / this.trail.length) * 0.7);
       ctx.beginPath();
-      ctx.arc(tp.x, tp.y, 0.8, 0, Math.PI * 2);
+      ctx.arc(tp.x, tp.y, 0.9, 0, Math.PI * 2);
       ctx.stroke();
     }
     ctx.restore();
 
-    // Pure White Starburst Core
+    // High-Contrast Starburst Core (Pops vividly on both light and dark themes)
     ctx.save();
     ctx.globalAlpha = Math.min(1.0, Math.max(0, this.alpha));
-    ctx.fillStyle = '#FFFFFF';
-    ctx.shadowBlur = 12;
-    ctx.shadowColor = '#FFFFFF';
+    ctx.fillStyle = this.color;
+    ctx.shadowBlur = 14;
+    ctx.shadowColor = this.color;
+    ctx.lineWidth = 0.8;
+    ctx.strokeStyle = '#8B0000'; // Dark ruby contrast ring for light theme visibility
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
     ctx.fill();
+    ctx.stroke();
     ctx.restore();
   }
 }
@@ -175,7 +193,7 @@ export default function CelebrationCanvas() {
     const width = window.innerWidth;
     const height = window.innerHeight;
 
-    // Launch multi-wave pure white commercial skyshots for 5-7 seconds
+    // Multi-wave high-contrast pyrotechnic skyshots
     const launchSequence = () => {
       const waveCount = isMobile ? 3 : 5;
 
@@ -185,7 +203,7 @@ export default function CelebrationCanvas() {
           for (let r = 0; r < rocketCount; r++) {
             const targetX = width * 0.15 + Math.random() * (width * 0.7);
             const targetY = height * 0.15 + Math.random() * (height * 0.3);
-            rocketsRef.current.push(new WhiteRocket(targetX, targetY, isMobile));
+            rocketsRef.current.push(new HighContrastRocket(targetX, targetY, isMobile));
           }
         }, wave * 450);
       }
@@ -215,13 +233,13 @@ export default function CelebrationCanvas() {
         if (rocket.dead) {
           const particleCount = isMobileDevice ? 55 : 110;
           for (let p = 0; p < particleCount; p++) {
-            particlesRef.current.push(new WhiteStarburstParticle(rocket.x, rocket.y, isMobileDevice));
+            particlesRef.current.push(new HighContrastParticle(rocket.x, rocket.y, isMobileDevice));
           }
           rocketsRef.current.splice(i, 1);
         }
       }
 
-      // Update & Draw Pure White Starburst Particles
+      // Update & Draw Explosion Particles
       for (let i = particlesRef.current.length - 1; i >= 0; i--) {
         const particle = particlesRef.current[i];
         particle.update();

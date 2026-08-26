@@ -282,6 +282,12 @@ export default function App() {
           setActivePage={setActivePage}
           currentLang={currentLang}
           setCurrentLang={setCurrentLang}
+          currentTheme={currentTheme}
+          setCurrentTheme={setCurrentTheme}
+          isMuted={isMuted}
+          toggleMute={toggleMute}
+          isPlaying={isPlaying}
+          togglePlayPause={togglePlayPause}
           t={t}
         />
 
