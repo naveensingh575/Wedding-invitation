@@ -8,7 +8,6 @@ import ThemeSwitcher from './components/ThemeSwitcher';
 
 import { CelebrationProvider } from './context/CelebrationContext';
 import CelebrationCanvas from './components/CelebrationCanvas';
-import FloatingCelebrateButton from './components/FloatingCelebrateButton';
 
 import { WEDDING_PLAYLIST } from './data/playlist';
 import { translations } from './data/translations';
@@ -276,9 +275,6 @@ export default function App() {
       <div className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] relative theme-transition selection:bg-[var(--accent-gold)] selection:text-white font-sans">
         {/* Fullscreen Hotstar Style Skyshot Fireworks Canvas Overlay */}
         <CelebrationCanvas />
-
-        {/* Floating Manual Skyshot Trigger Button */}
-        <FloatingCelebrateButton />
 
         {/* Sticky Luxury Navbar */}
         <Navbar

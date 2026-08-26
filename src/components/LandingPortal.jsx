@@ -197,7 +197,7 @@ export default function LandingPortal({ onSelectSide, currentLang, setCurrentLan
             {/* Inviter & Venue Details */}
             <div className="p-4 rounded-2xl bg-[var(--bg-elevated)] border border-[var(--border-gold)] text-xs font-sans space-y-2 shadow-sm">
               <p className="text-[var(--text-primary)] font-bold">
-                👨‍gsub‍👧‍👦 {p.brideCard?.hosts || "Shri Jagvir Singh Sheoran & Sheoran Family"}
+                👨‍👩‍👧‍👦 {p.brideCard?.hosts || "Shri Jagvir Singh Sheoran & Sheoran Family"}
               </p>
               <p className="text-[var(--text-secondary)] flex items-center space-x-1.5">
                 <MapPin className="w-3.5 h-3.5 text-[var(--accent-gold)] shrink-0" />

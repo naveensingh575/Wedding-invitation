@@ -116,14 +116,14 @@ export default function HeroSection({ customCouplePhoto, openVideoModal, t, side
       </div>
 
       {/* SEPARATE & BEAUTIFUL ACTION BUTTONS DECK (Below the Couple Portrait Card) */}
-      <div className="flex flex-col sm:flex-row items-center justify-center gap-3 w-full max-w-lg my-3 z-10">
+      <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full max-w-md my-3 z-10">
         {/* Watch Video Invitation Button */}
         <button
           onClick={openVideoModal}
-          className="w-full sm:w-1/3 py-3.5 px-4 rounded-2xl bg-gradient-to-r from-[var(--accent-gold)] via-[#B8860B] to-[#AA7C11] text-white font-serif font-bold text-xs shadow-xl hover:scale-105 active:scale-95 transition-all duration-300 flex items-center justify-center space-x-1.5 border border-amber-300/40 group cursor-pointer"
+          className="w-full sm:w-1/2 py-3.5 px-6 rounded-2xl bg-gradient-to-r from-[var(--accent-gold)] via-[#B8860B] to-[#AA7C11] text-white font-serif font-bold text-sm shadow-xl hover:scale-105 active:scale-95 transition-all duration-300 flex items-center justify-center space-x-2 border border-amber-300/40 group cursor-pointer"
         >
-          <span className="text-sm group-hover:scale-110 transition-transform">🎬</span>
-          <span className="tracking-wide">Watch Video</span>
+          <span className="text-base group-hover:scale-110 transition-transform">🎬</span>
+          <span className="tracking-wide">Watch Video Invitation</span>
         </button>
 
         {/* Get Location & Maps Button */}
@@ -133,20 +133,11 @@ export default function HeroSection({ customCouplePhoto, openVideoModal, t, side
             e.preventDefault();
             document.getElementById('locations')?.scrollIntoView({ behavior: 'smooth' });
           }}
-          className="w-full sm:w-1/3 py-3.5 px-4 rounded-2xl bg-[var(--bg-elevated)] hover:bg-[var(--bg-card)] border-2 border-[var(--border-gold)] text-[var(--text-primary)] hover:text-[var(--accent-primary)] font-serif font-bold text-xs shadow-xl hover:border-[var(--accent-gold)] hover:scale-105 active:scale-95 transition-all duration-300 flex items-center justify-center space-x-1.5 group cursor-pointer"
+          className="w-full sm:w-1/2 py-3.5 px-6 rounded-2xl bg-[var(--bg-elevated)] hover:bg-[var(--bg-card)] border-2 border-[var(--border-gold)] text-[var(--text-primary)] hover:text-[var(--accent-primary)] font-serif font-bold text-sm shadow-xl hover:border-[var(--accent-gold)] hover:scale-105 active:scale-95 transition-all duration-300 flex items-center justify-center space-x-2 group cursor-pointer"
         >
-          <span className="text-sm group-hover:scale-110 transition-transform">📍</span>
-          <span className="tracking-wide">Location & Maps</span>
+          <span className="text-base group-hover:scale-110 transition-transform">📍</span>
+          <span className="tracking-wide">Get Location & Maps</span>
         </a>
-
-        {/* Sky Shot Fireworks Button */}
-        <button
-          onClick={triggerCelebration}
-          className="w-full sm:w-1/3 py-3.5 px-4 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-amber-500 text-white font-serif font-extrabold text-xs shadow-xl hover:scale-105 active:scale-95 transition-all duration-300 flex items-center justify-center space-x-1.5 border border-blue-300/40 cursor-pointer"
-        >
-          <span className="text-sm">✨</span>
-          <span className="tracking-wide">SKY SHOTS 🎆</span>
-        </button>
       </div>
     </section>
   );
