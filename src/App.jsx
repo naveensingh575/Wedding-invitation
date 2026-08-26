@@ -16,7 +16,7 @@ export default function App() {
   });
 
   const [currentTheme, setCurrentTheme] = useState(() => {
-    return localStorage.getItem('navisha_theme') || 'theme-sage-ivory';
+    return localStorage.getItem('navisha_theme') || 'theme-blush-champagne';
   });
 
   // 2. Active 3-Page Route State ('portal' | 'groom' | 'bride') with Clean URL Routing
