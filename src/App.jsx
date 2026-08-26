@@ -188,6 +188,12 @@ export default function App() {
       audioRef.current.pause();
       setIsPlaying(false);
     } else {
+      audioRef.current.muted = false;
+      setIsMuted(false);
+      if (audioRef.current.volume === 0) {
+        audioRef.current.volume = 0.85;
+        setVolume(0.85);
+      }
       audioRef.current.play().then(() => {
         setIsPlaying(true);
       }).catch((err) => console.log("Play error:", err));
@@ -226,6 +232,18 @@ export default function App() {
     const nextMute = !isMuted;
     audioRef.current.muted = nextMute;
     setIsMuted(nextMute);
+
+    if (!nextMute) {
+      if (audioRef.current.volume === 0) {
+        audioRef.current.volume = 0.85;
+        setVolume(0.85);
+      }
+      if (audioRef.current.paused) {
+        audioRef.current.play().then(() => {
+          setIsPlaying(true);
+        }).catch((err) => console.log("Unmute play:", err));
+      }
+    }
   };
 
   const handleVolumeChange = (newVol) => {

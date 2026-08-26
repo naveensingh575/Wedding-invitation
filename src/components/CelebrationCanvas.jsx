@@ -3,12 +3,8 @@ import { useCelebration } from '../hooks/useCelebration';
 
 /**
  * High-Contrast Pyrotechnic Skyshots Fireworks System
- * Tailored for high-visibility across ALL 5 themes (Ivory & Sage, Midnight Obsidian, Royal Maroon, Blush Pink, Terracotta)
- * Color Palette:
- * - Warm Amber & Radiant Gold (#FFD700, #FF9F1C)
- * - Deep Ruby / Maroon Accent Sparks (#D62828, #E63946)
- * - Champagne Silver-White Flash Core (#FFF3B0, #FFFFFF)
- * - Emerald Sparkle Accent (#2A9D8F)
+ * Ultra-Performance Engine: Zero lag, self-terminating particles, hardcoded pointer-events: none.
+ * Colors: Warm Amber, Radiant Gold, Ruby Accent, Champagne Flash Core.
  */
 const HIGH_CONTRAST_PYRO_PALETTE = [
   '#FFD700', // Warm Radiant Gold
@@ -35,17 +31,19 @@ class HighContrastRocket {
     this.vy = Math.sin(angle) * speed;
     this.trail = [];
     this.dead = false;
+    this.age = 0;
   }
 
   update() {
+    this.age++;
     this.trail.push({ x: this.x, y: this.y, alpha: 1.0 });
-    if (this.trail.length > 10) this.trail.shift();
+    if (this.trail.length > 8) this.trail.shift();
 
     this.x += this.vx;
     this.y += this.vy;
     this.vy += 0.16; // Deceleration towards apex
 
-    if (this.vy >= -1 || this.y <= this.targetY) {
+    if (this.vy >= -1 || this.y <= this.targetY || this.age > 80) {
       this.dead = true;
     }
   }
@@ -55,7 +53,7 @@ class HighContrastRocket {
     ctx.save();
     ctx.lineWidth = 2.2;
     ctx.strokeStyle = this.color;
-    ctx.shadowBlur = 12;
+    ctx.shadowBlur = 10;
     ctx.shadowColor = this.color;
 
     ctx.beginPath();
@@ -71,7 +69,7 @@ class HighContrastRocket {
 
     // Intense Gold/White Core
     ctx.save();
-    ctx.shadowBlur = 16;
+    ctx.shadowBlur = 14;
     ctx.shadowColor = '#FFD700';
     ctx.fillStyle = '#FFFFFF';
     ctx.beginPath();
@@ -88,22 +86,24 @@ class HighContrastParticle {
     this.color = HIGH_CONTRAST_PYRO_PALETTE[Math.floor(Math.random() * HIGH_CONTRAST_PYRO_PALETTE.length)];
 
     const angle = Math.random() * Math.PI * 2;
-    const speed = Math.random() * (isMobile ? 8 : 13) + 2;
+    const speed = Math.random() * (isMobile ? 7 : 12) + 2;
 
     this.vx = Math.cos(angle) * speed;
     this.vy = Math.sin(angle) * speed;
     this.alpha = 1.0;
-    this.decay = Math.random() * 0.016 + 0.012;
+    this.decay = Math.random() * 0.02 + 0.015;
     this.gravity = 0.07;
-    this.size = Math.random() * 2.4 + 1.4;
+    this.size = Math.random() * 2.2 + 1.2;
     this.trail = [];
     this.twinkle = Math.random() > 0.3;
+    this.age = 0;
     this.dead = false;
   }
 
   update() {
+    this.age++;
     this.trail.push({ x: this.x, y: this.y, alpha: this.alpha });
-    if (this.trail.length > 5) this.trail.shift();
+    if (this.trail.length > 4) this.trail.shift();
 
     this.vx *= 0.95;
     this.vy *= 0.95;
@@ -114,10 +114,10 @@ class HighContrastParticle {
     this.alpha -= this.decay;
 
     if (this.twinkle) {
-      this.alpha += (Math.random() - 0.5) * 0.12;
+      this.alpha += (Math.random() - 0.5) * 0.08;
     }
 
-    if (this.alpha <= 0) {
+    if (this.alpha <= 0 || this.age > 100) {
       this.dead = true;
     }
   }
@@ -127,25 +127,25 @@ class HighContrastParticle {
 
     // Vanishing spark trail with high contrast stroke
     ctx.save();
-    ctx.lineWidth = 1.4;
+    ctx.lineWidth = 1.2;
     ctx.strokeStyle = this.color;
     for (let i = 0; i < this.trail.length; i++) {
       const tp = this.trail[i];
-      ctx.globalAlpha = Math.max(0, tp.alpha * (i / this.trail.length) * 0.7);
+      ctx.globalAlpha = Math.max(0, tp.alpha * (i / this.trail.length) * 0.6);
       ctx.beginPath();
-      ctx.arc(tp.x, tp.y, 0.9, 0, Math.PI * 2);
+      ctx.arc(tp.x, tp.y, 0.8, 0, Math.PI * 2);
       ctx.stroke();
     }
     ctx.restore();
 
-    // High-Contrast Starburst Core (Pops vividly on both light and dark themes)
+    // High-Contrast Starburst Core
     ctx.save();
     ctx.globalAlpha = Math.min(1.0, Math.max(0, this.alpha));
     ctx.fillStyle = this.color;
-    ctx.shadowBlur = 14;
+    ctx.shadowBlur = 12;
     ctx.shadowColor = this.color;
     ctx.lineWidth = 0.8;
-    ctx.strokeStyle = '#8B0000'; // Dark ruby contrast ring for light theme visibility
+    ctx.strokeStyle = '#8B0000';
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
     ctx.fill();
@@ -172,6 +172,7 @@ export default function CelebrationCanvas() {
       canvas.height = window.innerHeight * dpr;
       canvas.style.width = `${window.innerWidth}px`;
       canvas.style.height = `${window.innerHeight}px`;
+      ctx.setTransform(1, 0, 0, 1, 0, 0); // Reset transform matrix before scaling to prevent memory leak
       ctx.scale(dpr, dpr);
     };
 
@@ -193,13 +194,13 @@ export default function CelebrationCanvas() {
     const width = window.innerWidth;
     const height = window.innerHeight;
 
-    // Multi-wave high-contrast pyrotechnic skyshots
+    // Multi-wave high-contrast pyrotechnic skyshots sequence
     const launchSequence = () => {
-      const waveCount = isMobile ? 3 : 5;
+      const waveCount = isMobile ? 3 : 4;
 
       for (let wave = 0; wave < waveCount; wave++) {
         setTimeout(() => {
-          const rocketCount = isMobile ? 2 : 4;
+          const rocketCount = isMobile ? 2 : 3;
           for (let r = 0; r < rocketCount; r++) {
             const targetX = width * 0.15 + Math.random() * (width * 0.7);
             const targetY = height * 0.15 + Math.random() * (height * 0.3);
@@ -218,7 +219,7 @@ export default function CelebrationCanvas() {
     const render = () => {
       ctx.save();
       ctx.globalCompositeOperation = 'destination-out';
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.28)';
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
       ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
       ctx.restore();
 
@@ -231,7 +232,7 @@ export default function CelebrationCanvas() {
         rocket.draw(ctx);
 
         if (rocket.dead) {
-          const particleCount = isMobileDevice ? 55 : 110;
+          const particleCount = isMobileDevice ? 45 : 85;
           for (let p = 0; p < particleCount; p++) {
             particlesRef.current.push(new HighContrastParticle(rocket.x, rocket.y, isMobileDevice));
           }
@@ -267,6 +268,7 @@ export default function CelebrationCanvas() {
     <canvas
       ref={canvasRef}
       className="fixed inset-0 pointer-events-none z-50 w-full h-full"
+      style={{ pointerEvents: 'none' }}
     />
   );
 }
