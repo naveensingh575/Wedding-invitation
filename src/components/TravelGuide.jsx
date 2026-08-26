@@ -1,14 +1,15 @@
 import React from 'react';
-import { Train, Car, Bus, Route, MapPin, Compass } from 'lucide-react';
+import { Train, Car, Bus, Route } from 'lucide-react';
 
 export default function TravelGuide({ t, sideData, isBrideSide }) {
   const activeSide = sideData || (isBrideSide ? t.bride : t.groom) || t;
   const travelInfo = activeSide.travel || t.travel || {};
 
   const brideDistances = [
+    { place: "Loharu Junction (LHU)", dist: "19 KM", note: "Major rail junction & road" },
+    { place: "Satnali Station (STNL)", dist: "26 KM", note: "Closest railway stop" },
+    { place: "Charkhi Dadri (CKD)", dist: "40 KM", note: "City railway station & connectivity" },
     { place: "Badhra (बाढड़ा)", dist: "10 KM", note: "Direct state highway route" },
-    { place: "Loharu (लोहारू)", dist: "19 KM", note: "Major rail junction & road" },
-    { place: "Satnali (सतनाली)", dist: "26 KM", note: "Via Satnali-Badhra Road" },
   ];
 
   const groomDistances = [
@@ -31,22 +32,22 @@ export default function TravelGuide({ t, sideData, isBrideSide }) {
           {travelInfo.heading || (isBrideSide ? "Best Routes to Aryanagar, Charkhi Dadri" : "Best Routes to Vill. Nandha ki Dhani, Badhra")}
         </h2>
         <p className="text-[var(--text-secondary)] text-sm sm:text-base max-w-2xl mx-auto mt-2 font-sans">
-          {travelInfo.subheading || "Guest travel guidance & key location distances"}
+          {travelInfo.subheading || "Guest travel guidance & closest railway stations"}
         </p>
       </div>
 
       {/* Travel Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         
-        {/* Key Location Distances Card */}
+        {/* Nearest Railway Stations & Towns Card */}
         <div className="glass-wedding-card rounded-3xl p-6 sm:p-8 border border-[var(--border-gold)] shadow-xl flex flex-col justify-between group hover:-translate-y-1.5 transition-all">
           <div>
             <div className="w-12 h-12 rounded-2xl bg-[var(--badge-bg)] border border-[var(--badge-border)] flex items-center justify-center text-[var(--accent-gold)] mb-6 shadow-sm">
-              <Compass className="w-6 h-6" />
+              <Train className="w-6 h-6" />
             </div>
 
             <h3 className="font-serif text-xl sm:text-2xl font-bold text-[var(--text-primary)] group-hover:text-[var(--accent-primary)] transition-colors">
-              {isBrideSide ? "Distances to Aryanagar" : (t.travel?.railwayTitle || "Location Distances")}
+              {t.travel?.railwayTitle || "Nearest Railway Stations & Towns"}
             </h3>
 
             <div className="mt-4 space-y-3 text-xs sm:text-sm text-[var(--text-secondary)] font-sans">

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Home, ArrowRight, Sparkles } from 'lucide-react';
+import { Home, ArrowRight } from 'lucide-react';
 import HeroSection from './HeroSection';
 import MusicPlayer from './MusicPlayer';
 import BalSandesh from './BalSandesh';
@@ -8,7 +8,6 @@ import LocationsSection from './LocationsSection';
 import TravelGuide from './TravelGuide';
 import GallerySection from './GallerySection';
 import RSVPSection from './RSVPSection';
-import WishesWall from './WishesWall';
 import Footer from './Footer';
 
 export default function GroomPage({
@@ -55,7 +54,7 @@ export default function GroomPage({
         sideData={sideData}
       />
 
-      {/* Interactive Music Playlist directly below the Countdown Timer */}
+      {/* Minimal Audio Control Bar directly below the Countdown Timer */}
       {musicPlayerProps && (
         <div className="max-w-7xl mx-auto my-4">
           <MusicPlayer {...musicPlayerProps} />
@@ -79,9 +78,6 @@ export default function GroomPage({
 
       {/* RSVP Form */}
       <RSVPSection t={t} />
-
-      {/* Wishes Wall */}
-      <WishesWall t={t} />
 
       {/* Footer Customized for Groom Side */}
       <Footer t={t} isBrideSide={false} />

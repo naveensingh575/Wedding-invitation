@@ -1,5 +1,5 @@
 import React from 'react';
-import { Home, ArrowRight, Sparkles } from 'lucide-react';
+import { Home, ArrowRight } from 'lucide-react';
 import HeroSection from './HeroSection';
 import MusicPlayer from './MusicPlayer';
 import BalSandesh from './BalSandesh';
@@ -8,7 +8,6 @@ import LocationsSection from './LocationsSection';
 import TravelGuide from './TravelGuide';
 import GallerySection from './GallerySection';
 import RSVPSection from './RSVPSection';
-import WishesWall from './WishesWall';
 import Footer from './Footer';
 
 export default function BridePage({
@@ -55,7 +54,7 @@ export default function BridePage({
         sideData={sideData}
       />
 
-      {/* Interactive Music Playlist directly below the Countdown Timer */}
+      {/* Minimal Audio Control Bar directly below the Countdown Timer */}
       {musicPlayerProps && (
         <div className="max-w-7xl mx-auto my-4">
           <MusicPlayer {...musicPlayerProps} />
@@ -65,13 +64,13 @@ export default function BridePage({
       {/* Bal Sandesh */}
       <BalSandesh t={t} customData={sideData.balSandesh} />
 
-      {/* Program Schedule with Bride Timeline (17 Nov Ban, 18 Nov Mehndi, 19 Nov Bhaat & Mandap Pujan, 20 Nov Vivah) */}
+      {/* Program Schedule with Bride Timeline */}
       <ProgramSchedule t={t} sideData={sideData} />
 
       {/* Locations & Maps (Aryanagar Venue Card First) */}
       <LocationsSection t={t} sideData={sideData} isBrideSide={true} />
 
-      {/* Travel Guide (Badhra 10 KM, Loharu 19 KM, Satnali 26 KM) */}
+      {/* Travel Guide (Nearest Railway Stations & Towns: Loharu 19 KM, Satnali 26 KM, Charkhi Dadri 40 KM, Badhra 10 KM) */}
       <TravelGuide t={t} sideData={sideData} isBrideSide={true} />
 
       {/* AI Doodle & Photo Gallery */}
@@ -79,9 +78,6 @@ export default function BridePage({
 
       {/* RSVP Form */}
       <RSVPSection t={t} />
-
-      {/* Wishes Wall */}
-      <WishesWall t={t} />
 
       {/* Footer Customized for Bride Side */}
       <Footer t={t} isBrideSide={true} />
