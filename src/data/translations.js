@@ -6,7 +6,7 @@ export const translations = {
     coupleHeader: "Naveen Luhach ❤️ Manisha Sheoran",
     hashtag: "#Navisha",
     portal: {
-      tagline: "Vedic & Haryanvi Royal Vivah Utsav",
+      tagline: "Vedic & Haryanvi Royal Wedding",
       heading: "Naveen & Manisha",
       subheading: "Celebrate the sacred union of two hearts and families on 20th November 2026",
       selectPrompt: "Please choose your invitation side to view personalized programs & details:",
@@ -15,7 +15,7 @@ export const translations = {
         side: "Groom Side - Nandha ki Dhani",
         hosts: "Hon. Capt. Satyavir Singh & Luhach Family",
         venue: "Vill. Nandha ki Dhani, Badhra",
-        btn: "Enter Groom's Side (वर पक्ष) 🤵",
+        btn: "Enter Groom's Side (वर पक्ष) 🤵‍♂️",
         desc: "Haldi, Bhaat & Lagan, Ghurchhari Horse Ceremony & Barat Departure",
       },
       brideCard: {
@@ -284,7 +284,7 @@ export const translations = {
     coupleHeader: "नवीन लुहाच ❤️ मनीषा श्योराण",
     hashtag: "#Navisha",
     portal: {
-      tagline: "वैदिक एवं हरियाणवी पावन विवाह उत्सव",
+      tagline: "वैदिक एवं हरियाणवी पावन विवाह",
       heading: "नवीन संग मनीषा",
       subheading: "दो परिवारों एवं हृदयों के पावन मिलन समारोह में आपका सहर्ष स्वागत है — 20 नवंबर 2026",
       selectPrompt: "कृपया व्यक्तिगत कार्यक्रम व विवरण देखने हेतु पक्ष का चयन करें:",
