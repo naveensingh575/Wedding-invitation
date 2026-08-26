@@ -20,13 +20,13 @@ export default function Navbar({
     { code: 'en', label: 'EN' },
   ];
 
-  // All 5 Predefined Wedding Themes in exact sequential cycle order
+  // All 5 Predefined Wedding Themes prioritizing Blush Pink & Champagne at Index 0
   const themes = [
+    { id: 'theme-blush-champagne', name: 'Blush Pink & Champagne 🌸' },
+    { id: 'theme-terracotta-beige', name: 'Terracotta & Beige 🪔' },
     { id: 'theme-sage-ivory', name: 'Elegant Ivory & Sage 🌿' },
     { id: 'theme-royal-dark', name: 'Midnight Obsidian & Gold 🌙' },
     { id: 'theme-royal-maroon', name: 'Royal Maroon & Gold 👑' },
-    { id: 'theme-blush-champagne', name: 'Blush Pink & Champagne 🌸' },
-    { id: 'theme-terracotta-beige', name: 'Terracotta & Beige 🪔' },
   ];
 
   // Single Click Theme Cycling
@@ -104,13 +104,13 @@ export default function Navbar({
             <button
               onClick={cycleNextTheme}
               className="p-2 sm:px-3 sm:py-1.5 rounded-full bg-[var(--bg-elevated)] hover:bg-[var(--bg-card)] border border-[var(--border-gold)] text-xs font-bold text-[var(--text-primary)] flex items-center space-x-1.5 shadow-sm transition-all cursor-pointer"
-              title="Cycle Aesthetic Color Theme (5 Themes)"
+              title="Cycle Aesthetic Color Theme (Default: Blush Pink & Champagne)"
             >
               <Palette className="w-4 h-4 text-[var(--accent-gold)]" />
               <span className="hidden sm:inline text-[11px]">Theme</span>
             </button>
 
-            {/* Clean Music Play / Stop Button (No duplicate emojis before text) */}
+            {/* Clean Music Play / Stop Button */}
             <button
               onClick={handleMusicClick}
               className={`p-2 sm:px-3 sm:py-1.5 rounded-full border text-xs font-bold flex items-center space-x-1.5 shadow-sm transition-all relative cursor-pointer ${

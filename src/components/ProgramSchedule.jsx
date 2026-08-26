@@ -48,7 +48,7 @@ export default function ProgramSchedule({ t, sideData }) {
           return (
             <div
               key={index}
-              className="relative min-h-[580px] perspective-1000 group"
+              className="relative min-h-0 sm:min-h-[580px] perspective-1000 group"
             >
               <div
                 className={`w-full h-full duration-700 transform-style-3d relative ${
@@ -58,7 +58,7 @@ export default function ProgramSchedule({ t, sideData }) {
                 {/* ============================================================
                     FRONT SIDE: EVENT CARD
                 ============================================================ */}
-                <div className="absolute inset-0 w-full h-full backface-hidden glass-wedding-card rounded-3xl p-6 sm:p-7 border border-[var(--border-gold)] shadow-xl flex flex-col justify-between overflow-hidden bg-[var(--bg-elevated)]/95">
+                <div className="w-full h-full backface-hidden glass-wedding-card rounded-3xl p-6 sm:p-7 border border-[var(--border-gold)] shadow-xl flex flex-col justify-between overflow-hidden bg-[var(--bg-elevated)]/95">
                   <div className="relative z-10 flex flex-col h-full justify-between">
                     
                     {/* Top Row: Date on Left Corner, Day on Right Corner */}
@@ -71,16 +71,16 @@ export default function ProgramSchedule({ t, sideData }) {
                       </span>
                     </div>
 
-                    {/* Middle Row: Doodle Artwork (Mobile Full-Width Responsive) & Event Details */}
+                    {/* Middle Row: Unclipped Full Doodle Artwork & Event Info */}
                     <div className="my-4 flex flex-col sm:flex-row items-center gap-5">
-                      {/* Responsive Doodle Image Container */}
-                      <div className="w-full sm:w-36 h-48 sm:h-36 rounded-2xl overflow-hidden border-2 border-[var(--border-gold)] shadow-md bg-black/10 shrink-0 relative group">
+                      {/* Responsive Full Image Container (No Mobile Clipping) */}
+                      <div className="w-full sm:w-36 h-auto sm:h-36 rounded-2xl overflow-hidden border-2 border-[var(--border-gold)] shadow-md bg-black/10 shrink-0 relative group">
                         <img
                           src={event.doodle}
                           alt={event.title}
-                          className="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-500"
+                          className="w-full h-auto sm:h-full object-contain sm:object-cover hover:scale-105 transition-transform duration-500 rounded-2xl max-h-none"
                         />
-                        <div className="absolute inset-0 bg-black/10" />
+                        <div className="absolute inset-0 bg-black/5 pointer-events-none" />
                       </div>
 
                       {/* Titles & Highlights */}

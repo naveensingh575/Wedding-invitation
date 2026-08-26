@@ -1,14 +1,12 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useCelebration } from '../hooks/useCelebration';
 
 /**
- * Lightweight, Ultra-High Performance "Skyshot" Fireworks System
- * Performance: Capped at max 80-100 total active particles, RAF auto-cancel on finish, alpha < 0.05 auto-cleanup.
- * Visuals: Thin crisp white rocket trail soaring upward, exploding into a dense starburst with vibrant wedding tip accents:
- * - Warm Gold (#FFD700)
- * - Crimson (#E63946)
- * - Champagne (#FFF3B0)
- * - Rose (#FF69B4)
+ * High-Performance "Skyshot" Fireworks & Congratulatory Overlay Engine
+ * Visuals:
+ * - Rocket Ascent Trails: Warm Champagne Gold (#FFD700, #F3C06B) and Rose Shimmer.
+ * - Rocket Density: 4-6 staggered rockets per cycle.
+ * - Congratulatory Overlay: Centered pointer-events-none floating text banner synced to burst peak.
  */
 const TIP_ACCENT_COLORS = [
   '#FFD700', // Warm Gold
@@ -20,10 +18,12 @@ const TIP_ACCENT_COLORS = [
 
 class SkyshotRocket {
   constructor(targetX, targetY, isMobile) {
-    this.x = targetX + (Math.random() - 0.5) * 40;
+    this.x = targetX + (Math.random() - 0.5) * 50;
     this.y = window.innerHeight;
     this.targetX = targetX;
     this.targetY = targetY;
+    // Theme-matching warm champagne gold & rose shimmer trails
+    this.trailColor = Math.random() > 0.4 ? '#FFD700' : (Math.random() > 0.5 ? '#F3C06B' : '#FF69B4');
 
     const angle = Math.atan2(targetY - this.y, targetX - this.x);
     const speed = isMobile ? 14 + Math.random() * 3 : 18 + Math.random() * 5;
@@ -38,7 +38,7 @@ class SkyshotRocket {
   update() {
     this.age++;
     this.trail.push({ x: this.x, y: this.y });
-    if (this.trail.length > 7) this.trail.shift();
+    if (this.trail.length > 8) this.trail.shift();
 
     this.x += this.vx;
     this.y += this.vy;
@@ -50,12 +50,12 @@ class SkyshotRocket {
   }
 
   draw(ctx) {
-    // Thin, crisp bright white rocket beam
+    // Warm Champagne Gold / Rose Shimmer Rocket Trail
     ctx.save();
-    ctx.lineWidth = 1.6;
-    ctx.strokeStyle = '#FFFFFF';
-    ctx.shadowBlur = 8;
-    ctx.shadowColor = '#FFFFFF';
+    ctx.lineWidth = 1.8;
+    ctx.strokeStyle = this.trailColor;
+    ctx.shadowBlur = 10;
+    ctx.shadowColor = this.trailColor;
 
     ctx.beginPath();
     for (let i = 0; i < this.trail.length; i++) {
@@ -68,11 +68,11 @@ class SkyshotRocket {
 
     // Rocket Core Point
     ctx.save();
-    ctx.shadowBlur = 12;
-    ctx.shadowColor = '#FFFFFF';
+    ctx.shadowBlur = 14;
+    ctx.shadowColor = '#FFD700';
     ctx.fillStyle = '#FFFFFF';
     ctx.beginPath();
-    ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
+    ctx.arc(this.x, this.y, 2.2, 0, Math.PI * 2);
     ctx.fill();
     ctx.restore();
   }
@@ -109,7 +109,6 @@ class SkyshotParticle {
     this.y += this.vy;
     this.alpha -= this.decay;
 
-    // Auto-cleanup threshold at alpha < 0.05
     if (this.alpha < 0.05) {
       this.dead = true;
     }
@@ -118,7 +117,6 @@ class SkyshotParticle {
   draw(ctx) {
     if (this.alpha < 0.05) return;
 
-    // Faint sparkling white trail leading to tip
     ctx.save();
     ctx.lineWidth = 1.0;
     ctx.strokeStyle = '#FFFFFF';
@@ -131,7 +129,6 @@ class SkyshotParticle {
     }
     ctx.restore();
 
-    // Vibrant Wedding Color Burst Tip Core
     ctx.save();
     ctx.globalAlpha = Math.min(1.0, Math.max(0, this.alpha));
     ctx.fillStyle = this.tipColor;
@@ -151,6 +148,10 @@ export default function CelebrationCanvas() {
   const rocketsRef = useRef([]);
   const particlesRef = useRef([]);
 
+  // Synced Congratulatory Flash Overlay State
+  const [showBanner, setShowBanner] = useState(false);
+  const [bannerOpacity, setBannerOpacity] = useState(0);
+
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -162,7 +163,7 @@ export default function CelebrationCanvas() {
       canvas.height = window.innerHeight * dpr;
       canvas.style.width = `${window.innerWidth}px`;
       canvas.style.height = `${window.innerHeight}px`;
-      ctx.setTransform(1, 0, 0, 1, 0, 0); // Reset scale matrix to prevent GPU memory leak
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.scale(dpr, dpr);
     };
 
@@ -180,23 +181,29 @@ export default function CelebrationCanvas() {
   useEffect(() => {
     if (celebrationId === 0) return;
 
+    // Trigger synced Congratulatory Text Flash Overlay
+    setShowBanner(true);
+    const fadeInTimer = setTimeout(() => setBannerOpacity(1), 300);
+    const fadeOutTimer = setTimeout(() => setBannerOpacity(0), 5200);
+    const unmountTimer = setTimeout(() => setShowBanner(false), 6500);
+
     const isMobile = window.innerWidth < 640;
     const width = window.innerWidth;
     const height = window.innerHeight;
 
-    // Launch capped lightweight skyshot bursts
+    // Launch 4–6 staggered rockets per celebration cycle
     const launchSequence = () => {
-      const waveCount = isMobile ? 2 : 3;
+      const waveCount = isMobile ? 3 : 4;
 
       for (let wave = 0; wave < waveCount; wave++) {
         setTimeout(() => {
           const rocketCount = isMobile ? 2 : 3;
           for (let r = 0; r < rocketCount; r++) {
-            const targetX = width * 0.2 + Math.random() * (width * 0.6);
-            const targetY = height * 0.18 + Math.random() * (height * 0.25);
+            const targetX = width * 0.15 + Math.random() * (width * 0.7);
+            const targetY = height * 0.15 + Math.random() * (height * 0.25);
             rocketsRef.current.push(new SkyshotRocket(targetX, targetY, isMobile));
           }
-        }, wave * 400);
+        }, wave * 380);
       }
     };
 
@@ -214,18 +221,16 @@ export default function CelebrationCanvas() {
       ctx.restore();
 
       const isMobileDevice = window.innerWidth < 640;
-      const MAX_PARTICLES_CAP = isMobileDevice ? 40 : 80;
+      const MAX_PARTICLES_CAP = isMobileDevice ? 50 : 90;
 
-      // Update & Draw Rockets
       for (let i = rocketsRef.current.length - 1; i >= 0; i--) {
         const rocket = rocketsRef.current[i];
         rocket.update();
         rocket.draw(ctx);
 
         if (rocket.dead) {
-          // Add burst particles only if under max particle cap
           if (particlesRef.current.length < MAX_PARTICLES_CAP) {
-            const particleCount = isMobileDevice ? 25 : 45;
+            const particleCount = isMobileDevice ? 25 : 40;
             for (let p = 0; p < particleCount; p++) {
               particlesRef.current.push(new SkyshotParticle(rocket.x, rocket.y, isMobileDevice));
             }
@@ -234,7 +239,6 @@ export default function CelebrationCanvas() {
         }
       }
 
-      // Update & Draw Particles with strict alpha < 0.05 cleanup
       for (let i = particlesRef.current.length - 1; i >= 0; i--) {
         const particle = particlesRef.current[i];
         particle.update();
@@ -245,11 +249,9 @@ export default function CelebrationCanvas() {
         }
       }
 
-      // Continue animation loop as long as rockets or particles remain
       if (rocketsRef.current.length > 0 || particlesRef.current.length > 0) {
         animFrameIdRef.current = requestAnimationFrame(render);
       } else {
-        // Complete cleanup and cancel RAF loop
         ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
         if (animFrameIdRef.current) {
           cancelAnimationFrame(animFrameIdRef.current);
@@ -261,13 +263,38 @@ export default function CelebrationCanvas() {
     if (!animFrameIdRef.current) {
       animFrameIdRef.current = requestAnimationFrame(render);
     }
+
+    return () => {
+      clearTimeout(fadeInTimer);
+      clearTimeout(fadeOutTimer);
+      clearTimeout(unmountTimer);
+    };
   }, [celebrationId]);
 
   return (
-    <canvas
-      ref={canvasRef}
-      className="fixed inset-0 pointer-events-none z-50 w-full h-full"
-      style={{ pointerEvents: 'none' }}
-    />
+    <>
+      <canvas
+        ref={canvasRef}
+        className="fixed inset-0 pointer-events-none z-50 w-full h-full"
+        style={{ pointerEvents: 'none' }}
+      />
+
+      {/* Floating Animated Congratulatory Flash Overlay (Synced to Burst Peak) */}
+      {showBanner && (
+        <div
+          className="fixed top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[60] pointer-events-none transition-opacity duration-1000 ease-in-out px-4 w-full max-w-2xl text-center"
+          style={{ opacity: bannerOpacity }}
+        >
+          <div className="py-5 px-6 sm:px-8 rounded-3xl bg-black/60 border-2 border-amber-300/40 backdrop-blur-md shadow-2xl inline-block">
+            <h2 className="font-serif text-xl sm:text-3xl md:text-4xl font-extrabold text-white/95 drop-shadow-[0_4px_12px_rgba(0,0,0,0.9)] tracking-wide leading-snug">
+              Congratulations to the newlywed couple! 🥂
+            </h2>
+            <p className="font-hindi text-amber-200 text-xs sm:text-base font-semibold mt-2 drop-shadow-sm">
+              नवीन एवं मनीषा के शुभ विवाह की हार्दिक शुभकामनाएँ! ✨
+            </p>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
