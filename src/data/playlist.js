@@ -12,6 +12,16 @@ export const WEDDING_PLAYLIST = [
     durationEst: '3:50',
   },
   {
+    id: 'sajjan-raazi',
+    title: 'Sajjan Raazi',
+    artist: 'Satinder Sartaaj | Jatinder Shah',
+    category: '💍 Couple / Romantic Songs',
+    categoryKey: 'couple',
+    tag: 'Sufi & Soulful Romantic Wedding Anthem',
+    url: '/assets/audio/sajjan_raazi.webm',
+    durationEst: '5:15',
+  },
+  {
     id: 'bagdo-haryanvi',
     title: 'Bagdo',
     artist: 'Raj Mawar | Manisha Sharma | Khushi Baliyan',
