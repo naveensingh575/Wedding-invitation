@@ -152,7 +152,7 @@ export default function LandingPortal({ onSelectSide, currentLang, setCurrentLan
           {/* Enter Button */}
           <div className="mt-6">
             <button className="w-full py-3.5 px-6 rounded-2xl bg-[var(--accent-primary)] hover:opacity-90 text-white font-bold text-sm shadow-lg group-hover:opacity-95 flex items-center justify-center space-x-2 transition-all cursor-pointer">
-              <span>{p.groomCard?.btn || "Enter Groom's Side (वर पक्ष) 🤵"}</span>
+              <span>{p.groomCard?.btn || "Enter Groom's Side (वर पक्ष)"}</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </button>
           </div>
@@ -212,7 +212,7 @@ export default function LandingPortal({ onSelectSide, currentLang, setCurrentLan
           {/* Enter Button */}
           <div className="mt-6">
             <button className="w-full py-3.5 px-6 rounded-2xl bg-[var(--accent-primary)] hover:opacity-90 text-white font-bold text-sm shadow-lg group-hover:opacity-95 flex items-center justify-center space-x-2 transition-all cursor-pointer">
-              <span>{p.brideCard?.btn || "Enter Bride's Side (वधू पक्ष) 👰"}</span>
+              <span>{p.brideCard?.btn || "Enter Bride's Side (वधू पक्ष)"}</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </button>
           </div>

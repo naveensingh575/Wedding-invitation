@@ -39,7 +39,7 @@ export default function GroomPage({
             onClick={onSwitchToBride}
             className="px-4 py-2 rounded-full bg-[var(--accent-primary)] hover:opacity-90 text-white text-xs font-bold shadow-md hover:scale-105 active:scale-95 transition-all flex items-center space-x-1.5 cursor-pointer"
           >
-            <span>Switch to Bride's Side 👰</span>
+            <span>Switch to Bride's Side</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </button>
         </div>
