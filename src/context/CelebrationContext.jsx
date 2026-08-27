@@ -12,7 +12,8 @@ export const CelebrationProvider = ({ children }) => {
   const [isCelebrating, setIsCelebrating] = useState(false);
 
   const triggerSkyshots = useCallback(() => {
-    setCelebrationId((prev) => prev + 1);
+    // Unique timestamp ensures instant synchronization on the very first click
+    setCelebrationId(Date.now());
     setIsCelebrating(true);
 
     setTimeout(() => {

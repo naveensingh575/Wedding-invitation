@@ -110,7 +110,7 @@ export default function HeroSection({ customCouplePhoto, openVideoModal, t, side
               </span>
             </div>
 
-            {/* Elegant Styled Location Badge (Replacing raw location emoji) */}
+            {/* Styled Location Badge */}
             <div className="mt-3 inline-flex items-center justify-center px-4 py-2 rounded-2xl bg-[var(--bg-elevated)] border border-[var(--border-gold)] text-xs text-[var(--text-secondary)] font-sans shadow-sm">
               <MapPin className="w-4 h-4 text-[var(--accent-gold)] shrink-0 mr-1.5" />
               <span className="font-semibold text-[var(--text-primary)]">
@@ -124,18 +124,18 @@ export default function HeroSection({ customCouplePhoto, openVideoModal, t, side
         </div>
       </div>
 
-      {/* SEPARATE & BEAUTIFUL ACTION BUTTONS DECK (Below the Couple Portrait Card) */}
+      {/* Theme-Adaptive Action Buttons Deck */}
       <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full max-w-md my-3 z-10">
-        {/* Watch Video Invitation Button */}
+        {/* Watch Video Invitation Button (Theme Adaptive bg-[var(--accent-primary)]) */}
         <button
           onClick={openVideoModal}
-          className="w-full sm:w-1/2 py-3.5 px-6 rounded-2xl bg-gradient-to-r from-[var(--accent-gold)] via-[#B8860B] to-[#AA7C11] text-white font-serif font-bold text-sm shadow-xl hover:scale-105 active:scale-95 transition-all duration-300 flex items-center justify-center space-x-2 border border-amber-300/40 group cursor-pointer"
+          className="w-full sm:w-1/2 py-3.5 px-6 rounded-2xl bg-[var(--accent-primary)] hover:opacity-90 text-white font-serif font-bold text-sm shadow-xl hover:scale-105 active:scale-95 transition-all duration-300 flex items-center justify-center space-x-2 border border-amber-300/40 group cursor-pointer"
         >
           <Film className="w-4 h-4 text-white group-hover:scale-110 transition-transform" />
           <span className="tracking-wide">Watch Video Invitation</span>
         </button>
 
-        {/* Get Location & Maps Button (Styled MapPin icon) */}
+        {/* Get Location & Maps Button */}
         <a
           href="#locations"
           onClick={(e) => {

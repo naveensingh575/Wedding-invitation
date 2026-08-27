@@ -27,7 +27,7 @@ export default function BridePage({
       <div className="pt-24 pb-2 px-4 max-w-7xl mx-auto flex items-center justify-between gap-3">
         <button
           onClick={onBackToPortal}
-          className="px-4 py-2 rounded-full bg-[var(--bg-elevated)] hover:bg-[var(--bg-card)] border border-[var(--border-gold)] text-xs font-bold text-[var(--text-primary)] flex items-center space-x-2 shadow-sm transition-all active:scale-95"
+          className="px-4 py-2 rounded-full bg-[var(--bg-elevated)] hover:bg-[var(--bg-card)] border border-[var(--border-gold)] text-xs font-bold text-[var(--text-primary)] flex items-center space-x-2 shadow-sm transition-all active:scale-95 cursor-pointer"
         >
           <Home className="w-3.5 h-3.5 text-[var(--accent-gold)]" />
           <span>← Back to Home</span>
@@ -37,7 +37,7 @@ export default function BridePage({
           <span className="hidden sm:inline text-xs text-[var(--text-muted)] font-medium">Viewing Bride's Side</span>
           <button
             onClick={onSwitchToGroom}
-            className="px-4 py-2 rounded-full bg-gradient-to-r from-[var(--accent-gold)] to-[#AA7C11] text-white text-xs font-bold shadow-md hover:scale-105 active:scale-95 transition-all flex items-center space-x-1.5"
+            className="px-4 py-2 rounded-full bg-[var(--accent-primary)] hover:opacity-90 text-white text-xs font-bold shadow-md hover:scale-105 active:scale-95 transition-all flex items-center space-x-1.5 cursor-pointer"
           >
             <span>Switch to Groom's Side 🤵</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -54,7 +54,7 @@ export default function BridePage({
         sideData={sideData}
       />
 
-      {/* Audio Control Bar equal in width to Child's Loving Invitation (max-w-4xl) */}
+      {/* Audio Control Bar */}
       {musicPlayerProps && (
         <div className="max-w-4xl mx-auto px-4 my-4">
           <MusicPlayer {...musicPlayerProps} />
@@ -64,13 +64,13 @@ export default function BridePage({
       {/* Bal Sandesh */}
       <BalSandesh t={t} customData={sideData.balSandesh} />
 
-      {/* Program Schedule with Bride Timeline */}
+      {/* Program Schedule */}
       <ProgramSchedule t={t} sideData={sideData} />
 
-      {/* Locations & Maps (Aryanagar Venue Card First) */}
+      {/* Locations & Maps */}
       <LocationsSection t={t} sideData={sideData} isBrideSide={true} />
 
-      {/* Travel Guide (Nearest Railway Stations: Loharu 19 KM, Satnali 26 KM, Charkhi Dadri 40 KM) */}
+      {/* Travel Guide */}
       <TravelGuide t={t} sideData={sideData} isBrideSide={true} />
 
       {/* AI Doodle & Photo Gallery */}

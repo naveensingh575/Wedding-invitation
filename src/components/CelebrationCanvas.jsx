@@ -3,11 +3,9 @@ import { useCelebration } from '../hooks/useCelebration';
 
 /**
  * Commercial Pyrotechnic Skyshot Fireworks Engine & Floating Text System
- * - Fixed Overlay: fixed inset-0 pointer-events-none z-[9999]
- * - Rocket Ascent: Champagne gold spark trail soaring upward from bottom screen.
- * - Central Peony Shell: Pure white/silver 360° spherical pop burst with high velocity & crisp dissipation.
- * - Secondary Willow Shells: Warm gold & rose embers drifting downward with air resistance and shimmering flicker.
- * - Floating Text: Zero-box transparent overlay with gold-rose gradient serif font synced to burst peak.
+ * - Overlay: fixed inset-0 pointer-events-none z-[9999]
+ * - Instant First-Click Launch: Both fireworks and congratulations text launch simultaneously on click #1.
+ * - Non-Underlined Theme-Adaptive Text: Razor-sharp readability on all 5 light & dark themes without solid box backgrounds.
  */
 class PyrotechnicRocket {
   constructor(targetX, targetY, isPeony, isMobile) {
@@ -35,7 +33,7 @@ class PyrotechnicRocket {
 
     this.x += this.vx;
     this.y += this.vy;
-    this.vy += 0.16; // Apex deceleration
+    this.vy += 0.16;
 
     if (this.vy >= -1 || this.y <= this.targetY || this.age > 75) {
       this.dead = true;
@@ -43,7 +41,6 @@ class PyrotechnicRocket {
   }
 
   draw(ctx) {
-    // Sparkling Rocket Ascent Streamer
     ctx.save();
     ctx.lineWidth = this.isPeony ? 2.2 : 1.8;
     ctx.strokeStyle = this.trailColor;
@@ -59,7 +56,6 @@ class PyrotechnicRocket {
     ctx.stroke();
     ctx.restore();
 
-    // Rocket Core Spark
     ctx.save();
     ctx.shadowBlur = 16;
     ctx.shadowColor = '#FFFFFF';
@@ -77,7 +73,6 @@ class PeonyWhiteParticle {
     this.y = y;
     this.color = Math.random() > 0.2 ? '#FFFFFF' : '#F0F8FF';
 
-    // 360-Degree Spherical Expansion
     const angle = Math.random() * Math.PI * 2;
     const speed = Math.random() * (isMobile ? 8 : 14) + 3;
 
@@ -144,7 +139,7 @@ class WillowGoldParticle {
     this.trail.push({ x: this.x, y: this.y, alpha: this.alpha });
     if (this.trail.length > 5) this.trail.shift();
 
-    this.vx *= 0.96; // Air resistance velocity decay
+    this.vx *= 0.96;
     this.vy *= 0.96;
     this.vy += this.gravity;
 
@@ -164,7 +159,6 @@ class WillowGoldParticle {
   draw(ctx) {
     if (this.alpha < 0.05) return;
 
-    // Willow Streamer Trail
     ctx.save();
     ctx.lineWidth = 1.0;
     ctx.strokeStyle = this.color;
@@ -177,7 +171,6 @@ class WillowGoldParticle {
     }
     ctx.restore();
 
-    // Willow Ember Core
     ctx.save();
     ctx.globalAlpha = Math.min(1.0, Math.max(0, this.alpha));
     ctx.fillStyle = this.color;
@@ -197,7 +190,6 @@ export default function CelebrationCanvas() {
   const rocketsRef = useRef([]);
   const particlesRef = useRef([]);
 
-  // Synced Transparent Congratulatory Text Flash State
   const [showText, setShowText] = useState(false);
   const [textOpacity, setTextOpacity] = useState(0);
 
@@ -212,7 +204,7 @@ export default function CelebrationCanvas() {
       canvas.height = window.innerHeight * dpr;
       canvas.style.width = `${window.innerWidth}px`;
       canvas.style.height = `${window.innerHeight}px`;
-      ctx.setTransform(1, 0, 0, 1, 0, 0); // Reset scale matrix to prevent GPU memory leak
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.scale(dpr, dpr);
     };
 
@@ -228,26 +220,25 @@ export default function CelebrationCanvas() {
   }, []);
 
   useEffect(() => {
-    if (celebrationId === 0) return;
+    if (!celebrationId) return;
 
-    // Synced Floating Text Overlay Sequence (Zero Box Background)
+    // Instant First-Click Launch Synchronization
     setShowText(true);
-    const fadeInTimer = setTimeout(() => setTextOpacity(1), 600); // Fades in as rockets hit apex
-    const fadeOutTimer = setTimeout(() => setTextOpacity(0), 5200); // Fades out with embers
+    setTextOpacity(1); // Immediate fade-in on click #1
+
+    const fadeOutTimer = setTimeout(() => setTextOpacity(0), 5200);
     const unmountTimer = setTimeout(() => setShowText(false), 6800);
 
     const isMobile = window.innerWidth < 640;
     const width = window.innerWidth;
     const height = window.innerHeight;
 
-    // Multi-Tier Commercial Pyrotechnic Launch Sequence
+    // Launch Pyrotechnic Sequence
     const launchSequence = () => {
-      // 1. High-Altitude Pure White Peony Shell
       setTimeout(() => {
         rocketsRef.current.push(new PyrotechnicRocket(width * 0.5, height * 0.18, true, isMobile));
       }, 0);
 
-      // 2. Staggered Willow Shells in Warm Gold & Rose
       const waveCount = isMobile ? 3 : 4;
       for (let wave = 1; wave <= waveCount; wave++) {
         setTimeout(() => {
@@ -278,7 +269,6 @@ export default function CelebrationCanvas() {
       const isMobileDevice = window.innerWidth < 640;
       const MAX_PARTICLES_CAP = isMobileDevice ? 60 : 120;
 
-      // Update & Draw Rockets
       for (let i = rocketsRef.current.length - 1; i >= 0; i--) {
         const rocket = rocketsRef.current[i];
         rocket.update();
@@ -287,13 +277,11 @@ export default function CelebrationCanvas() {
         if (rocket.dead) {
           if (particlesRef.current.length < MAX_PARTICLES_CAP) {
             if (rocket.isPeony) {
-              // High-density Pure White Spherical Pop
               const peonyCount = isMobileDevice ? 40 : 75;
               for (let p = 0; p < peonyCount; p++) {
                 particlesRef.current.push(new PeonyWhiteParticle(rocket.x, rocket.y, isMobileDevice));
               }
             } else {
-              // Willow Embers
               const willowCount = isMobileDevice ? 25 : 45;
               for (let p = 0; p < willowCount; p++) {
                 particlesRef.current.push(new WillowGoldParticle(rocket.x, rocket.y, isMobileDevice));
@@ -304,7 +292,6 @@ export default function CelebrationCanvas() {
         }
       }
 
-      // Update & Draw Particles with strict alpha < 0.05 cleanup
       for (let i = particlesRef.current.length - 1; i >= 0; i--) {
         const particle = particlesRef.current[i];
         particle.update();
@@ -331,7 +318,6 @@ export default function CelebrationCanvas() {
     }
 
     return () => {
-      clearTimeout(fadeInTimer);
       clearTimeout(fadeOutTimer);
       clearTimeout(unmountTimer);
     };
@@ -346,20 +332,20 @@ export default function CelebrationCanvas() {
         style={{ pointerEvents: 'none' }}
       />
 
-      {/* Pure Floating Congratulatory Text Overlay (Zero Box Background) */}
+      {/* High-Contrast Non-Underlined Floating Congratulatory Text (Readable on ALL themes) */}
       {showText && (
         <div className="fixed inset-0 z-[9999] pointer-events-none flex flex-col items-center justify-center px-4 text-center">
           <div
-            className="transition-all duration-1000 ease-out transform flex flex-col items-center pointer-events-none"
+            className="transition-all duration-1000 ease-out transform flex flex-col items-center pointer-events-none max-w-4xl"
             style={{
               opacity: textOpacity,
               transform: `scale(${0.92 + textOpacity * 0.08})`,
             }}
           >
-            <h2 className="font-serif italic text-3xl sm:text-5xl lg:text-6xl font-extrabold bg-gradient-to-r from-amber-200 via-rose-100 to-amber-200 bg-clip-text text-transparent drop-shadow-[0_4px_24px_rgba(255,215,0,0.65)] tracking-wide leading-tight">
+            <h2 className="font-serif italic text-3xl sm:text-5xl lg:text-6xl font-extrabold text-[var(--accent-primary)] drop-shadow-[0_2px_16px_rgba(255,255,255,0.9)] dark:drop-shadow-[0_2px_18px_rgba(0,0,0,0.9)] tracking-wide leading-tight no-underline select-none">
               Congratulations to the newlywed couple! 🥂
             </h2>
-            <p className="font-hindi text-base sm:text-2xl font-bold text-amber-200/95 mt-3 drop-shadow-[0_2px_12px_rgba(0,0,0,0.85)]">
+            <p className="font-hindi text-base sm:text-2xl font-bold text-[var(--text-primary)] mt-3 drop-shadow-[0_2px_10px_rgba(255,255,255,0.8)] dark:drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)] no-underline select-none">
               नवीन एवं मनीषा के शुभ विवाह की हार्दिक शुभकामनाएँ! ✨
             </p>
           </div>
