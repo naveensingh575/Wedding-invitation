@@ -12,6 +12,16 @@ export const WEDDING_PLAYLIST = [
     durationEst: '3:50',
   },
   {
+    id: 'king-queen',
+    title: 'King Queen',
+    artist: 'Vikram Malik | EP : The Artist',
+    category: '🪘 Haryanvi Wedding Songs',
+    categoryKey: 'haryanvi',
+    tag: 'Latest Haryanvi Wedding Track',
+    url: '/assets/audio/king_queen.webm',
+    durationEst: '2:35',
+  },
+  {
     id: 'bairan-couple',
     title: 'Bairan (Couple & Folk Special)',
     artist: 'Traditional Folk & Melodic Sangeet Beats',
