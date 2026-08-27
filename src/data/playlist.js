@@ -12,6 +12,16 @@ export const WEDDING_PLAYLIST = [
     durationEst: '3:50',
   },
   {
+    id: 'bagdo-haryanvi',
+    title: 'Bagdo',
+    artist: 'Raj Mawar | Manisha Sharma | Khushi Baliyan',
+    category: '🪘 Haryanvi Wedding Songs',
+    categoryKey: 'haryanvi',
+    tag: 'Trending Haryanvi Wedding Dance Track',
+    url: '/assets/audio/bagdo.webm',
+    durationEst: '2:45',
+  },
+  {
     id: 'king-queen',
     title: 'King Queen',
     artist: 'Vikram Malik | EP : The Artist',
