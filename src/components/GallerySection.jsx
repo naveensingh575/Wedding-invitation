@@ -23,14 +23,14 @@ export default function GallerySection({ customCouplePhoto, t }) {
       id: 'mehendi',
       title: 'Mehendi & Mahila Sangeet',
       subtitle: 'Groom Side Dholak Beats & Lok Geet',
-      src: '/assets/doodles/mehendi.svg',
+      src: '/assets/doodles/bride_mahendi.png',
       tag: '17 Nov • Sangeet',
     },
     {
       id: 'lagan',
       title: 'Shubh Lagan Patrika Scroll',
       subtitle: 'Chi. Naveen weds Ku. Manisha',
-      src: '/assets/doodles/lagan.svg',
+      src: '/assets/doodles/lagan.jpg',
       tag: '19 Nov • Lagan',
     },
   ];
