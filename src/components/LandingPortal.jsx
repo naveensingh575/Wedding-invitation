@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Heart, Sparkles, MapPin, ArrowRight } from 'lucide-react';
 import Countdown from './Countdown';
 import BalSandesh from './BalSandesh';
-import ProgramSchedule from './ProgramSchedule';
 import LocationsSection from './LocationsSection';
 import TravelGuide from './TravelGuide';
 import RSVPSection from './RSVPSection';
@@ -10,7 +9,6 @@ import Footer from './Footer';
 
 export default function LandingPortal({ onSelectSide, currentLang, setCurrentLang, t, musicPlayerProps }) {
   const p = t.portal || t;
-  const groomEvents = t.groom?.events || t.events || [];
 
   return (
     <div className="animate-fadeIn relative">
@@ -188,9 +186,6 @@ export default function LandingPortal({ onSelectSide, currentLang, setCurrentLan
 
         </div>
       </section>
-
-      {/* Program Schedule & Events */}
-      <ProgramSchedule t={t} sideData={t.groom} />
 
       {/* Bal Sandesh */}
       <BalSandesh t={t} />
