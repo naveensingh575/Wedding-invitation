@@ -5,7 +5,7 @@ export default function Footer({ t, isBrideSide }) {
   const shareText = encodeURIComponent(
     isBrideSide
       ? "You are cordially invited to the Wedding Ceremony of Manisha Sheoran & Naveen Luhach (#Navisha) on 20th Nov 2026 at Arya Nagar, Tehsil Badhra! Invitation from Shri Jagvir Singh Sheoran & Sheoran Family. View digital invitation card: https://naveenwedsmanisha.online/"
-      : "You are cordially invited to the Wedding Ceremony of Naveen Luhach & Manisha Sheoran (#Navisha) on 20th Nov 2026 at Nandha ki Dhani, Badhra! Invitation from Hon. Capt. Satyavir Singh & Luhach Family. View digital invitation card: https://naveenwedsmanisha.online/"
+      : "You are cordially invited to the Wedding Ceremony of Naveen Luhach & Manisha Sheoran (#Navisha) on 20th Nov 2026 at Nandha ki Dhani, Badhra! Invitation from Capt. Satyavir Singh & Luhach Family. View digital invitation card: https://naveenwedsmanisha.online/"
   );
 
   const scrollToTop = () => {
@@ -21,7 +21,7 @@ export default function Footer({ t, isBrideSide }) {
           <h3 className="font-serif text-lg sm:text-xl font-bold text-[var(--text-primary)]">
             {isBrideSide
               ? "Shri Jagvir Singh Sheoran & Sheoran Family"
-              : "Hon. Capt. Satyavir Singh & Luhach Family"}
+              : "Capt. Satyavir Singh & Luhach Family"}
           </h3>
           <p className="text-xs text-[var(--text-secondary)] leading-relaxed font-sans">
             {isBrideSide

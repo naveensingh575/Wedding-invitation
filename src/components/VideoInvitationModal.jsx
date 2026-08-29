@@ -53,7 +53,7 @@ export default function VideoInvitationModal({ isOpen, onClose, customVideoUrl }
                     ॥ शुभ विवाह आमंत्रण ॥
                   </span>
                   <h4 className="font-serif text-xl sm:text-2xl font-extrabold text-[var(--text-primary)] mt-1.5">
-                    Hon. Capt. Satyavir Singh & Luhach Family
+                    Capt. Satyavir Singh & Luhach Family
                   </h4>
                   <p className="text-[11px] text-[var(--text-secondary)] font-sans">
                     Vill. Nandha ki Dhani, Badhra (Charkhi Dadri)

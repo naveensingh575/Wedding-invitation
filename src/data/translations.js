@@ -13,7 +13,7 @@ export const translations = {
       groomCard: {
         badge: "Groom's Family",
         side: "Groom Side - Nandha ki Dhani",
-        hosts: "Hon. Capt. Satyavir Singh & Luhach Family",
+        hosts: "Capt. Satyavir Singh & Luhach Family",
         venue: "Vill. Nandha ki Dhani, Badhra",
         btn: "Enter Groom's Side (वर पक्ष) 🤵‍♂️",
         desc: "Haldi, Bhaat & Lagan, Ghurchhari Horse Ceremony & Barat Departure",
@@ -42,9 +42,9 @@ export const translations = {
     },
     groom: {
       invitationTag: "Personal Invitation From",
-      inviter: "Hon. Capt. Satyavir Singh & Luhach Family",
+      inviter: "Capt. Satyavir Singh & Luhach Family",
       inviterSub: "Vill. Nandha Ki Dhani, Post & Tehsil Badhra, Distt. Charkhi Dadri (Haryana)",
-      lineage: "Grandson of Smt. Chardro Devi & Late Shri Shiv Narayan | Son of Smt. Sunita Devi & Hon. Capt. Satyavir Singh",
+      lineage: "Grandson of Smt. Chardro Devi & Late Shri Shiv Narayan | Son of Smt. Sunita Devi & Capt. Satyavir Singh",
       heroHeading: "Naveen Wedding Celebration",
       heroSubheading: "With the divine blessings of Almighty & elders, we cordially invite you to the wedding ceremony of Naveen Luhach & Manisha Sheoran (Groom's Side View)",
       countdownHeading: "Countdown to Shubh Vivah — 20 November 2026",
@@ -264,7 +264,7 @@ export const translations = {
     rsvp: {
       badge: "Confirm Your Presence",
       heading: "Confirm Your Attendance (RSVP)",
-      subheading: "Hon. Capt. Satyavir Singh & Luhach family & Sheoran family request the pleasure of your company",
+      subheading: "Capt. Satyavir Singh & Luhach family & Sheoran family request the pleasure of your company",
     },
     wishes: {
       badge: "Blessings & Wishes Wall",
@@ -291,7 +291,7 @@ export const translations = {
       groomCard: {
         badge: "वर परिवार",
         side: "वर पक्ष - नांधा की ढाणी",
-        hosts: "ऑनरेरी कैप्टन सत्यवीर सिंह एवं समस्त लुहाच परिवार",
+        hosts: "कैप्टन सत्यवीर सिंह एवं समस्त लुहाच परिवार",
         venue: "ग्राम नांधा की ढाणी, बाढड़ा",
         btn: "वर पक्ष आमंत्रण देखें (Groom Side) 🤵",
         desc: "हल्दी उबटन, भात एवं लगन, घुड़चढ़ी एवं बारात प्रस्थान",
@@ -320,9 +320,9 @@ export const translations = {
     },
     groom: {
       invitationTag: "पावन निमंत्रणकर्ता",
-      inviter: "ऑनरेरी कैप्टन सत्यवीर सिंह एवं समस्त लुहाच परिवार",
+      inviter: "कैप्टन सत्यवीर सिंह एवं समस्त लुहाच परिवार",
       inviterSub: "ग्राम नांधा की ढाणी, पो. व तहसील बाढड़ा, जिला चरखी दादरी (हरियाणा)",
-      lineage: "पौत्र: श्रीमती चंदरों देवी एवं स्व. श्री शिव नारायण | सुपुत्र: श्रीमती सुनीता देवी एवं ऑनरेरी कैप्टन सत्यवीर सिंह",
+      lineage: "पौत्र: श्रीमती चंदरों देवी एवं स्व. श्री शिव नारायण | सुपुत्र: श्रीमती सुनीता देवी एवं कैप्टन सत्यवीर सिंह",
       heroHeading: "नवीन शुभ विवाह समारोह (वर पक्ष)",
       heroSubheading: "ईश्वर की असीम अनुकंपा एवं बुजुर्गों के आशीर्वाद से हमारे सुपुत्र नवीन लुहाच संग मनीषा के विवाह उत्सव में आप सादर आमंत्रित हैं",
       countdownHeading: "शुभ विवाह उल्टी गिनती — 20 नवंबर 2026",
@@ -598,7 +598,7 @@ export const translations = {
     },
     groom: {
       invitationTag: "ब्याह का नेवता",
-      inviter: "ऑनरेरी कैप्टन सत्यवीर सिंह अर सारा लुहाच कुणबा",
+      inviter: "कैप्टन सत्यवीर सिंह अर सारा लुहाच कुणबा",
       inviterSub: "गाँव नांधा की ढाणी, तहसील बाढड़ा, ज़िला चरखी दादरी (हरियाणा)",
       lineage: "पोता: दादी चंद्रों देवी अर स्व. दादा शिव नारायण | बेटा: माता सुनीता देवी अर कैप्टन सत्यवीर सिंह",
       heroHeading: "लाडले नवीन का ब्याह (वर पक्ष)",

@@ -14,7 +14,7 @@ export default function WishesWall({ t }) {
       id: 2,
       name: "Col. S. K. Sheoran",
       relation: "Well Wisher",
-      message: "Heartiest congratulations to Hon. Capt. Satyavir Singh & family! Best wishes to Naveen & Manisha for a blissful married life.",
+      message: "Heartiest congratulations to Capt. Satyavir Singh & family! Best wishes to Naveen & Manisha for a blissful married life.",
       date: "Aug 2026",
     },
     {
