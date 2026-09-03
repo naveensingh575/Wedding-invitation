@@ -1,0 +1,314 @@
+================================================================================
+👰🤵 MASTER WEDDING WEB APP GENERATION PROMPT PACK & REUSABLE BLUEPRINT
+================================================================================
+
+Use this Master Prompt Pack to recreate the exact same ultra-premium, 3-page, 
+multi-language, multi-theme wedding web application for any couple.
+
+Simply update the "PERSONAL DETAILS CONFIGURATION MATRIX" below and feed the prompt 
+into an AI coding assistant (like Antigravity / Gemini / ChatGPT / Claude).
+
+--------------------------------------------------------------------------------
+1. PERSONAL DETAILS CONFIGURATION MATRIX (VARIABLE INPUT - SWAP DETAILS HERE)
+--------------------------------------------------------------------------------
+
+{
+  "GROOM": {
+    "fullName": "Naveen Luhach",
+    "shortName": "Naveen",
+    "fatherTitle": "Capt.",
+    "fatherName": "Satyavir Singh",
+    "motherName": "Sunita Devi",
+    "paternalGrandMother": "Smt. Chardro Devi",
+    "paternalGrandFather": "Late Shri Shiv Narayan",
+    "familyTag": "Luhach Family",
+    "hosts": "Capt. Satyavir Singh & Luhach Family",
+    "village": "Vill. Nandha ki Dhani",
+    "postTehsil": "Post & Tehsil Badhra",
+    "district": "Distt. Charkhi Dadri",
+    "statePincode": "Haryana — 127308",
+    "googleMapsUrl": "https://maps.google.com/?q=28.5306,75.9868",
+    "googleMapsIframeSrc": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3513.7!2d75.9868!3d28.5306!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjjCsDMxJzUwLjIiTiA3NcKwNTknMTIuNSJF!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin",
+    "portraitImage": "/assets/doodles/groom_portrait.png"
+  },
+  "BRIDE": {
+    "fullName": "Manisha Sheoran",
+    "shortName": "Manisha",
+    "fatherTitle": "Shri",
+    "fatherName": "Jagvir Singh Sheoran",
+    "motherName": "Smt. Suman Devi",
+    "paternalGrandMother": "Smt. Omwati Devi",
+    "paternalGrandFather": "Late Shri Ram Kumar Sheoran",
+    "familyTag": "Sheoran Family",
+    "hosts": "Shri Jagvir Singh Sheoran & Sheoran Family",
+    "village": "Arya Nagar",
+    "postTehsil": "Tehsil Badhra",
+    "district": "Distt. Charkhi Dadri",
+    "statePincode": "Haryana — 127306",
+    "googleMapsUrl": "https://maps.google.com/?q=28.5612,75.9521",
+    "googleMapsIframeSrc": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3513.1!2d75.9521!3d28.5612!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjjCsDMzJzUwLjMiTiA3NcKwNTcnMDcuNiJF!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin",
+    "portraitImage": "/assets/doodles/bride_portrait.png"
+  },
+  "WEDDING": {
+    "hashtag": "#Navisha",
+    "weddingDateISO": "2026-11-20T19:00:00+05:30",
+    "weddingDateDisplay": "20 November 2026",
+    "customDomain": "https://naveenwedsmanisha.online/",
+    "kidsInvitation": {
+      "names": "Vedant & Shivansh",
+      "relation": "Mama Ji Naveen"
+    }
+  },
+  "GROOM_EVENTS": [
+    {
+      "date": "16 November 2026",
+      "day": "Monday",
+      "title": "1st Ban & Groom's Haldi Ceremony",
+      "doodle": "/assets/doodles/groom_haldi.jpg",
+      "time": "10:00 AM Onwards",
+      "location": "Groom’s House, Nandha ki Dhani, Badhra",
+      "highlight": "Groom Naveen's Haldi & Ubtan Application"
+    },
+    {
+      "date": "17 November 2026",
+      "day": "Tuesday",
+      "title": "Mehendi & Mahila Sangeet (Groom Side)",
+      "doodle": "/assets/doodles/groomMahendi.png",
+      "time": "04:00 PM Onwards",
+      "location": "Nandha ki Dhani, Badhra",
+      "highlight": "Groom Side Dholak Beats & Henna Evening"
+    },
+    {
+      "date": "19 November 2026",
+      "day": "Thursday",
+      "title": "Bhaat & Shubh Lagan",
+      "doodle": "/assets/doodles/lagan.svg",
+      "time": "11:00 AM Bhaat | 05:00 PM Lagan",
+      "location": "Nandha ki Dhani, Badhra",
+      "highlight": "Chi. Naveen weds Ku. Manisha"
+    },
+    {
+      "date": "20 November 2026",
+      "day": "Friday",
+      "title": "Ghurchhari, Barat & Shubh Vivah",
+      "doodle": "/assets/doodles/groom_bharat.png",
+      "time": "Ghurchhari: 03:00 PM | Barat: 06:00 PM",
+      "location": "Departure from Nandha ki Dhani to Arya Nagar, Charkhi Dadri",
+      "highlight": "Groom Naveen's Barat & Sacred Pheras"
+    }
+  ],
+  "BRIDE_EVENTS": [
+    {
+      "date": "17 November 2026",
+      "day": "Tuesday",
+      "title": "Ban & Haldi Ceremony (बाण एवं हल्दी)",
+      "doodle": "/assets/doodles/haldi.jpg",
+      "time": "10:00 AM Onwards",
+      "location": "Bride's House, Arya Nagar, Tehsil Badhra",
+      "highlight": "Bride Manisha's Haldi & Ubtan Application"
+    },
+    {
+      "date": "18 November 2026",
+      "day": "Wednesday",
+      "title": "Mehndi Utsav (मेहंदी उत्सव)",
+      "doodle": "/assets/doodles/bride_mahendi.png",
+      "time": "04:00 PM Onwards",
+      "location": "Arya Nagar, Tehsil Badhra",
+      "highlight": "Dark Henna Design & Sangeet Dance"
+    },
+    {
+      "date": "19 November 2026",
+      "day": "Thursday",
+      "title": "Bhaat & Mandap Pujan (भात एवं मंडप पूजन)",
+      "doodle": "/assets/doodles/lagan.svg",
+      "time": "11:00 AM Bhaat | 05:00 PM Mandap Pujan",
+      "location": "Arya Nagar, Tehsil Badhra",
+      "highlight": "Maternal Uncle Honor & Sacred Mandap Pujan"
+    },
+    {
+      "date": "20 November 2026",
+      "day": "Friday",
+      "title": "Barat Swagat, Jaimala & Shubh Vivah",
+      "doodle": "/assets/doodles/bharat_swagat.png",
+      "time": "Barat Swagat: 06:00 PM | Jaimala: 07:30 PM | Pheras: 10:00 PM",
+      "location": "Arya Nagar Venue, Tehsil Badhra",
+      "highlight": "Grand Barat Welcome & Sacred 7 Vows"
+    }
+  ],
+  "AUDIO_PLAYLIST": [
+    {
+      "id": "aaj-sajeya",
+      "title": "Aaj Sajeya (Couple Special)",
+      "artist": "Goldie Sohel",
+      "categoryKey": "couple",
+      "url": "/assets/audio/aaj_sajeya.webm"
+    },
+    {
+      "id": "sajjan-raazi",
+      "title": "Sajjan Raazi",
+      "artist": "Satinder Sartaaj",
+      "categoryKey": "couple",
+      "url": "/assets/audio/sajjan_raazi.webm"
+    },
+    {
+      "id": "bagdo",
+      "title": "Bagdo",
+      "artist": "Raj Mawar & Manisha Sharma",
+      "categoryKey": "haryanvi",
+      "url": "/assets/audio/bagdo.webm"
+    },
+    {
+      "id": "king-queen",
+      "title": "King Queen",
+      "artist": "Vikram Malik",
+      "categoryKey": "haryanvi",
+      "url": "/assets/audio/king_queen.webm"
+    },
+    {
+      "id": "kudmayi",
+      "title": "Kudmayi",
+      "artist": "Shahid Mallya",
+      "categoryKey": "hindi",
+      "url": "/assets/audio/kudmayi.webm"
+    },
+    {
+      "id": "din-shagna-da",
+      "title": "Din Shagna Da",
+      "artist": "Jasleen Royal",
+      "categoryKey": "bridal",
+      "url": "/assets/audio/din_shagna_da.webm"
+    }
+  ]
+}
+
+
+--------------------------------------------------------------------------------
+2. MASTER AI SYSTEM PROMPT (COPY-PASTE READY FOR AI ASSISTANTS)
+--------------------------------------------------------------------------------
+
+Act as a Senior Creative Frontend & Graphics Engineer. Build a responsive, ultra-premium digital wedding invitation web application using React, Vite, Tailwind CSS, Lucide Icons, HTML5 Audio API, and HTML5 Canvas 2D Pyrotechnic Engine.
+
+### 🏛️ Core Architecture & Portal Navigation
+1. Landing Portal (LandingPortal.jsx):
+   - Top Lord Ganesha auspicious badge (॥ श्री गणेशाय नमः ॥).
+   - Couple Headline ([GROOM_NAME] ❤️ [BRIDE_NAME]) & Wedding Hashtag ([HASHTAG]).
+   - Overlapping dual circular portrait badge of Groom and Bride.
+   - 2-Column Side Selection Cards:
+     - Groom Side Card: Leads to Groom Page view (onSelectSide('groom')). Displays [GROOM_HOSTS] and [GROOM_VENUE].
+     - Bride Side Card: Leads to Bride Page view (onSelectSide('bride')). Displays [BRIDE_HOSTS] and [BRIDE_VENUE].
+   - Standalone Countdown Timer (Countdown.jsx) with a "🎉 Test Skyshots" celebration trigger button.
+   - Audio Music Player Bar docked at the bottom.
+
+2. Groom Page (GroomPage.jsx):
+   - Hero banner with [GROOM_HOSTS] inviter badge, family lineage (Grandparents & Parents), and side-switching button.
+   - Program Schedule (ProgramSchedule.jsx) featuring Groom events with mobile aspect ratio "w-full h-auto object-contain".
+   - Kids' Special Invitation Card (BalSandesh.jsx) ("[KIDS_NAMES] invitation").
+   - Venue Location & Directions (LocationsSection.jsx) with embedded Google Maps iframe and "Get Directions" link.
+   - Travel & Accommodation Guide (TravelGuide.jsx) with railway, road, and airport instructions.
+   - AI Doodle Gallery (GallerySection.jsx).
+   - Attendance Confirmation (RSVPSection.jsx) with inline green success card.
+   - Guestbook Blessings Wall (WishesWall.jsx).
+   - Footer (Footer.jsx) with WhatsApp share invitation trigger.
+
+3. Bride Page (BridePage.jsx):
+   - Mirror structure of Groom Page tuned for [BRIDE_HOSTS] and [BRIDE_VENUE].
+
+---
+
+### 🎨 5 Dynamic Wedding Themes
+Implement theme switching via CSS custom properties on <html> / container element:
+1. Blush Pink & Champagne (Default & Top Theme): bg: #fff5f7, primary: #e05275, accent: #d4af37.
+2. Royal Marigold & Gold: bg: #fffbf0, primary: #e67e22, accent: #d4af37.
+3. Regal Emerald & Velvet: bg: #f0fdf4, primary: #15803d, accent: #b45309.
+4. Royal Peacock & Gold: bg: #f0f9ff, primary: #0284c7, accent: #d4af37.
+5. Divine Crimson & Gold: bg: #fdf2f2, primary: #991b1b, accent: #d4af37.
+
+---
+
+### 🌐 3-Language System (translations.js)
+Provide instant toggle between:
+- English (en): International guest wording.
+- Hindi (hi): Traditional Vedic Hindi wording.
+- Haryanvi (haryanvi): Cultural regional folk wording.
+
+---
+
+### 🎆 Skyshots Pyrotechnics Canvas Engine (CelebrationCanvas.jsx)
+- Fixed full-screen overlay canvas (pointer-events-none z-50).
+- Launches multi-stage colorful realistic firework rockets with trailing sparks, blossom explosions, and particle decay (alpha < 0.05 pruning).
+- Synchronous floating congratulations banner: "Congratulations Naveen & Manisha!" with dual gold stars.
+- DPR matrix scale reset on window resize (ctx.setTransform(1,0,0,1,0,0)) to prevent GPU memory leaks.
+- Triggered on click #1 of "Test Skyshots" button and automatically when countdown hits zero.
+
+---
+
+### 🎵 Floating Music Bar (MusicPlayer.jsx & playlist.js)
+- Fixed bottom-docked glassmorphism player bar.
+- Play/Pause toggle, Previous Track, Next Track.
+- Interactive Shuffle / Re-shuffle toggle.
+- Category filter pills (All, Couple Special, Hindi Wedding, Bridal Entry, Haryanvi Wedding, Baraat).
+- Dynamic <audio> sync with auto-play on next track end.
+- Top Navbar music button: direct Play/Stop toggle with dynamic icon state.
+
+--------------------------------------------------------------------------------
+3. CODEBASE FILE SITEMAP
+--------------------------------------------------------------------------------
+
+haryanvi-wedding-invitation/
+├── public/
+│   ├── assets/
+│   │   ├── audio/
+│   │   │   ├── aaj_sajeya.webm
+│   │   │   ├── sajjan_raazi.webm
+│   │   │   ├── bagdo.webm
+│   │   │   ├── king_queen.webm
+│   │   │   ├── kudmayi.webm
+│   │   │   ├── din_shagna_da.webm
+│   │   │   ├── byaah_ki_tyari.webm
+│   │   │   └── hat_ja_tau.webm
+│   │   └── doodles/
+│   │       ├── groom_haldi.jpg
+│   │       ├── groomMahendi.png
+│   │       ├── bride_mahendi.png
+│   │       ├── lagan.svg
+│   │       ├── groom_bharat.png
+│   │       ├── bharat_swagat.png
+│   │       ├── haldi.jpg
+│   │       ├── groom_portrait.png
+│   │       └── bride_portrait.png
+│   ├── favicon.ico
+│   └── wedding_app_master_prompt_pack.txt
+├── src/
+│   ├── components/
+│   │   ├── BalSandesh.jsx
+│   │   ├── BridePage.jsx
+│   │   ├── CelebrationCanvas.jsx
+│   │   ├── Countdown.jsx
+│   │   ├── Footer.jsx
+│   │   ├── GallerySection.jsx
+│   │   ├── GroomPage.jsx
+│   │   ├── HeroSection.jsx
+│   │   ├── LandingPortal.jsx
+│   │   ├── LocationsSection.jsx
+│   │   ├── MusicPlayer.jsx
+│   │   ├── Navbar.jsx
+│   │   ├── ProgramSchedule.jsx
+│   │   ├── RSVPSection.jsx
+│   │   ├── ThemeSelector.jsx
+│   │   ├── TravelGuide.jsx
+│   │   ├── VideoInvitationModal.jsx
+│   │   └── WishesWall.jsx
+│   ├── context/
+│   │   └── CelebrationContext.jsx
+│   ├── data/
+│   │   ├── playlist.js
+│   │   └── translations.js
+│   ├── App.jsx
+│   ├── index.css
+│   └── main.jsx
+├── index.html
+├── package.json
+├── tailwind.config.js
+└── vite.config.js
+
+================================================================================
