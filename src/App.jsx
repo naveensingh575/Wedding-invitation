@@ -1,18 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-import Navbar from './components/Navbar';
-import LandingPortal from './components/LandingPortal';
-import GroomPage from './components/GroomPage';
-import BridePage from './components/BridePage';
-import VideoInvitationModal from './components/VideoInvitationModal';
-import ThemeSwitcher from './components/ThemeSwitcher';
-
-import { CelebrationProvider } from './context/CelebrationContext';
-import CelebrationCanvas from './components/CelebrationCanvas';
-
-import { WEDDING_PLAYLIST } from './data/playlist';
-import { translations } from './data/translations';
+import ComingSoon from './components/ComingSoon';
 
 export default function App() {
+  return <ComingSoon />;
+}
+
+function DisabledApp() {
   // 1. Persisted Theme and Language via localStorage
   const [currentLang, setCurrentLang] = useState(() => {
     return localStorage.getItem('navisha_lang') || 'haryanvi';
