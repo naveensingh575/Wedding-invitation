@@ -6,32 +6,32 @@ export default function GallerySection({ customCouplePhoto, t }) {
 
   const initialDoodles = [
     {
-      id: 'couple',
-      title: 'Naveen & Manisha (#Navisha)',
-      subtitle: 'Couple Wedding Portrait Artwork',
-      src: customCouplePhoto || '/assets/real_photos/couple_common.jpg',
-      tag: 'Couple Portrait',
-    },
-    {
       id: 'groom_haldi',
       title: 'Groom Naveen Haldi & Ban',
       subtitle: 'Turmeric Ubtan & Traditional Rituals',
       src: '/assets/doodles/groom_haldi.jpg',
-      tag: '16 Nov • Haldi',
+      tag: '16 Nov • Groom Haldi',
     },
     {
-      id: 'mehendi',
-      title: 'Mehendi & Mahila Sangeet',
+      id: 'groom_mehendi',
+      title: 'Groom Mehendi & Mahila Sangeet',
       subtitle: 'Groom Side Dholak Beats & Lok Geet',
       src: '/assets/doodles/groomMahendi.png',
-      tag: '17 Nov • Sangeet',
+      tag: '17 Nov • Groom Sangeet',
     },
     {
-      id: 'lagan',
-      title: 'Shubh Lagan Patrika Scroll',
-      subtitle: 'Chi. Naveen weds Ku. Manisha',
-      src: '/assets/doodles/lagan.svg',
-      tag: '19 Nov • Lagan',
+      id: 'bride_haldi',
+      title: 'Bride Manisha Haldi Ceremony',
+      subtitle: 'Turmeric Ubtan & Traditional Rituals',
+      src: '/assets/doodles/haldi.jpg',
+      tag: '19 Nov • Bride Haldi',
+    },
+    {
+      id: 'bride_mehendi',
+      title: 'Bride Manisha Mehendi Art',
+      subtitle: 'Bridal Henna & Wedding Festivities',
+      src: '/assets/doodles/bride_mahendi.png',
+      tag: '19 Nov • Bride Mehendi',
     },
   ];
 
