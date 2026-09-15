@@ -65,7 +65,7 @@ export default function Navbar({
           >
             <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl border-2 border-[var(--accent-gold)] overflow-hidden shadow-md shrink-0 bg-black flex items-center justify-center p-0.5 group-hover:scale-105 transition-transform">
               <img
-                src="/assets/real_photos/couple_common.jpg"
+                src="/assets/doodles/couple.png"
                 alt="Naveen & Manisha"
                 className="w-full h-full object-cover object-top rounded-xl"
               />

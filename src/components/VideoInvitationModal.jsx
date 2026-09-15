@@ -63,7 +63,7 @@ export default function VideoInvitationModal({ isOpen, onClose, customVideoUrl }
                 {/* Single Common Couple Portrait Circle */}
                 <div className="my-1.5 flex items-center justify-center">
                   <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full border-2 border-[var(--accent-gold)] overflow-hidden shadow-xl bg-black">
-                    <img src="/assets/real_photos/couple_common.jpg" alt="Naveen & Manisha" className="w-full h-full object-cover object-top" />
+                    <img src="/assets/doodles/couple.png" alt="Naveen & Manisha" className="w-full h-full object-cover object-top" />
                   </div>
                 </div>
 

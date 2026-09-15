@@ -83,7 +83,7 @@ export default function HeroSection({ customCouplePhoto, openVideoModal, t, side
           {/* Common Couple Photo Frame */}
           <div className="relative w-full aspect-[1/2] sm:aspect-[9/16] max-h-[500px] rounded-2xl overflow-hidden border-2 border-[var(--border-gold)] shadow-lg bg-black/5 group">
             <img
-              src={customCouplePhoto || "/assets/real_photos/couple_common.jpg"}
+              src={customCouplePhoto || "/assets/doodles/couple.png"}
               alt="Naveen Luhach & Manisha Sheoran"
               className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
             />

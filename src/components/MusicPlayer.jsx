@@ -90,7 +90,7 @@ export default function MusicPlayer(props) {
             <div className="flex items-center space-x-4 w-full sm:w-auto">
               <div className={`w-14 h-14 sm:w-16 sm:h-16 rounded-2xl border-2 border-[var(--accent-gold)] overflow-hidden shadow-lg shrink-0 relative bg-black flex items-center justify-center ${isPlaying ? 'ring-2 ring-[var(--accent-gold)] ring-offset-2 ring-offset-[var(--bg-primary)]' : ''}`}>
                 <img
-                  src="/assets/real_photos/couple_common.jpg"
+                  src="/assets/doodles/couple.png"
                   alt="Naveen & Manisha Wedding Audio"
                   className={`w-full h-full object-cover object-top ${isPlaying ? 'scale-105' : 'scale-100'} transition-transform duration-500`}
                 />
