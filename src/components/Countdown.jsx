@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Clock, Sparkles } from 'lucide-react';
+import { Clock } from 'lucide-react';
 import { useCelebration } from '../hooks/useCelebration';
 
 export default function Countdown({ targetDateStr = '2026-11-20T23:59:00+05:30', label }) {
@@ -44,14 +44,6 @@ export default function Countdown({ targetDateStr = '2026-11-20T23:59:00+05:30',
     const interval = setInterval(updateTimer, 1000);
     return () => clearInterval(interval);
   }, [targetDateStr, triggerSkyshots, triggerCelebration]);
-
-  const handleTestSkyshots = () => {
-    if (typeof triggerSkyshots === 'function') {
-      triggerSkyshots();
-    } else if (typeof triggerCelebration === 'function') {
-      triggerCelebration();
-    }
-  };
 
   return (
     <div className="w-full max-w-5xl glass-wedding-card rounded-3xl p-6 border border-[var(--border-gold)] shadow-xl my-6">
@@ -103,18 +95,6 @@ export default function Countdown({ targetDateStr = '2026-11-20T23:59:00+05:30',
               </span>
               <span className="text-[10px] sm:text-xs text-[var(--text-muted)] uppercase tracking-widest mt-1">Secs</span>
             </div>
-          </div>
-
-          {/* Discreet Test Skyshots Button (Only beneath the timer numbers) */}
-          <div className="mt-4 flex justify-center">
-            <button
-              onClick={handleTestSkyshots}
-              className="px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/30 text-white text-xs font-semibold backdrop-blur-sm transition-all shadow-sm flex items-center space-x-1.5 cursor-pointer"
-              title="Test Pure Bright White Commercial Skyshots Fireworks Animation"
-            >
-              <Sparkles className="w-3.5 h-3.5 text-white" />
-              <span>🎉 Test Skyshots</span>
-            </button>
           </div>
         </>
       )}
