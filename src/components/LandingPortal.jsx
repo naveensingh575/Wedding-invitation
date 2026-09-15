@@ -52,7 +52,7 @@ export default function LandingPortal({ onSelectSide, currentLang, setCurrentLan
         <div className="relative group cursor-pointer" onClick={() => onSelectSide('groom')}>
           <div className="w-28 h-36 sm:w-36 sm:h-48 rounded-2xl overflow-hidden border-2 border-[var(--border-gold)] shadow-2xl bg-black rotate-[-4deg] group-hover:rotate-0 group-hover:scale-105 transition-all duration-500">
             <img
-              src="/assets/real_photos/groom_portal.jpg"
+              src="/assets/doodles/groom.png"
               alt="Groom Naveen Luhach"
               className="w-full h-full object-cover object-top"
             />
@@ -73,7 +73,7 @@ export default function LandingPortal({ onSelectSide, currentLang, setCurrentLan
         <div className="relative group cursor-pointer" onClick={() => onSelectSide('bride')}>
           <div className="w-28 h-36 sm:w-36 sm:h-48 rounded-2xl overflow-hidden border-2 border-[var(--border-gold)] shadow-2xl bg-black rotate-[4deg] group-hover:rotate-0 group-hover:scale-105 transition-all duration-500">
             <img
-              src="/assets/real_photos/bride_portal.jpg"
+              src="/assets/doodles/bride.png"
               alt="Bride Manisha Sheoran"
               className="w-full h-full object-cover object-top"
             />
@@ -118,7 +118,7 @@ export default function LandingPortal({ onSelectSide, currentLang, setCurrentLan
             <div className="flex items-center space-x-4 mb-4">
               <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden border-2 border-[var(--accent-gold)] shadow-md bg-black shrink-0">
                 <img
-                  src="/assets/real_photos/groom_portal.jpg"
+                  src="/assets/doodles/groom.png"
                   alt="Groom Side"
                   className="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-500"
                 />
@@ -178,7 +178,7 @@ export default function LandingPortal({ onSelectSide, currentLang, setCurrentLan
             <div className="flex items-center space-x-4 mb-4">
               <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden border-2 border-[var(--accent-gold)] shadow-md bg-black shrink-0">
                 <img
-                  src="/assets/real_photos/bride_portal.jpg"
+                  src="/assets/doodles/bride.png"
                   alt="Bride Side"
                   className="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-500"
                 />
