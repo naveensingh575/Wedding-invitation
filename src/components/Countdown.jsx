@@ -31,10 +31,10 @@ export default function Countdown({ targetDateStr = '2026-11-20T23:59:00+05:30',
         // Prevent infinite re-triggering using hasTriggeredRef
         if (!hasTriggeredRef.current) {
           hasTriggeredRef.current = true;
-          if (typeof triggerSkyshots === 'function') {
-            triggerSkyshots();
-          } else if (typeof triggerCelebration === 'function') {
-            triggerCelebration();
+          const fireSkyshot = typeof triggerSkyshots === 'function' ? triggerSkyshots : triggerCelebration;
+          if (typeof fireSkyshot === 'function') {
+            fireSkyshot();                              // 1st burst immediately
+            setTimeout(() => fireSkyshot(), 4000);      // 2nd burst after 4s
           }
         }
       }
