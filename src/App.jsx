@@ -30,32 +30,34 @@ export default function App() {
     return 'portal';
   });
 
-  // Clean URL Routing & Hash Synchronization (No '#portal' in URL bar)
+  // Clean URL Routing & Hash Synchronization
   useEffect(() => {
     if (activePage === 'groom') {
-      if (window.location.hash !== '#groom') {
+      if (!window.location.hash.includes('groom')) {
         window.history.replaceState(null, '', '#groom');
       }
     } else if (activePage === 'bride') {
-      if (window.location.hash !== '#bride') {
+      if (!window.location.hash.includes('bride')) {
         window.history.replaceState(null, '', '#bride');
       }
     } else {
-      // Clean URL: Remove any hash when on portal/home
-      if (window.location.hash) {
+      if (window.location.hash.includes('groom') || window.location.hash.includes('bride')) {
         window.history.replaceState(null, '', window.location.pathname + window.location.search);
       }
     }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [activePage]);
 
-  // Browser Back/Forward navigation listener
+  // Browser Back/Forward & Hash navigation listener
   useEffect(() => {
     const handleLocationChange = () => {
       const hash = window.location.hash.toLowerCase();
-      if (hash.includes('groom')) setActivePage('groom');
-      else if (hash.includes('bride')) setActivePage('bride');
-      else setActivePage('portal');
+      if (hash.includes('groom')) {
+        setActivePage('groom');
+      } else if (hash.includes('bride')) {
+        setActivePage('bride');
+      } else if (hash === '' || hash === '#' || hash.includes('portal') || hash.includes('home')) {
+        setActivePage('portal');
+      }
     };
 
     window.addEventListener('hashchange', handleLocationChange);
