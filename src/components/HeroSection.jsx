@@ -8,6 +8,15 @@ export default function HeroSection({ customCouplePhoto, openVideoModal, t, side
 
   const activeData = sideData || t.groom || t;
 
+  // Compute side detection from sideData flags (set in translations.js)
+  const isGroomSide = !!(activeData.isGroom);
+  const isBrideSide = !!(activeData.isBride);
+  const portraitBadgeText = isBrideSide
+    ? 'Bride Portrait'
+    : isGroomSide
+    ? 'Groom Portrait'
+    : 'Couple Portrait';
+
   useEffect(() => {
     const targetDate = new Date('2026-11-20T23:59:00+05:30').getTime();
 
