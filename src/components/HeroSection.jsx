@@ -85,15 +85,9 @@ export default function HeroSection({ customCouplePhoto, openVideoModal, t, side
             <img
               src={
                 customCouplePhoto ||
-                (sideData?.isBride ||
-                sideData?.heroHeading?.toLowerCase().includes('manisha') ||
-                sideData?.heroHeading?.includes('मनीषा') ||
-                sideData?.heroHeading?.includes('वधू')
+                (isBrideSide
                   ? '/assets/doodles/bride.png'
-                  : sideData?.isGroom ||
-                    sideData?.heroHeading?.toLowerCase().includes('naveen') ||
-                    sideData?.heroHeading?.includes('नवीन') ||
-                    sideData?.heroHeading?.includes('वर')
+                  : isGroomSide
                   ? '/assets/doodles/groom.png'
                   : '/assets/doodles/couple.png')
               }
@@ -105,7 +99,7 @@ export default function HeroSection({ customCouplePhoto, openVideoModal, t, side
             {/* Artwork Badge Tag */}
             <div className="absolute top-3 left-3 bg-[var(--bg-elevated)]/90 border border-[var(--border-gold)] backdrop-blur-md px-3 py-1 rounded-full text-[11px] text-[var(--accent-primary)] font-semibold flex items-center space-x-1 z-10 shadow-sm">
               <Sparkles className="w-3 h-3 text-[var(--accent-gold)]" />
-              <span>Couple Portrait</span>
+              <span>{portraitBadgeText}</span>
             </div>
           </div>
 
