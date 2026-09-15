@@ -85,9 +85,15 @@ export default function HeroSection({ customCouplePhoto, openVideoModal, t, side
             <img
               src={
                 customCouplePhoto ||
-                (sideData?.heroHeading?.toLowerCase().includes('manisha')
+                (sideData?.isBride ||
+                sideData?.heroHeading?.toLowerCase().includes('manisha') ||
+                sideData?.heroHeading?.includes('मनीषा') ||
+                sideData?.heroHeading?.includes('वधू')
                   ? '/assets/doodles/bride.png'
-                  : sideData?.heroHeading?.toLowerCase().includes('naveen')
+                  : sideData?.isGroom ||
+                    sideData?.heroHeading?.toLowerCase().includes('naveen') ||
+                    sideData?.heroHeading?.includes('नवीन') ||
+                    sideData?.heroHeading?.includes('वर')
                   ? '/assets/doodles/groom.png'
                   : '/assets/doodles/couple.png')
               }

@@ -41,6 +41,7 @@ export const translations = {
       wishes: "Blessings Wall",
     },
     groom: {
+      isGroom: true,
       invitationTag: "Personal Invitation From",
       inviter: "Capt. Satyavir Singh & Luhach Family",
       inviterSub: "Vill. Nandha Ki Dhani, Post & Tehsil Badhra, Distt. Charkhi Dadri (Haryana)",
@@ -133,6 +134,7 @@ export const translations = {
       },
     },
     bride: {
+      isBride: true,
       invitationTag: "Personal Invitation From Bride's Family",
       inviter: "Shri Jagvir Singh Sheoran & Sheoran Family",
       inviterSub: "Arya Nagar, Post & Tehsil Badhra, Distt. Charkhi Dadri (Haryana)",
@@ -319,6 +321,7 @@ export const translations = {
       wishes: "शुभकामनाएं",
     },
     groom: {
+      isGroom: true,
       invitationTag: "पावन निमंत्रणकर्ता",
       inviter: "कैप्टन सत्यवीर सिंह एवं समस्त लुहाच परिवार",
       inviterSub: "ग्राम नांधा की ढाणी, पो. व तहसील बाढड़ा, जिला चरखी दादरी (हरियाणा)",
@@ -411,6 +414,7 @@ export const translations = {
       },
     },
     bride: {
+      isBride: true,
       invitationTag: "वधू पक्ष पावन निमंत्रणकर्ता",
       inviter: "श्री जगवीर सिंह श्योराण एवं समस्त श्योराण परिवार",
       inviterSub: "आर्य नगर, पो. व तहसील बाढड़ा, जिला चरखी दादरी (हरियाणा)",
@@ -597,6 +601,7 @@ export const translations = {
       wishes: "असीस",
     },
     groom: {
+      isGroom: true,
       invitationTag: "ब्याह का नेवता",
       inviter: "कैप्टन सत्यवीर सिंह अर सारा लुहाच कुणबा",
       inviterSub: "गाँव नांधा की ढाणी, तहसील बाढड़ा, ज़िला चरखी दादरी (हरियाणा)",
@@ -689,6 +694,7 @@ export const translations = {
       },
     },
     bride: {
+      isBride: true,
       invitationTag: "वधू पक्ष का नेवता",
       inviter: "श्री जगवीर सिंह श्योराण अर सारा श्योराण कुणबा",
       inviterSub: "आर्य नगर, पो. व तहसील बाढड़ा, ज़िला चरखी दादरी (हरियाणा)",
