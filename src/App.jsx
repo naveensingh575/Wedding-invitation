@@ -24,9 +24,10 @@ export default function App() {
 
   // 2. Active 3-Page Route State ('portal' | 'groom' | 'bride') with Clean URL Routing
   const [activePage, setActivePage] = useState(() => {
-    const hash = window.location.hash.toLowerCase();
-    if (hash.includes('groom')) return 'groom';
-    if (hash.includes('bride')) return 'bride';
+    const hash = (window.location.hash || '').toLowerCase();
+    const search = (window.location.search || '').toLowerCase();
+    if (hash.includes('groom') || search.includes('groom')) return 'groom';
+    if (hash.includes('bride') || search.includes('bride')) return 'bride';
     return 'portal';
   });
 
@@ -50,10 +51,12 @@ export default function App() {
   // Browser Back/Forward & Hash navigation listener
   useEffect(() => {
     const handleLocationChange = () => {
-      const hash = window.location.hash.toLowerCase();
-      if (hash.includes('groom')) {
+      const hash = (window.location.hash || '').toLowerCase();
+      const search = (window.location.search || '').toLowerCase();
+
+      if (hash.includes('groom') || search.includes('groom')) {
         setActivePage('groom');
-      } else if (hash.includes('bride')) {
+      } else if (hash.includes('bride') || search.includes('bride')) {
         setActivePage('bride');
       } else if (hash === '' || hash === '#' || hash.includes('portal') || hash.includes('home')) {
         setActivePage('portal');
