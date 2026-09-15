@@ -76,3 +76,5 @@ dist-ssr/
 *.njsproj
 *.sln
 *.sw?
+.vercel
+public/assets/real_photos/
