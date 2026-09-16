@@ -21,7 +21,7 @@ export default function LocationsSection({ t, sideData, isBrideSide }) {
             <Home className="w-3.5 h-3.5" />
             <span>Bride Home & Main Vivah Venue</span>
           </span>
-          <span className="text-xs text-[var(--text-muted)] font-mono">17, 18, 19, 20 Nov</span>
+          <span className="text-xs text-[var(--text-muted)] font-mono">17, 18, 20 Nov</span>
         </div>
 
         <h3 className="font-serif text-2xl sm:text-3xl font-extrabold text-[var(--text-primary)] group-hover:text-[var(--accent-primary)] transition-colors">
@@ -47,7 +47,7 @@ export default function LocationsSection({ t, sideData, isBrideSide }) {
           <div className="flex flex-wrap gap-2 text-xs text-[var(--text-secondary)]">
             <span className="px-2.5 py-1 rounded-lg bg-[var(--badge-bg)] border border-[var(--badge-border)] font-medium">17 Nov: Ban & Haldi</span>
             <span className="px-2.5 py-1 rounded-lg bg-[var(--badge-bg)] border border-[var(--badge-border)] font-medium">18 Nov: Mehndi Utsav</span>
-            <span className="px-2.5 py-1 rounded-lg bg-[var(--badge-bg)] border border-[var(--badge-border)] font-medium">19 Nov: Bhaat & Mandap Pujan</span>
+            <span className="px-2.5 py-1 rounded-lg bg-[var(--badge-bg)] border border-[var(--badge-border)] font-medium">20 Nov: Bhaat & Mandap Pujan</span>
             <span className="px-2.5 py-1 rounded-lg bg-[var(--badge-bg)] border border-[var(--badge-border)] font-medium">20 Nov: Barat Swagat & Vivah</span>
           </div>
         </div>

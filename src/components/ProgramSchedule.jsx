@@ -15,11 +15,19 @@ export default function ProgramSchedule({ t, sideData }) {
     }));
   };
 
+  const isBride = !!activeData.isBride;
+
   // Google Calendar Templates
   const calendarLinks = {
-    0: "https://calendar.google.com/calendar/render?action=TEMPLATE&text=1st+Ban+%26+Haldi+-+Naveen+%26+Manisha+%28%23Navisha%29&dates=20261116T043000Z/20261116T123000Z&details=Haldi+Ceremony+for+Naveen+%26+Manisha.+Invitation+from+Luhach+%26+Sheoran+Family.&location=Badhra%2C+Charkhi+Dadri",
-    1: "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Mehendi+%26+Sangeet+-+Naveen+%26+Manisha+%28%23Navisha%29&dates=20261117T103000Z/20261117T173000Z&details=Mehendi+%26+Mahila+Sangeet.+Luhach+%26+Sheoran+Family.&location=Badhra%2C+Charkhi+Dadri",
-    2: "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Bhaat+%26+Shubh+Lagan+-+Naveen+%26+Manisha+%28%23Navisha%29&dates=20261119T053000Z/20261119T173000Z&details=Bhaat+Feast+and+Shubh+Lagan+Patrika+Ceremony+for+Naveen+%26+Manisha.&location=Charkhi+Dadri",
+    0: isBride
+      ? "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Ban+%26+Haldi+-+Manisha+%28%23Navisha%29&dates=20261117T043000Z/20261117T123000Z&details=Haldi+Ceremony+for+Manisha.&location=Arya+Nagar%2C+Badhra"
+      : "https://calendar.google.com/calendar/render?action=TEMPLATE&text=1st+Ban+%26+Haldi+-+Naveen+%26+Manisha+%28%23Navisha%29&dates=20261116T043000Z/20261116T123000Z&details=Haldi+Ceremony+for+Naveen+%26+Manisha.+Invitation+from+Luhach+%26+Sheoran+Family.&location=Badhra%2C+Charkhi+Dadri",
+    1: isBride
+      ? "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Mehendi+Utsav+-+Manisha+%28%23Navisha%29&dates=20261118T103000Z/20261118T173000Z&details=Mehendi+Utsav.+Sheoran+Family.&location=Arya+Nagar%2C+Badhra"
+      : "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Mehendi+%26+Sangeet+-+Naveen+%26+Manisha+%28%23Navisha%29&dates=20261117T103000Z/20261117T173000Z&details=Mehendi+%26+Mahila+Sangeet.+Luhach+%26+Sheoran+Family.&location=Badhra%2C+Charkhi+Dadri",
+    2: isBride
+      ? "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Bhaat+%26+Mandap+Pujan+-+Manisha+%28%23Navisha%29&dates=20261120T053000Z/20261120T173000Z&details=Bhaat+Feast+and+Mandap+Pujan+Ceremony+for+Manisha.&location=Arya+Nagar%2C+Badhra"
+      : "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Bhaat+%26+Shubh+Lagan+-+Naveen+%26+Manisha+%28%23Navisha%29&dates=20261119T053000Z/20261119T173000Z&details=Bhaat+Feast+and+Shubh+Lagan+Patrika+Ceremony+for+Naveen+%26+Manisha.&location=Charkhi+Dadri",
     3: "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Barat+%26+Shubh+Vivah+-+Naveen+%26+Manisha+%28%23Navisha%29&dates=20261120T093000Z/20261120T223000Z&details=Ghurchhari%2C+Barat%2C+Varmala+and+Sacred+Pheras+for+Naveen+%26+Manisha.&location=Arya+Nagar%2C+Charkhi+Dadri%2C+Haryana",
   };
 

@@ -173,8 +173,8 @@ export const translations = {
           description: "Bridal henna celebration with intricate artistic patterns for bride Manisha, followed by joyful sangeet dance and traditional dholak beats.",
         },
         {
-          date: "19 November 2026",
-          day: "Thursday",
+          date: "20 November 2026",
+          day: "Friday",
           title: "Bhaat & Mandap Pujan",
           doodle: "/assets/doodles/mandaPujan.svg?v=20260916",
           time: "11:15 AM Bhaat | 05:15 PM Mandap Pujan",
@@ -453,8 +453,8 @@ export const translations = {
           description: "वधू मनीषा के हाथों में शगुन की सुहाग मेहंदी रचाई जाएगी, ताई-चाचियों द्वारा ढोलक पर बन्नी गीत एवं उल्लासपूर्ण नृत्य।",
         },
         {
-          date: "19 नवंबर 2026",
-          day: "गुरुवार",
+          date: "20 नवंबर 2026",
+          day: "शुक्रवार",
           title: "भात एवं मंडप पूजन",
           doodle: "/assets/doodles/mandaPujan.svg?v=20260916",
           time: "भात: प्रातः 11:15 बजे | मंडप पूजन: सायं 05:15 बजे",
@@ -733,8 +733,8 @@ export const translations = {
           description: "मनीषा के हात्थां में सुगन की मेहंदी रचाई जावैगी, ढोलक पै बन्नी के गीत अर देसी नाचना होवैगा।",
         },
         {
-          date: "19 नवंबर 2026",
-          day: "बृहस्पतिवार (वीरवार)",
+          date: "20 नवंबर 2026",
+          day: "शुक्रवार",
           title: "नाणके का भात अर मंडप पूजन",
           doodle: "/assets/doodles/mandaPujan.svg?v=20260916",
           time: "भात: दुपैरे 11:15 बजे | मंडप पूजन: संज्या 05:15 बजे",

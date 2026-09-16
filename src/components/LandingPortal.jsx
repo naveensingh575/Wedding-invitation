@@ -171,7 +171,7 @@ export default function LandingPortal({ onSelectSide, currentLang, setCurrentLan
               <span className="px-3.5 py-1 rounded-full bg-[var(--badge-bg)] text-[var(--accent-primary)] border border-[var(--badge-border)] text-xs font-bold uppercase tracking-wider">
                 👰 {p.brideCard?.badge || "Bride's Family"}
               </span>
-              <span className="text-[11px] text-[var(--text-muted)] font-mono">17, 18, 19, 20 Nov</span>
+              <span className="text-[11px] text-[var(--text-muted)] font-mono">17, 18, 20 Nov</span>
             </div>
 
             {/* Bride Image Frame & Title */}
