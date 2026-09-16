@@ -121,7 +121,7 @@ export default function LocationsSection({ t, sideData, isBrideSide }) {
             Functions Hosted Here:
           </p>
           <div className="flex flex-wrap gap-2 text-xs text-[var(--text-secondary)]">
-            <span className="px-2.5 py-1 rounded-lg bg-[var(--badge-bg)] border border-[var(--badge-border)] font-medium">20 Nov: Barat Swagat (06:00 PM)</span>
+            <span className="px-2.5 py-1 rounded-lg bg-[var(--badge-bg)] border border-[var(--badge-border)] font-medium">20 Nov: Barat Swagat (06:15 PM)</span>
             <span className="px-2.5 py-1 rounded-lg bg-[var(--badge-bg)] border border-[var(--badge-border)] font-medium">20 Nov: Varmala & Dinner</span>
             <span className="px-2.5 py-1 rounded-lg bg-[var(--badge-bg)] border border-[var(--badge-border)] font-medium">20 Nov: Pheras & Vivah</span>
           </div>
