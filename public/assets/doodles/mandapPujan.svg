@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGradLagan" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4A0810"/>
+      <stop offset="50%" stop-color="#6B0F1A"/>
+      <stop offset="100%" stop-color="#1C0307"/>
+    </linearGradient>
+    <linearGradient id="scrollPaper" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFDF0"/>
+      <stop offset="50%" stop-color="#FFF9D2"/>
+      <stop offset="100%" stop-color="#F5E49B"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="800" fill="url(#bgGradLagan)"/>
+
+  <!-- Golden Backdrop Mandala & Garland -->
+  <circle cx="400" cy="400" r="340" fill="none" stroke="#FFD700" stroke-width="2" stroke-dasharray="10 5" opacity="0.4"/>
+  <circle cx="400" cy="400" r="360" fill="none" stroke="#D4AF37" stroke-width="1" opacity="0.3"/>
+
+  <!-- Royal Golden Scroll Container -->
+  <g transform="translate(140, 70)">
+    <!-- Top & Bottom Wooden Scroll Rods -->
+    <rect x="-20" y="0" width="560" height="26" rx="13" fill="#B8860B" stroke="#FFD700" stroke-width="3"/>
+    <circle cx="-20" cy="13" r="18" fill="#FFD700"/>
+    <circle cx="540" cy="13" r="18" fill="#FFD700"/>
+
+    <rect x="-20" y="640" width="560" height="26" rx="13" fill="#B8860B" stroke="#FFD700" stroke-width="3"/>
+    <circle cx="-20" cy="653" r="18" fill="#FFD700"/>
+    <circle cx="540" cy="653" r="18" fill="#FFD700"/>
+
+    <!-- Parchment Scroll Body -->
+    <rect x="0" y="20" width="520" height="620" rx="15" fill="url(#scrollPaper)" stroke="#D4AF37" stroke-width="5"/>
+    <rect x="15" y="35" width="490" height="590" rx="10" fill="none" stroke="#8B0000" stroke-width="2" stroke-dasharray="8 4"/>
+
+    <!-- Ganesha Emblem at Top: detailed Lord Ganesha illustration -->
+    <g transform="translate(260, 80)">
+      <circle cx="0" cy="0" r="38" fill="#8B0000" stroke="#FFD700" stroke-width="3"/>
+      <g stroke="#FFD700" stroke-linecap="round" stroke-linejoin="round">
+        <!-- crown -->
+        <path d="M-13,-20 L-8,-30 L0,-23 L8,-30 L13,-20 L9,-14 L-9,-14 Z" fill="#FFD700"/>
+        <circle cx="0" cy="-28" r="2.5" fill="#8B0000" stroke="none"/>
+        <!-- ears -->
+        <path d="M-10,-13 C-28,-24 -31,-5 -18,2 C-14,4 -12,0 -12,-4" fill="#D4AF37" stroke-width="2"/>
+        <path d="M10,-13 C28,-24 31,-5 18,2 C14,4 12,0 12,-4" fill="#D4AF37" stroke-width="2"/>
+        <!-- face and trunk -->
+        <path d="M-12,-14 C-16,-2 -11,11 -5,15 C-2,18 -2,25 1,28 C5,31 11,27 10,22 C9,17 4,15 3,10 C1,5 9,1 11,-8 C12,-15 6,-20 0,-20 C-6,-20 -10,-18 -12,-14 Z" fill="#FFD700" stroke-width="2"/>
+        <!-- eyes and tilak -->
+        <path d="M-6,-10 Q-3,-13 0,-10" fill="none" stroke="#8B0000" stroke-width="2"/>
+        <path d="M2,-10 Q5,-13 8,-10" fill="none" stroke="#8B0000" stroke-width="2"/>
+        <path d="M0,-18 L0,-13" stroke="#8B0000" stroke-width="2"/>
+        <!-- tusks -->
+        <path d="M-7,2 L-13,10 L-5,8" fill="#FFF9D2" stroke="#FFD700" stroke-width="1"/>
+        <path d="M7,2 L13,10 L5,8" fill="#FFF9D2" stroke="#FFD700" stroke-width="1"/>
+        <!-- arms/blessing -->
+        <path d="M-13,12 C-24,9 -26,20 -20,23 L-11,18" fill="none" stroke-width="4"/>
+        <path d="M13,12 C24,9 26,20 20,23 L11,18" fill="none" stroke-width="4"/>
+        <!-- lotus/base -->
+        <path d="M-22,30 Q-11,20 0,31 Q11,20 22,30 Q13,36 0,36 Q-13,36 -22,30 Z" fill="#D4AF37" stroke-width="1.5"/>
+      </g>
+    </g>
+
+    <!-- Devnagari Lagan Scroll Text -->
+    <text x="260" y="150" text-anchor="middle" font-family="'Rozha One', 'Yatra One', serif" font-size="26" fill="#8B0000" font-weight="bold">
+      ॥ श्री गणेशाय नमः ॥
+    </text>
+
+    <!-- Main Title Banner -->
+    <rect x="110" y="175" width="300" height="50" rx="12" fill="#8B0000" stroke="#FFD700" stroke-width="2"/>
+    <text x="260" y="210" text-anchor="middle" font-family="'Rozha One', 'Yatra One', serif" font-size="28" fill="#FFD700" font-weight="extrabold">
+      ॥ शुभ मंडप पूजन पत्रिका ॥
+    </text>
+
+    <!-- Groom & Bride Names Written Directly ON the Scroll -->
+    <g font-family="'Rozha One', 'Yatra One', sans-serif" text-anchor="middle">
+      <!-- Groom Name -->
+      <text x="260" y="285" font-size="34" fill="#2D060C" font-weight="bold">
+        चि. नवीन लुहाच
+      </text>
+
+      <text x="260" y="326" font-size="18" fill="#8B0000" font-weight="semibold" textLength="455" lengthAdjust="spacingAndGlyphs">
+        (सुपुत्र: श्रीमती सुनीता देवी एवं ऑनरेरी कैप्टन सत्यवीर सिंह)
+      </text>
+
+      <text x="260" y="375" font-size="28" fill="#D4AF37" font-weight="bold">
+        ❤️ संग ❤️
+      </text>
+
+      <!-- Bride Name -->
+      <text x="260" y="420" font-size="30" fill="#8B0000" font-weight="bold">
+        कु. मनीषा श्योराण
+      </text>
+
+      <text x="260" y="452" font-size="17" fill="#8B0000" font-weight="semibold" textLength="455" lengthAdjust="spacingAndGlyphs">
+        सुपुत्री: श्रीमती सरोज देवी एवं श्री जगवीर सिंह श्योराण
+      </text>
+    </g>
+
+    <!-- Date & Venue Details -->
+    <line x1="80" y1="465" x2="440" y2="465" stroke="#8B0000" stroke-width="2" stroke-dasharray="6 3"/>
+
+    <text x="260" y="505" text-anchor="middle" font-family="'Rozha One', 'Yatra One', serif" font-size="24" fill="#2D060C" font-weight="bold">
+      पावन तिथि: 20 नवंबर 2026 (गुरुवार)
+    </text>
+
+    <text x="260" y="545" text-anchor="middle" font-family="'Plus Jakarta Sans', sans-serif" font-size="18" fill="#5D4037" font-weight="bold">
+      स्थान: आर्य नगर, बाढड़ा (चरखी दादरी)
+    </text>
+
+    <text x="260" y="585" text-anchor="middle" font-family="'Rozha One', serif" font-size="20" fill="#8B0000" font-weight="bold">
+      #Navisha  •  शुभ विवाह
+    </text>
+  </g>
+</svg>
